@@ -1,4 +1,4 @@
-Ripple;51.15.26.118;https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ainu.crt
+Ripple;51.15.26.118;https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ripple.crt
 EZPPFarm;167.86.117.131;https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ezppfarm.crt
 osu!Ainu;194.34.133.95;https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ainu.crt
 The Realm;3.136.108.8;https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/therealm.crt
