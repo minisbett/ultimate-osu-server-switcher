@@ -20,7 +20,7 @@
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ainu.cer"
     },
     {
-      "name": Kurikku",
+      "name": "Kurikku",
       "ip": "51.15.117.225",
       "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/kurikku.cer"
