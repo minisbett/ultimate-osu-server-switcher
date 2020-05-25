@@ -28,8 +28,8 @@
     {
       "name": "Akatsuki",
       "ip": "51.79.17.191",
-      "certificateThumbprint": "BB93DE45B14EE8C0F909D06B50894F29003F0B55",
-      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/akatsuki.cer"
+      "certificate_thumbprint": "BB93DE45B14EE8C0F909D06B50894F29003F0B55",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/akatsuki.cer"
     }
   ]
 }
