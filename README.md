@@ -28,3 +28,8 @@ has to agree with. This improves the switching agility to garantue the best user
 > - [osu!Ainu](https://ainu.pw)
 > - [The Realm](https://theosurealm.tk)
 > - [Akatsuki](https://akatsuki.pw)
+
+# GUI
+
+We have a light theme and I dark theme. You can toggle between them in the bottom right corner of the about tab.
+
