@@ -2,13 +2,34 @@
   "about": "This program was made by\nJulaaaan#7635 (Director) and minisbett#0001 (Developer)\n\nFeel free to use our issue section on github\nif you want to report a bug or request\nyour server to be added to the database.",
   "servers": [
     {
-      "name": "name",
-      "ip": "ip",
+      "name": "Ripple",
+      "ip": "51.15.26.118",
+      "certificateThumbprint": "7094FAE830E319B36426422957160769E06CDB9B",
+      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ripple.crt"
+    },
+    {
+      "name": "EZPPFarm",
+      "ip": "167.86.117.131",
+      "certificateThumbprint": "870F0B3009414E67ECED225478CCC6DCC4CB13A3",
+      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ezppfarm.crt"
+    },
+    {
+      "name": "osu!Ainu",
+      "ip": "194.34.133.95",
       "certificateThumbprint": "thumbprint",
       "certificateUrl": "url"
     },
     {
-      "name": "name"
+      "name": "The Realm",
+      "ip": "3.136.108.8",
+      "certificateThumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
+      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/therealm.crt"
+    },
+    {
+      "name": "Akatsuki",
+      "ip": "51.79.17.191",
+      "certificateThumbprint": "thumbprint",
+      "certificateUrl": "url"
     }
   ]
 }
