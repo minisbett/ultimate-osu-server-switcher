@@ -22,9 +22,9 @@ has to agree with. This improves the switching agility to garantue the best user
 
 > Currently the following servers are listed:
 >
-> - [osu!bancho](osu.ppy.sh)
-> - [Ripple](ripple.moe)
-> - [EZPPFarm](ez-pp.farm)
-> - [osu!Ainu](ainu.pw)
-> - [The Realm](theosurealm.tk)
-> - [Akatsuki](akatsuki.pw)
+> - [osu!bancho](https://osu.ppy.sh)
+> - [Ripple](https://ripple.moe)
+> - [EZPPFarm](https://ez-pp.farm)
+> - [osu!Ainu](https://ainu.pw)
+> - [The Realm](https://theosurealm.tk)
+> - [Akatsuki](https://akatsuki.pw)
