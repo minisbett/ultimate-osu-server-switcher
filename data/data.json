@@ -16,8 +16,8 @@
     {
       "name": "osu!Ainu",
       "ip": "194.34.133.95",
-      "certificateThumbprint": "thumbprint",
-      "certificateUrl": "url"
+      "certificateThumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
+      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ainu.cer"
     },
     {
       "name": "The Realm",
@@ -28,8 +28,8 @@
     {
       "name": "Akatsuki",
       "ip": "51.79.17.191",
-      "certificateThumbprint": "thumbprint",
-      "certificateUrl": "url"
+      "certificateThumbprint": "BB93DE45B14EE8C0F909D06B50894F29003F0B55",
+      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/akatsuki.cer"
     }
   ]
 }
