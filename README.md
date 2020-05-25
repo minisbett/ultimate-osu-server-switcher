@@ -1,4 +1,4 @@
-# UltimateOsuServerSwitcher
+# Ultimate Osu Server Switcher
 
 The UltimateOsuServerSwitcher is a server switcher for osu, that allows to switch between osu!bancho and various private servers.
 
@@ -22,9 +22,9 @@ has to agree with. This improves the switching agility to garantue the best user
 
 > Currently the following servers are listed:
 >
-> - osu!bancho
-> - Ripple
-> - EZPPFarm
-> - osu!Ainu
-> - The Realm
-> - Akatsuki
+> - [osu!bancho](osu.ppy.sh)
+> - [Ripple](ripple.moe)
+> - [EZPPFarm](ez-pp.farm)
+> - [osu!Ainu](ainu.pw)
+> - [The Realm](theosurealm.tk)
+> - [Akatsuki](akatsuki.pw)
