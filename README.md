@@ -1,7 +1,7 @@
-<center><img src="https://i.imgur.com/tB6lgG4.png" alt="logo"/></center>
 
 # Ultimate Osu Server Switcher
 
+<img align="right" width="100" height="100" src="https://i.imgur.com/tB6lgG4.png">
 The UltimateOsuServerSwitcher is a server switcher for osu, that allows to switch between osu!bancho and various private servers.
 
 # How it works
