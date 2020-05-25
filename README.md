@@ -34,3 +34,4 @@ has to agree with. This improves the switching agility to garantue the best user
 We have a light theme and I dark theme. You can toggle between them in the bottom right corner of the about tab.
 
 ![Light theme](https://i.imgur.com/iqvpEpHl.png)
+![Dark theme](https://i.imgur.com/ItqHz4p.png)
