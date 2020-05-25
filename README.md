@@ -11,7 +11,7 @@ click the «Connect» button.
 
 # In-deep explination
 
-The current server you are playing on is estimated by the ip that is deposited in the hosts file.
+The server you are currently playing on is estimated by the ip that is deposited in the hosts file.
 Switching a server includes deinstalling all certificates, modfying the hosts file, followed by installing the corresponding certificate
 (if you chose to play on a third-party server).
 
