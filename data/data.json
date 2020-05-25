@@ -4,26 +4,26 @@
     {
       "name": "Ripple",
       "ip": "51.15.26.118",
-      "certificateThumbprint": "7094FAE830E319B36426422957160769E06CDB9B",
-      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ripple.cer"
+      "certificate_thumbprint": "7094FAE830E319B36426422957160769E06CDB9B",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ripple.cer"
     },
     {
       "name": "EZPPFarm",
       "ip": "167.86.117.131",
-      "certificateThumbprint": "870F0B3009414E67ECED225478CCC6DCC4CB13A3",
-      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ezppfarm.cer"
+      "certificate_thumbprint": "870F0B3009414E67ECED225478CCC6DCC4CB13A3",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ezppfarm.cer"
     },
     {
       "name": "osu!Ainu",
       "ip": "194.34.133.95",
-      "certificateThumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
-      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ainu.cer"
+      "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ainu.cer"
     },
     {
       "name": "The Realm",
       "ip": "3.136.108.8",
-      "certificateThumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
-      "certificateUrl": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/therealm.cer"
+      "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/therealm.cer"
     },
     {
       "name": "Akatsuki",
