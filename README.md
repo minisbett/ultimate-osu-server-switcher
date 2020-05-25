@@ -28,6 +28,7 @@ has to agree with. This improves the switching agility to garantue the best user
 > - [Ripple](https://ripple.moe)
 > - [EZPPFarm](https://ez-pp.farm)
 > - [osu!Ainu](https://ainu.pw)
+> - [Kurikku](https://kurikku.pw)
 > - [The Realm](https://theosurealm.tk)
 > - [Akatsuki](https://akatsuki.pw)
 
