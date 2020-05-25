@@ -24,8 +24,8 @@ has to agree with. This improves the switching agility to garantue the best user
 
 > Currently the following servers are listed:
 >
-> - [osu!bancho](https://osu.ppy.sh)
-> - [Ripple](https://ripple.moe)
+> - [osu!bancho](https://osu.ppy.sh)     ![osu!bancho-logo](https://i.imgur.com/2bRmgxz.png)
+> - [Ripple](https://ripple.moe)         ![osu!bancho-logo](https://i.imgur.com/2bRmgxz.png)
 > - [EZPPFarm](https://ez-pp.farm)
 > - [osu!Ainu](https://ainu.pw)
 > - [Kurikku](https://kurikku.pw)
