@@ -1,4 +1,4 @@
-![logo](https://i.imgur.com/XJwoLqA.png)
+<center><img src="https://i.imgur.com/tB6lgG4.png" alt="logo"/></center>
 
 # Ultimate Osu Server Switcher
 
