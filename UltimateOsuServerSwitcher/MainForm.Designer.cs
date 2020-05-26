@@ -46,11 +46,14 @@
       this.lblTitle = new MetroFramework.Controls.MetroLabel();
       this.styleManager = new MetroFramework.Components.MetroStyleManager(this.components);
       this.osuWatcher = new System.Windows.Forms.Timer(this.components);
+      this.cntxtmnConnect = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.connectAndStartOsuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.tbCntrl.SuspendLayout();
       this.tbpgSwitcher.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pctrbxServerIcon)).BeginInit();
       this.tbpgAbout.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.styleManager)).BeginInit();
+      this.cntxtmnConnect.SuspendLayout();
       this.SuspendLayout();
       // 
       // tbCntrl
@@ -81,6 +84,7 @@
       // pctrbxServerIcon
       // 
       this.pctrbxServerIcon.BackColor = System.Drawing.Color.Transparent;
+      this.pctrbxServerIcon.Cursor = System.Windows.Forms.Cursors.Hand;
       this.pctrbxServerIcon.Location = new System.Drawing.Point(365, 95);
       this.pctrbxServerIcon.Name = "pctrbxServerIcon";
       this.pctrbxServerIcon.Size = new System.Drawing.Size(48, 48);
@@ -130,6 +134,7 @@
       this.btnConnect.TabIndex = 3;
       this.btnConnect.Text = "Connect";
       this.btnConnect.Click += new System.EventHandler(this.BtnConnect_Click);
+      this.btnConnect.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnConnect_MouseClick);
       // 
       // tbpgAbout
       // 
@@ -219,6 +224,19 @@
       this.osuWatcher.Interval = 500;
       this.osuWatcher.Tick += new System.EventHandler(this.osuWatcher_Tick);
       // 
+      // cntxtmnConnect
+      // 
+      this.cntxtmnConnect.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectAndStartOsuToolStripMenuItem});
+      this.cntxtmnConnect.Name = "contextMenuStrip1";
+      this.cntxtmnConnect.Size = new System.Drawing.Size(197, 48);
+      // 
+      // connectAndStartOsuToolStripMenuItem
+      // 
+      this.connectAndStartOsuToolStripMenuItem.Name = "connectAndStartOsuToolStripMenuItem";
+      this.connectAndStartOsuToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+      this.connectAndStartOsuToolStripMenuItem.Text = "Connect and Start Osu!";
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,7 +245,6 @@
       this.Controls.Add(this.lblTitle);
       this.Controls.Add(this.tbCntrl);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-      this.Location = new System.Drawing.Point(9000, 9000);
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "MainForm";
@@ -240,6 +257,7 @@
       this.tbpgAbout.ResumeLayout(false);
       this.tbpgAbout.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.styleManager)).EndInit();
+      this.cntxtmnConnect.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -263,6 +281,8 @@
     private MetroFramework.Controls.MetroLabel lblOsuRunning;
     private System.Windows.Forms.Timer osuWatcher;
     private System.Windows.Forms.PictureBox pctrbxServerIcon;
+    private System.Windows.Forms.ContextMenuStrip cntxtmnConnect;
+    private System.Windows.Forms.ToolStripMenuItem connectAndStartOsuToolStripMenuItem;
   }
 }
 

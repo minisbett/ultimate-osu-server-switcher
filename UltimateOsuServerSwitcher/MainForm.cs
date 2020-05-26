@@ -45,8 +45,7 @@ namespace UltimateOsuServerSwitcher
 
     private async void MainForm_Load(object sender, EventArgs e)
     {
-      await Task.Delay(200);
-      Location = new Point();
+      await Task.Delay(10);
 
       // Load online data
       var data = await FetchOnlineDataAsync();
@@ -88,6 +87,11 @@ namespace UltimateOsuServerSwitcher
     private void LblGithub_Click(object sender, EventArgs e) =>
       Process.Start("http://www.github.com/minisbett/ultimate-osu-server-switcher");
 
+    private void btnConnect_MouseClick(object sender, MouseEventArgs e)
+    {
+      if (e.Button == MouseButtons.Right)
+        cntxtmnConnect.Show(btnConnect.Location);
+    }
 
     private void pctrbxServerIcon_Click(object sender, EventArgs e)
     {
