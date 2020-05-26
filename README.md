@@ -36,17 +36,18 @@ Switching a server includes deinstalling all certificates, modfying the hosts fi
 The certificates will be installed on the local machine, rather than just the local user to avoid a warning prompt the user
 has to agree with. This improves the switching agility to garantue the best user experience.
 
-# Current server list
+# Current servers
 
 > Currently the following servers are listed:
 >
-> - [osu!bancho](https://osu.ppy.sh)     ![osu!bancho-logo](https://i.imgur.com/2bRmgxz.png)
-> - [Ripple](https://ripple.moe)         ![osu!bancho-logo](https://i.imgur.com/2bRmgxz.png)
-> - [EZPPFarm](https://ez-pp.farm)
-> - [osu!Ainu](https://ainu.pw)
-> - [Kurikku](https://kurikku.pw)
-> - [The Realm](https://theosurealm.tk)
-> - [Akatsuki](https://akatsuki.pw)
+> - [osu!bancho](https://osu.ppy.sh/)     ![osu!bancho-logo](https://i.imgur.com/2bRmgxz.png)
+> - [Ripple](https://ripple.moe/)         ![osu!bancho-logo](https://i.imgur.com/2bRmgxz.png)
+> - [EZPPFarm](https://ez-pp.farm/)
+> - [osu!Ainu](https://ainu.pw/)
+> - [Kurikku](https://kurikku.pw/)
+> - [The Realm](https://theosurealm.tk/)
+> - [Akatsuki](https://akatsuki.pw/)
+> - [osu.ppy.sb](https://osu.ppy.sb/)
 
 # GUI
 
