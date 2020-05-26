@@ -11,7 +11,7 @@ The Program fetches all its informations from the data/data.json file, which mea
 Switching to a different server or even bancho itself is fairly simple. You just choose the server you want to connect to from a list and
 click the «Connect» button.
 
-# How to add add server
+# How to add a server
 
 If you wish to add a server, please follow these steps:
 
@@ -26,6 +26,20 @@ If you wish to add a server, please follow these steps:
 3. Create an issue with the label "server request" or create a pull request.
 we would prefer if you would create an issue rather than creating a pull request.
 This will take the work off your hands and help us make our structure work better.
+
+# Get your server featured
+
+To expand the switcher and to gain popularity, partnerships are welcome!
+
+If you and your private server want to help us please DM us on Discord!
+
+minisbett.#0001
+
+We will offer a feature icon before your server name in the switcher and your server
+will be put to the top of the list.
+In return for that we want you to offer our switcher as a second option on your switcher's download site.
+
+More details can be discussed on Discord.
 
 # In-deep explination
 
@@ -51,7 +65,7 @@ has to agree with. This improves the switching agility to garantue the best user
 
 # GUI
 
-We have a light theme and I dark theme. You can toggle between them in the bottom right corner of the about tab.
+We have a light theme and a dark theme. You can toggle between them in the bottom right corner of the about tab.
 
 ![Light theme](https://i.imgur.com/iqvpEpHl.png)
 ![Dark theme](https://i.imgur.com/ItqHz4p.png)
