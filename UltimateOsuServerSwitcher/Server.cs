@@ -18,6 +18,9 @@ namespace UltimateOsuServerSwitcher
     [JsonProperty("name")]
     public string ServerName { get; private set; } = null;
 
+    [JsonProperty("featured")]
+    public bool IsFeatured { get; private set; } = false;
+
     [JsonProperty("ip")]
     public string ServerIP { get; private set; } = null;
 

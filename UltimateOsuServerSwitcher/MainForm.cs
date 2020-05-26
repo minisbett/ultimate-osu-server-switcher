@@ -1,21 +1,16 @@
 ﻿using MetroFramework;
-using MetroFramework.Components;
 using MetroFramework.Forms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.Threading;
-using Newtonsoft.Json;
-using System.IO;
-using System.IO.Ports;
 
 namespace UltimateOsuServerSwitcher
 {
@@ -24,7 +19,7 @@ namespace UltimateOsuServerSwitcher
 
     #region Variable declaration
     // List with all servers fetched from the online data, having bancho as the initial value.
-    private List<Server> m_servers = new List<Server> { Server.BanchoServer };
+    private List<Server> m_servers = new List<Server>();
 
     // Determines if osu is currently running
     bool m_osuRunning = false;
@@ -49,8 +44,12 @@ namespace UltimateOsuServerSwitcher
 
       // Load online data
       var data = await FetchOnlineDataAsync();
-      m_servers.AddRange(data.Servers);
       lblAbout.Text = data.AboutText;
+
+      // Order the list to get the featured servers to the top, putting bancho back at index 0
+      m_servers.Add(Server.BanchoServer);
+      m_servers.AddRange(data.Servers.Where(x => x.IsFeatured));
+      m_servers.AddRange(data.Servers.Where(x => !x.IsFeatured));
 
       // Retrieve images
       WebClient client = new WebClient();
@@ -65,21 +64,18 @@ namespace UltimateOsuServerSwitcher
       }
 
       //Adds all servers to combo box
-      cmbbxServer.Items.AddRange(m_servers.Select(x => x.ServerName).ToArray());
+      foreach (Server server in m_servers)
+      {
+        string name = server.ServerName;
+        if (server.IsFeatured)
+          name = "⭐" + name + "⭐";
+        cmbbxServer.Items.Add(name);
+      }
 
-      // Get current server and set ui text
-      Server current = GetCurrentServer();
-      if (current.IsUnidentified)
-      {
-        lblCurrentServer.Text = $"You are connected to a yet unknown server!";
-        cmbbxServer.SelectedIndex = 0;
-        btnConnect.Enabled = true;
-      }
-      else
-      {
-        cmbbxServer.SelectedIndex = m_servers.IndexOf(m_servers.First(x => x.ServerName == current.ServerName));
-        lblCurrentServer.Text = $"You are connected to {current.ServerName}";
-      }
+      bool newVersionAvailable = await VersionChecker.NewVersionAvailable();
+      btnUpdateAvailable.Visible = newVersionAvailable;
+
+      UpdateServerUI();
 
       osuWatcher.Start();
     }
@@ -91,9 +87,14 @@ namespace UltimateOsuServerSwitcher
     private void LblGithub_Click(object sender, EventArgs e) =>
       Process.Start("http://www.github.com/minisbett/ultimate-osu-server-switcher");
 
+    private void btnUpdateAvailable_Click(object sender, EventArgs e)
+    {
+      Process.Start("https://github.com/MinisBett/ultimate-osu-server-switcher/releases");
+    }
+
     private void pctrbxServerIcon_Click(object sender, EventArgs e)
     {
-      Server selectedServer = m_servers.First(x => x.ServerName == cmbbxServer.SelectedItem.ToString());
+      Server selectedServer = GetSelectedServer();
       Process.Start(selectedServer.WebsiteUrl);
     }
 
@@ -101,7 +102,7 @@ namespace UltimateOsuServerSwitcher
     {
       lblCurrentServer.Text = "Connecting...";
       Application.DoEvents();
-      Server selectedServer = m_servers.First(x => x.ServerName == cmbbxServer.SelectedItem.ToString());
+      Server selectedServer = GetSelectedServer();
 
       CertificateManager.UninstallAllCertificates(m_servers);
       List<string> hosts = HostsUtil.GetHosts().ToList();
@@ -118,7 +119,7 @@ namespace UltimateOsuServerSwitcher
       {
         string[] osu_domains = new string[]
         {
-        //"delta.ppy.sh",
+          //"delta.ppy.sh",
           "osu.ppy.sh",
           "c.ppy.sh",
           "c1.ppy.sh",
@@ -129,9 +130,9 @@ namespace UltimateOsuServerSwitcher
           "c6.ppy.sh",
           "ce.ppy.sh",
           "a.ppy.sh",
-        //"s.ppy.sh",
+          //"s.ppy.sh",
           "i.ppy.sh",
-        //"bm6.ppy.sh",
+          //"bm6.ppy.sh",
         };
 
         hosts = HostsUtil.GetHosts().ToList();
@@ -142,15 +143,7 @@ namespace UltimateOsuServerSwitcher
         CertificateManager.InstallCertificate(selectedServer);
       }
 
-      Server current = GetCurrentServer();
-      if (current.IsUnidentified)
-        lblCurrentServer.Text = $"You are connected to a yet unknown server!";
-      else
-      {
-        cmbbxServer.SelectedIndex = m_servers.IndexOf(m_servers.First(x => x.ServerName == current.ServerName));
-        CmbbxServer_SelectedIndexChanged(cmbbxServer, EventArgs.Empty);
-        lblCurrentServer.Text = $"You are connected to {current.ServerName}";
-      }
+      UpdateServerUI();
     }
 
     #endregion
@@ -167,14 +160,18 @@ namespace UltimateOsuServerSwitcher
 
     private void osuWatcher_Tick(object sender, EventArgs e)
     {
-      m_osuRunning = Process.GetProcessesByName("osu!").Any();
-      lblOsuRunning.Visible = m_osuRunning;
-      btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != cmbbxServer.SelectedItem.ToString();
+      Server selected = GetSelectedServer();
+      if (selected != null)
+      {
+        m_osuRunning = Process.GetProcessesByName("osu!").Any();
+        lblOsuRunning.Visible = m_osuRunning;
+        btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != selected.ServerName;
+      }
     }
 
     private void CmbbxServer_SelectedIndexChanged(object sender, EventArgs e)
     {
-      btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != cmbbxServer.SelectedItem.ToString();
+      btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != GetSelectedServer().ServerName;
       SetServerIcon();
     }
     #endregion
@@ -205,7 +202,7 @@ namespace UltimateOsuServerSwitcher
 
     private void SetServerIcon()
     {
-      Server selectedServer = m_servers.First(x => x.ServerName == cmbbxServer.SelectedItem.ToString());
+      Server selectedServer = GetSelectedServer();
       pctrbxServerIcon.Visible = selectedServer.Icon != null;
       if (selectedServer.Icon != null)
         pctrbxServerIcon.Image = selectedServer.Icon;
@@ -223,6 +220,27 @@ namespace UltimateOsuServerSwitcher
         }
 
       return Server.BanchoServer;
+    }
+
+    private Server GetSelectedServer()
+    {
+      if (cmbbxServer.SelectedItem == null)
+        return null;
+
+      return m_servers.First(x => x.ServerName == cmbbxServer.SelectedItem.ToString().Replace("⭐", ""));
+    }
+
+    private void UpdateServerUI()
+    {
+      Server current = GetCurrentServer();
+      if (current.IsUnidentified)
+        lblCurrentServer.Text = $"You are connected to a yet unknown server!";
+      else
+      {
+        cmbbxServer.SelectedIndex = m_servers.IndexOf(m_servers.First(x => x.ServerName == current.ServerName));
+        CmbbxServer_SelectedIndexChanged(cmbbxServer, EventArgs.Empty);
+        lblCurrentServer.Text = $"You are connected to {current.ServerName}";
+      }
     }
 
     #endregion

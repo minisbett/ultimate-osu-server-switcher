@@ -30,7 +30,7 @@
     {
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-      this.tbCntrl = new MetroFramework.Controls.MetroTabControl();
+      this.tbcntrlMain = new MetroFramework.Controls.MetroTabControl();
       this.tbpgSwitcher = new MetroFramework.Controls.MetroTabPage();
       this.pctrbxServerIcon = new System.Windows.Forms.PictureBox();
       this.cmbbxServer = new MetroFramework.Controls.MetroComboBox();
@@ -46,22 +46,23 @@
       this.lblTitle = new MetroFramework.Controls.MetroLabel();
       this.styleManager = new MetroFramework.Components.MetroStyleManager(this.components);
       this.osuWatcher = new System.Windows.Forms.Timer(this.components);
-      this.tbCntrl.SuspendLayout();
+      this.btnUpdateAvailable = new MetroFramework.Controls.MetroButton();
+      this.tbcntrlMain.SuspendLayout();
       this.tbpgSwitcher.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pctrbxServerIcon)).BeginInit();
       this.tbpgAbout.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.styleManager)).BeginInit();
       this.SuspendLayout();
       // 
-      // tbCntrl
+      // tbcntrlMain
       // 
-      this.tbCntrl.Controls.Add(this.tbpgSwitcher);
-      this.tbCntrl.Controls.Add(this.tbpgAbout);
-      this.tbCntrl.Location = new System.Drawing.Point(0, 26);
-      this.tbCntrl.Name = "tbCntrl";
-      this.tbCntrl.SelectedIndex = 0;
-      this.tbCntrl.Size = new System.Drawing.Size(424, 185);
-      this.tbCntrl.TabIndex = 0;
+      this.tbcntrlMain.Controls.Add(this.tbpgSwitcher);
+      this.tbcntrlMain.Controls.Add(this.tbpgAbout);
+      this.tbcntrlMain.Location = new System.Drawing.Point(0, 26);
+      this.tbcntrlMain.Name = "tbcntrlMain";
+      this.tbcntrlMain.SelectedIndex = 0;
+      this.tbcntrlMain.Size = new System.Drawing.Size(424, 185);
+      this.tbcntrlMain.TabIndex = 0;
       // 
       // tbpgSwitcher
       // 
@@ -217,16 +218,27 @@
       // 
       // osuWatcher
       // 
-      this.osuWatcher.Interval = 500;
+      this.osuWatcher.Interval = 1000;
       this.osuWatcher.Tick += new System.EventHandler(this.osuWatcher_Tick);
+      // 
+      // btnUpdateAvailable
+      // 
+      this.btnUpdateAvailable.Location = new System.Drawing.Point(256, 29);
+      this.btnUpdateAvailable.Name = "btnUpdateAvailable";
+      this.btnUpdateAvailable.Size = new System.Drawing.Size(153, 23);
+      this.btnUpdateAvailable.TabIndex = 7;
+      this.btnUpdateAvailable.Text = "A new update is available!";
+      this.btnUpdateAvailable.Visible = false;
+      this.btnUpdateAvailable.Click += new System.EventHandler(this.btnUpdateAvailable_Click);
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(425, 211);
+      this.Controls.Add(this.btnUpdateAvailable);
       this.Controls.Add(this.lblTitle);
-      this.Controls.Add(this.tbCntrl);
+      this.Controls.Add(this.tbcntrlMain);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
       this.MinimizeBox = false;
@@ -234,7 +246,7 @@
       this.Resizable = false;
       this.ShowIcon = false;
       this.Load += new System.EventHandler(this.MainForm_Load);
-      this.tbCntrl.ResumeLayout(false);
+      this.tbcntrlMain.ResumeLayout(false);
       this.tbpgSwitcher.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.pctrbxServerIcon)).EndInit();
       this.tbpgAbout.ResumeLayout(false);
@@ -247,7 +259,7 @@
 
     #endregion
 
-    private MetroFramework.Controls.MetroTabControl tbCntrl;
+    private MetroFramework.Controls.MetroTabControl tbcntrlMain;
     private MetroFramework.Controls.MetroTabPage tbpgSwitcher;
     private MetroFramework.Controls.MetroTabPage tbpgAbout;
     private MetroFramework.Controls.MetroLabel lblTitle;
@@ -263,6 +275,7 @@
     private MetroFramework.Controls.MetroLabel lblOsuRunning;
     private System.Windows.Forms.Timer osuWatcher;
     private System.Windows.Forms.PictureBox pctrbxServerIcon;
+    private MetroFramework.Controls.MetroButton btnUpdateAvailable;
   }
 }
 
