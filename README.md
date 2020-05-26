@@ -22,7 +22,7 @@ If you wish to add a server, please follow these steps:
 - The server's ip-address
 - The certificate
 - The certificate thumbprint (can be grabbed with our thumbprint reader, see releases)
-- The server icon (we used the discord icon, 128x128)
+- The server icon (It should be sized 48x48 due to performance)
 3. Create an issue with the label "server request" or create a pull request.
 we would prefer if you would create an issue rather than creating a pull request.
 This will take the work off your hands and help us make our structure work better.
