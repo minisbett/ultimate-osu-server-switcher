@@ -3,6 +3,7 @@
 # Ultimate Osu Server Switcher
 
 The UltimateOsuServerSwitcher is a server switcher for osu, that allows to switch between osu!bancho and various private servers.
+You can [add your server](https://github.com/MinisBett/ultimate-osu-server-switcher#how-to-add-a-server) and  [get your server featured](https://github.com/MinisBett/ultimate-osu-server-switcher#get-your-server-featured) in a partnership.
 
 # How it works
 
