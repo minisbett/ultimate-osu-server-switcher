@@ -52,6 +52,8 @@
     {
       "name": "osu.ppy.sb",
       "ip": "47.89.44.19",
+      "website_url": "https://osu.ppy.sb/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/osu.ppy.sb.png?raw=true",
       "certificate_thumbprint": "8630E2B72FD660EA3684FCDAC3F0752096CD3ECE",
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ppy.sb.crt"
     }
