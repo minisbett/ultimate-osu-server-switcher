@@ -3,6 +3,7 @@
   "servers": [
     {
       "name": "Ripple",
+      "featured": false,
       "ip": "51.15.26.118",
       "website_url": "https://ripple.moe/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ripple.png?raw=true",
@@ -11,6 +12,7 @@
     },
     {
       "name": "EZPPFarm",
+      "featured": false,
       "ip": "167.86.117.131",
       "website_url": "https://ez-pp.farm/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ezppfarm.png?raw=true",
@@ -19,6 +21,7 @@
     },
     {
       "name": "osu!Ainu",
+      "featured": false,
       "ip": "194.34.133.95",
       "website_url": "https://ainu.pw/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ainu.png?raw=true",
@@ -27,6 +30,7 @@
     },
     {
       "name": "Kurikku",
+      "featured": false,
       "ip": "159.69.241.3",
       "website_url": "https://kurikku.pw/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kurikku.png?raw=true",
@@ -35,6 +39,7 @@
     },
     {
       "name": "The Osu Realm",
+      "featured": false,
       "ip": "3.136.108.8",
       "website_url": "https://theosurealm.tk/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/theosurealm.png?raw=true",
@@ -43,6 +48,7 @@
     },
     {
       "name": "Akatsuki",
+      "featured": true,
       "ip": "64.225.106.19",
       "website_url": "https://akatsuki.pw/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/akatsuki.png?raw=true",
@@ -51,6 +57,7 @@
     },
     {
       "name": "osu.ppy.sb",
+      "featured": false,
       "ip": "47.89.44.19",
       "website_url": "https://osu.ppy.sb/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/osu.ppy.sb.png?raw=true",
