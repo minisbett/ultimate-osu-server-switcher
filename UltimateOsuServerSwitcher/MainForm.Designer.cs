@@ -29,6 +29,7 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.tbCntrl = new MetroFramework.Controls.MetroTabControl();
       this.tbpgSwitcher = new MetroFramework.Controls.MetroTabPage();
       this.pctrbxServerIcon = new System.Windows.Forms.PictureBox();
@@ -225,6 +226,8 @@
       this.ClientSize = new System.Drawing.Size(425, 211);
       this.Controls.Add(this.lblTitle);
       this.Controls.Add(this.tbCntrl);
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+      this.Location = new System.Drawing.Point(9000, 9000);
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "MainForm";

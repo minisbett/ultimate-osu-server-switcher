@@ -45,6 +45,9 @@ namespace UltimateOsuServerSwitcher
 
     private async void MainForm_Load(object sender, EventArgs e)
     {
+      await Task.Delay(200);
+      Location = new Point();
+
       // Load online data
       var data = await FetchOnlineDataAsync();
       m_servers.AddRange(data.Servers);
