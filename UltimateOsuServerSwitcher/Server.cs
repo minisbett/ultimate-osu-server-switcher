@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -34,12 +35,14 @@ namespace UltimateOsuServerSwitcher
     [JsonProperty("icon_url")]
     public string IconUrl { get; private set; } = null;
 
+    public Image Icon { get; set; } = null;
+
     public bool IsUnidentified => ServerName == null;
 
     public bool IsBancho => ServerName == "osu!bancho";
 
     public static Server UnidentifiedServer => new Server();
 
-    public static Server BanchoServer => new Server() { ServerName = "osu!bancho" };
+    public static Server BanchoServer => new Server() { ServerName = "osu!bancho", WebsiteUrl = "https://osu.ppy.sh", IconUrl = "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true" };
   }
 }

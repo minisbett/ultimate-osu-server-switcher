@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Threading;
 using Newtonsoft.Json;
 using System.IO;
+using System.IO.Ports;
 
 namespace UltimateOsuServerSwitcher
 {
@@ -48,6 +49,14 @@ namespace UltimateOsuServerSwitcher
       var data = await FetchOnlineDataAsync();
       m_servers.AddRange(data.Servers);
       lblAbout.Text = data.AboutText;
+
+      // Retrieve images
+      WebClient client = new WebClient();
+      foreach (Server server in m_servers.Where(x => !string.IsNullOrEmpty(x.IconUrl)))
+      {
+        using (Stream stream = client.OpenRead(server.IconUrl))
+          server.Icon = Image.FromStream(stream);
+      }
 
       //Adds all servers to combo box
       cmbbxServer.Items.AddRange(m_servers.Select(x => x.ServerName).ToArray());
@@ -158,20 +167,10 @@ namespace UltimateOsuServerSwitcher
       btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != cmbbxServer.SelectedItem.ToString();
     }
 
-    private async void CmbbxServer_SelectedIndexChanged(object sender, EventArgs e)
+    private void CmbbxServer_SelectedIndexChanged(object sender, EventArgs e)
     {
       btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != cmbbxServer.SelectedItem.ToString();
-
-      Server selectedServer = m_servers.First(x => x.ServerName == cmbbxServer.SelectedItem.ToString());
-      pctrbxServerIcon.Visible = !string.IsNullOrEmpty(selectedServer.IconUrl);
-      try
-      {
-        pctrbxServerIcon.Image = await DownloadImageAsync(selectedServer.IconUrl);
-      }
-      catch
-      {
-        pctrbxServerIcon.Image = null;
-      }
+      SetServerIcon();
     }
     #endregion
 
@@ -185,17 +184,8 @@ namespace UltimateOsuServerSwitcher
 
     private async Task<string> DownloadAsync(string url)
     {
-      return await m_client.DownloadStringTaskAsync(new Uri(url));
-    }
-
-    private async Task<Image> DownloadImageAsync(string url)
-    {
-      string raw = await DownloadAsync(url);
-      byte[] bytes = Encoding.UTF8.GetBytes(raw);
-      Image img;
-      using (MemoryStream ms = new MemoryStream(bytes))
-        img = Image.FromStream(ms);
-      return img;
+      var result = await m_client.DownloadStringTaskAsync(new Uri(url));
+      return result;
     }
 
     private async Task<Data> FetchOnlineDataAsync()
@@ -207,6 +197,14 @@ namespace UltimateOsuServerSwitcher
     #endregion
 
     #region Server stuff
+
+    private void SetServerIcon()
+    {
+      Server selectedServer = m_servers.First(x => x.ServerName == cmbbxServer.SelectedItem.ToString());
+      pctrbxServerIcon.Visible = selectedServer.Icon != null;
+      if (selectedServer.Icon != null)
+        pctrbxServerIcon.Image = selectedServer.Icon;
+    }
 
     private Server GetCurrentServer()
     {
