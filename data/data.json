@@ -48,7 +48,7 @@
     },
     {
       "name": "Akatsuki",
-      "featured": true,
+      "featured": false,
       "ip": "144.217.254.156",
       "website_url": "https://akatsuki.pw/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/akatsuki.png?raw=true",
