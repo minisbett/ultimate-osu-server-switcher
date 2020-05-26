@@ -26,10 +26,10 @@
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/kurikku.cer"
     },
     {
-      "name": "The Realm",
+      "name": "The Osu Realm",
       "ip": "3.136.108.8",
       "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/therealm.cer"
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/theosurealm.cer"
     },
     {
       "name": "Akatsuki",
