@@ -28,6 +28,12 @@ namespace UltimateOsuServerSwitcher
     [JsonProperty("certificate_thumbprint")]
     public string CertificateThumbprint { get; private set; } = null;
 
+    [JsonProperty("website_url")]
+    public string WebsiteUrl { get; private set; } = null;
+
+    [JsonProperty("icon_url")]
+    public string IconUrl { get; private set; } = null;
+
     public bool IsUnidentified => ServerName == null;
 
     public bool IsBancho => ServerName == "osu!bancho";

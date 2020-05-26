@@ -31,6 +31,7 @@
       this.components = new System.ComponentModel.Container();
       this.tbCntrl = new MetroFramework.Controls.MetroTabControl();
       this.tbpgSwitcher = new MetroFramework.Controls.MetroTabPage();
+      this.pctrbxServerIcon = new System.Windows.Forms.PictureBox();
       this.cmbbxServer = new MetroFramework.Controls.MetroComboBox();
       this.lblOsuRunning = new MetroFramework.Controls.MetroLabel();
       this.lblCurrentServer = new MetroFramework.Controls.MetroLabel();
@@ -46,6 +47,7 @@
       this.osuWatcher = new System.Windows.Forms.Timer(this.components);
       this.tbCntrl.SuspendLayout();
       this.tbpgSwitcher.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pctrbxServerIcon)).BeginInit();
       this.tbpgAbout.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.styleManager)).BeginInit();
       this.SuspendLayout();
@@ -62,6 +64,7 @@
       // 
       // tbpgSwitcher
       // 
+      this.tbpgSwitcher.Controls.Add(this.pctrbxServerIcon);
       this.tbpgSwitcher.Controls.Add(this.cmbbxServer);
       this.tbpgSwitcher.Controls.Add(this.lblOsuRunning);
       this.tbpgSwitcher.Controls.Add(this.lblCurrentServer);
@@ -73,6 +76,17 @@
       this.tbpgSwitcher.TabIndex = 0;
       this.tbpgSwitcher.Text = "Server Switcher";
       this.tbpgSwitcher.VerticalScrollbarBarColor = true;
+      // 
+      // pctrbxServerIcon
+      // 
+      this.pctrbxServerIcon.BackColor = System.Drawing.Color.Transparent;
+      this.pctrbxServerIcon.Location = new System.Drawing.Point(365, 95);
+      this.pctrbxServerIcon.Name = "pctrbxServerIcon";
+      this.pctrbxServerIcon.Size = new System.Drawing.Size(48, 48);
+      this.pctrbxServerIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.pctrbxServerIcon.TabIndex = 6;
+      this.pctrbxServerIcon.TabStop = false;
+      this.pctrbxServerIcon.Click += new System.EventHandler(this.pctrbxServerIcon_Click);
       // 
       // cmbbxServer
       // 
@@ -219,6 +233,7 @@
       this.Load += new System.EventHandler(this.MainForm_Load);
       this.tbCntrl.ResumeLayout(false);
       this.tbpgSwitcher.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.pctrbxServerIcon)).EndInit();
       this.tbpgAbout.ResumeLayout(false);
       this.tbpgAbout.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.styleManager)).EndInit();
@@ -244,6 +259,7 @@
     private MetroFramework.Controls.MetroLabel lblGithub;
     private MetroFramework.Controls.MetroLabel lblOsuRunning;
     private System.Windows.Forms.Timer osuWatcher;
+    private System.Windows.Forms.PictureBox pctrbxServerIcon;
   }
 }
 

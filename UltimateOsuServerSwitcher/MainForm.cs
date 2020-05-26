@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace UltimateOsuServerSwitcher
 {
@@ -74,6 +75,13 @@ namespace UltimateOsuServerSwitcher
 
     private void LblGithub_Click(object sender, EventArgs e) =>
       Process.Start("http://www.github.com/minisbett/ultimate-osu-server-switcher");
+
+
+    private void pctrbxServerIcon_Click(object sender, EventArgs e)
+    {
+      Server selectedServer = m_servers.First(x => x.ServerName == cmbbxServer.SelectedItem.ToString());
+      Process.Start(selectedServer.WebsiteUrl);
+    }
 
     private void BtnConnect_Click(object sender, EventArgs e)
     {
@@ -150,9 +158,21 @@ namespace UltimateOsuServerSwitcher
       btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != cmbbxServer.SelectedItem.ToString();
     }
 
-    private void CmbbxServer_SelectedIndexChanged(object sender, EventArgs e) =>
+    private async void CmbbxServer_SelectedIndexChanged(object sender, EventArgs e)
+    {
       btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != cmbbxServer.SelectedItem.ToString();
 
+      Server selectedServer = m_servers.First(x => x.ServerName == cmbbxServer.SelectedItem.ToString());
+      pctrbxServerIcon.Visible = !string.IsNullOrEmpty(selectedServer.IconUrl);
+      try
+      {
+        pctrbxServerIcon.Image = await DownloadImageAsync(selectedServer.IconUrl);
+      }
+      catch
+      {
+        pctrbxServerIcon.Image = null;
+      }
+    }
     #endregion
 
     #endregion
@@ -166,6 +186,16 @@ namespace UltimateOsuServerSwitcher
     private async Task<string> DownloadAsync(string url)
     {
       return await m_client.DownloadStringTaskAsync(new Uri(url));
+    }
+
+    private async Task<Image> DownloadImageAsync(string url)
+    {
+      string raw = await DownloadAsync(url);
+      byte[] bytes = Encoding.UTF8.GetBytes(raw);
+      Image img;
+      using (MemoryStream ms = new MemoryStream(bytes))
+        img = Image.FromStream(ms);
+      return img;
     }
 
     private async Task<Data> FetchOnlineDataAsync()
