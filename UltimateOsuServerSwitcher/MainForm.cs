@@ -56,8 +56,12 @@ namespace UltimateOsuServerSwitcher
       WebClient client = new WebClient();
       foreach (Server server in m_servers.Where(x => !string.IsNullOrEmpty(x.IconUrl)))
       {
-        using (Stream stream = client.OpenRead(server.IconUrl))
-          server.Icon = Image.FromStream(stream);
+        try
+        {
+          using (Stream stream = client.OpenRead(server.IconUrl))
+            server.Icon = Image.FromStream(stream);
+        }
+        catch { }
       }
 
       //Adds all servers to combo box
@@ -86,12 +90,6 @@ namespace UltimateOsuServerSwitcher
 
     private void LblGithub_Click(object sender, EventArgs e) =>
       Process.Start("http://www.github.com/minisbett/ultimate-osu-server-switcher");
-
-    private void btnConnect_MouseClick(object sender, MouseEventArgs e)
-    {
-      if (e.Button == MouseButtons.Right)
-        cntxtmnConnect.Show(btnConnect.Location);
-    }
 
     private void pctrbxServerIcon_Click(object sender, EventArgs e)
     {
