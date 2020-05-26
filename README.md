@@ -54,8 +54,8 @@ has to agree with. This improves the switching agility to garantue the best user
 
 > Currently the following servers are listed:
 >
-> - [osu!bancho](https://osu.ppy.sh/)     ![osu!bancho-logo](https://i.imgur.com/2bRmgxz.png)
-> - [Ripple](https://ripple.moe/)         ![osu!bancho-logo](https://i.imgur.com/2bRmgxz.png)
+> - [osu!bancho](https://osu.ppy.sh/)     <img align="left" width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true">
+> - [Ripple](https://ripple.moe/)
 > - [EZPPFarm](https://ez-pp.farm/)
 > - [osu!Ainu](https://ainu.pw/)
 > - [Kurikku](https://kurikku.pw/)
