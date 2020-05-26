@@ -88,7 +88,7 @@ namespace UltimateOsuServerSwitcher
       Process.Start("http://www.github.com/minisbett/ultimate-osu-server-switcher");
 
     private void btnUpdateAvailable_Click(object sender, EventArgs e) =>
-      Process.Start("https://github.com/MinisBett/ultimate-osu-server-switcher/releases/latest");
+      Process.Start("https://github.com/MinisBett/ultimate-osu-server-switcher/releases/latest"); 
 
     private void pctrbxServerIcon_Click(object sender, EventArgs e)
     {
