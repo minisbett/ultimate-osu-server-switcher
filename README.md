@@ -36,8 +36,7 @@ If you and your private server want to help us please DM us on Discord!
 
 minisbett.#0001
 
-We will offer a feature icon before your server name in the switcher and your server
-will be put to the top of the list.
+We will offer a feature icon ⭐ before your server name in the switcher and your server will be put to the top of the list.
 In return for that we want you to offer our switcher as a second option on your switcher's download site.
 
 More details can be discussed on Discord.
