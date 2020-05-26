@@ -12,7 +12,7 @@
     },
     {
       "name": "EZPPFarm",
-      "featured": false,
+      "featured": true,
       "ip": "167.86.117.131",
       "website_url": "https://ez-pp.farm/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ezppfarm.png?raw=true",
