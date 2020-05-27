@@ -18,7 +18,7 @@ namespace UltimateOsuServerSwitcher
   {
 
     #region Variable declaration
-    // List with all servers fetched from the online data, having bancho as the initial value.
+    // List with all servers fetched from the online data.
     private List<Server> m_servers = new List<Server>();
 
     // Determines if osu is currently running
