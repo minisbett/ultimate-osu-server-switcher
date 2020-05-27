@@ -32,6 +32,8 @@ This will take the work off your hands and help us make our structure work bette
 
 # Get your server featured
 
+**Currently we do not feature servers as we need to keep this state something special.**
+
 To expand the switcher and to gain popularity, partnerships are welcome!
 
 If you and your private server want to help us please DM us on Discord!
