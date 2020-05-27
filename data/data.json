@@ -62,7 +62,16 @@
       "website_url": "https://osu.ppy.sb/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/osu.ppy.sb.png?raw=true",
       "certificate_thumbprint": "8630E2B72FD660EA3684FCDAC3F0752096CD3ECE",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ppy.sb.crt"
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ppy.sb.cer"
+    },
+    {
+      "name": "osu!Gatari",
+      "featured": false,
+      "ip": "163.172.255.98",
+      "website_url": "https://www.gatari.pw/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/gatari.png?raw=true",
+      "certificate_thumbprint": "4132009278647693B374B4F4E157FB5949601FE4",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ppy.sb.cer"
     }
   ]
 }
