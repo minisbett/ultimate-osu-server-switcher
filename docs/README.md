@@ -1,4 +1,8 @@
-<img align="right" src="https://i.imgur.com/tB6lgG4.png">
+<a href="https://minisbett.github.io/ultimate-osu-server-switcher/discord.html">
+  <img src="https://discordapp.com/api/guilds/715149105525030932/widget.png">
+</a>
+
+<img align="right" src="https://minisbett.github.io/ultimate-osu-server-switcher/images/logo.png">
 
 # Ultimate Osu Server Switcher
 
