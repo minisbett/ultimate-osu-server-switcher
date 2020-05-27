@@ -7,7 +7,7 @@
 # Ultimate Osu Server Switcher
 
 The Ultimate Osu Server Switcher is a server switcher that allows you to switch between osu!bancho and a variety of private servers.
-You can [add your server](https://minisbett.github.io/ultimate-osu-server-switcher/#how-to-add-a-server) and  [get your server featured](https://minisbett.github.io/ultimate-osu-server-switcher/#get-your-server-featured) in a partnership.
+You can [add your server](#how-to-add-a-server) and  [get your server featured](#get-your-server-featured) in a partnership.
 
 # How it works
 
@@ -73,5 +73,5 @@ has to agree with. This improves the switching agility to garantue the best user
 
 We have a light theme and a dark theme. You can toggle between them in the bottom right corner of the about tab.
 
-![Light theme](https://i.imgur.com/iqvpEpHl.png)
-![Dark theme](https://i.imgur.com/ItqHz4p.png)
+![Light theme](https://minisbett.github.io/ultimate-osu-server-switcher/images/light.png)
+![Dark theme](https://minisbett.github.io/ultimate-osu-server-switcher/images/dark.png)
