@@ -25,6 +25,9 @@ If you wish to add a server, please follow these steps:
 - The server's ip-address
 - The certificate
 - The certificate thumbprint (can be grabbed with our thumbprint reader, see releases)
+  NOTE: The certificate should be base64 encoded. If the thumbprint reader doesn't work,
+        try to install the certificate and export it as base64 encoded.
+        A tutorial can be found [here](https://support.globalsign.com/ssl/ssl-certificates-installation/import-and-export-certificate-microsoft-windows)
 - The server icon (It should be sized 48x48 due to performance)
 3. Create an issue with the label "server request" or create a pull request.
 we would prefer if you would create an issue rather than creating a pull request.
