@@ -58,7 +58,7 @@ has to agree with. This improves the switching agility to garantue the best user
 >
 > - [osu!bancho](https://osu.ppy.sh/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true">
 > - [Ripple](https://ripple.moe/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ripple.png?raw=true">
-> - [EZPPFarm](https://ez-pp.farm/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ezppfarm.png?raw=true">
+> - ⭐ [EZPPFarm](https://ez-pp.farm/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ezppfarm.png?raw=true">
 > - [osu!Ainu](https://ainu.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ainu.png?raw=true">
 > - [Kurikku](https://kurikku.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kurikku.png?raw=true">
 > - [The Realm](https://theosurealm.tk/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/theosurealm.png?raw=true">
