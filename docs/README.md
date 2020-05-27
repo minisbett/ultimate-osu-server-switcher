@@ -72,6 +72,7 @@ has to agree with. This improves the switching agility to garantue the best user
 > - [Akatsuki](https://akatsuki.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/akatsuki.png?raw=true">
 > - [osu.ppy.sb](https://osu.ppy.sb/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/osu.ppy.sb.png?raw=true">
 > - [osu!Gatari](https://gatari.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/gatari.png?raw=true">
+> - [Misumi](https://gatari.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/misumi.png?raw=true">
 
 # GUI
 
