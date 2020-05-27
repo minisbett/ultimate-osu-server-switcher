@@ -30,7 +30,7 @@
     },
     {
       "name": "Kurikku",
-      "featured": false,
+      "featured": true,
       "ip": "159.69.241.3",
       "website_url": "https://kurikku.pw/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kurikku.png?raw=true",
