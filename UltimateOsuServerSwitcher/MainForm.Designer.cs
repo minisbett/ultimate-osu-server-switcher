@@ -47,6 +47,7 @@
       this.styleManager = new MetroFramework.Components.MetroStyleManager(this.components);
       this.osuWatcher = new System.Windows.Forms.Timer(this.components);
       this.btnUpdateAvailable = new MetroFramework.Controls.MetroButton();
+      this.lblDiscord = new MetroFramework.Controls.MetroLabel();
       this.tbcntrlMain.SuspendLayout();
       this.tbpgSwitcher.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pctrbxServerIcon)).BeginInit();
@@ -60,7 +61,7 @@
       this.tbcntrlMain.Controls.Add(this.tbpgAbout);
       this.tbcntrlMain.Location = new System.Drawing.Point(0, 26);
       this.tbcntrlMain.Name = "tbcntrlMain";
-      this.tbcntrlMain.SelectedIndex = 0;
+      this.tbcntrlMain.SelectedIndex = 1;
       this.tbcntrlMain.Size = new System.Drawing.Size(424, 185);
       this.tbcntrlMain.TabIndex = 0;
       // 
@@ -135,6 +136,7 @@
       // 
       // tbpgAbout
       // 
+      this.tbpgAbout.Controls.Add(this.lblDiscord);
       this.tbpgAbout.Controls.Add(this.lblGithub);
       this.tbpgAbout.Controls.Add(this.metroLabel1);
       this.tbpgAbout.Controls.Add(this.metroPanel1);
@@ -231,6 +233,17 @@
       this.btnUpdateAvailable.Visible = false;
       this.btnUpdateAvailable.Click += new System.EventHandler(this.btnUpdateAvailable_Click);
       // 
+      // lblDiscord
+      // 
+      this.lblDiscord.AutoSize = true;
+      this.lblDiscord.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.lblDiscord.Location = new System.Drawing.Point(351, 65);
+      this.lblDiscord.Name = "lblDiscord";
+      this.lblDiscord.Size = new System.Drawing.Size(53, 19);
+      this.lblDiscord.TabIndex = 7;
+      this.lblDiscord.Text = "Discord";
+      this.lblDiscord.Click += new System.EventHandler(this.lblDiscord_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -276,6 +289,7 @@
     private System.Windows.Forms.Timer osuWatcher;
     private System.Windows.Forms.PictureBox pctrbxServerIcon;
     private MetroFramework.Controls.MetroButton btnUpdateAvailable;
+    private MetroFramework.Controls.MetroLabel lblDiscord;
   }
 }
 

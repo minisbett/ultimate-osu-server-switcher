@@ -12,7 +12,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UltimateOsuServerSwitcher
+namespace UltimateOsuServerSwitcher 
 {
   public partial class MainForm : MetroForm
   {
@@ -85,10 +85,13 @@ namespace UltimateOsuServerSwitcher
     #region Click events
 
     private void LblGithub_Click(object sender, EventArgs e) =>
-      Process.Start("http://www.github.com/minisbett/ultimate-osu-server-switcher");
+      Process.Start("https://www.github.com/minisbett/ultimate-osu-server-switcher");
+
+    private void lblDiscord_Click(object sender, EventArgs e) =>
+      Process.Start("https://minisbett.github.io/ultimate-osu-server-switcher/discord.html");
 
     private void btnUpdateAvailable_Click(object sender, EventArgs e) =>
-      Process.Start("https://github.com/MinisBett/ultimate-osu-server-switcher/releases/latest"); 
+      Process.Start("https://www.github.com/MinisBett/ultimate-osu-server-switcher/releases/latest"); 
 
     private void pctrbxServerIcon_Click(object sender, EventArgs e)
     {
