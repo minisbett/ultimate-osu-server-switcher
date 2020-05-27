@@ -29,9 +29,7 @@ If you wish to add a server, please follow these steps:
         try to install the certificate and export it as base64 encoded (should have the file extension .cer).
         A tutorial can be found [here](https://support.globalsign.com/ssl/ssl-certificates-installation/import-and-export-certificate-microsoft-windows)
 - The server icon (It should be sized 48x48 due to performance)
-3. Create an issue with the label "server request" or create a pull request.
-we would prefer if you would create an issue rather than creating a pull request.
-This will take the work off your hands and help us make our structure work better.
+3. Create an issue with the label "server request". Please do not create a pull request as it would break our workflow. Thanks :)
 
 # Get your server featured (Partnership)
 
