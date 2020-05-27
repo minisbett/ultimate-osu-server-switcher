@@ -24,7 +24,7 @@ If you wish to add a server, please follow these steps:
 - The server's website url
 - The server's ip-address
 - The certificate
-- The certificate thumbprint (can be grabbed with our thumbprint reader, see releases) </br>
+- The certificate thumbprint (can be grabbed with our thumbprint reader, see releases) <br>
   NOTE: The certificate should be base64 encoded. If the thumbprint reader doesn't work,
         try to install the certificate and export it as base64 encoded (should have the file extension .cer).
         A tutorial can be found [here](https://support.globalsign.com/ssl/ssl-certificates-installation/import-and-export-certificate-microsoft-windows)
