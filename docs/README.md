@@ -25,9 +25,8 @@ If you wish to add a server, please follow these steps:
 - The server's ip-address
 - The certificate
 - The certificate thumbprint (can be grabbed with our thumbprint reader, see releases) <br>
-  NOTE: The certificate should be base64 encoded. If the thumbprint reader doesn't work,
-        try to install the certificate and export it as base64 encoded (should have the file extension .cer).
-        A tutorial can be found [here](https://support.globalsign.com/ssl/ssl-certificates-installation/import-and-export-certificate-microsoft-windows)
+  NOTE: The certificate should be base64 encoded (.cer file extension)
+  if your certificate has the file extension .crt, use [this tutorial](https://support.comodo.com/index.php?/Knowledgebase/Article/View/361/17/how-do-i-convert-crt-file-into-the-microsoft-cer-format) to convert the .crt certificate to a .cer certificate.
 - The server icon (It should be sized 48x48 due to performance)
 3. Create an issue with the label "server request". Please do not create a pull request as it would break our workflow. Thanks :)
 
