@@ -33,7 +33,7 @@ If you wish to add a server, please follow these steps:
 we would prefer if you would create an issue rather than creating a pull request.
 This will take the work off your hands and help us make our structure work better.
 
-# Get your server featured
+# Get your server featured (Partnership)
 
 **Currently we do not feature servers as we need to keep this state something special.**
 
