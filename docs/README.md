@@ -1,4 +1,4 @@
-<img align="right" src="https://i.imgur.com/tB6lgG4.png">
+<img align="right" src="https://minisbett.github.io/ultimate-osu-server-switcher/images/logo.png">
 
 # Ultimate Osu Server Switcher
 
