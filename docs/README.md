@@ -1,9 +1,11 @@
-<img align="right" src="https://i.imgur.com/tB6lgG4.png">
+<a href="https://minisbett.github.io/ultimate-osu-server-switcher/discord.html"><img src="https://discordapp.com/api/guilds/715149105525030932/widget.png"></a>
+
+<img align="right" src="https://minisbett.github.io/ultimate-osu-server-switcher/images/logo.png">
 
 # Ultimate Osu Server Switcher
 
-The UltimateOsuServerSwitcher is a server switcher for osu, that allows to switch between osu!bancho and various private servers.
-You can [add your server](https://github.com/MinisBett/ultimate-osu-server-switcher#how-to-add-a-server) and  [get your server featured](https://github.com/MinisBett/ultimate-osu-server-switcher#get-your-server-featured) in a partnership.
+The Ultimate Osu Server Switcher is a server switcher that allows you to switch between osu!bancho and a variety of private servers.
+You can [add your server](#how-to-add-a-server) and  [get your server featured](#get-your-server-featured) in a partnership.
 
 # How it works
 
@@ -35,6 +37,8 @@ To expand the switcher and to gain popularity, partnerships are welcome!
 If you and your private server want to help us please DM us on Discord!
 
 > minisbett#0001
+>
+> Julaaaan#7635
 
 We will offer a feature icon ⭐ before your server name in the switcher and your server will be put to the top of the list.
 In return for that we want you to offer our switcher as a second option on your switcher's download site.
@@ -56,16 +60,17 @@ has to agree with. This improves the switching agility to garantue the best user
 >
 > - [osu!bancho](https://osu.ppy.sh/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true">
 > - [Ripple](https://ripple.moe/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ripple.png?raw=true">
-> - [EZPPFarm](https://ez-pp.farm/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ezppfarm.png?raw=true">
+> - [EZPPFarm](https://ez-pp.farm/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ezppfarm.png?raw=true"><sup>⭐</sup>
 > - [osu!Ainu](https://ainu.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ainu.png?raw=true">
-> - [Kurikku](https://kurikku.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kurikku.png?raw=true">
+> - [Kurikku](https://kurikku.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kurikku.png?raw=true"><sup>⭐</sup>
 > - [The Realm](https://theosurealm.tk/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/theosurealm.png?raw=true">
 > - [Akatsuki](https://akatsuki.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/akatsuki.png?raw=true">
 > - [osu.ppy.sb](https://osu.ppy.sb/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/osu.ppy.sb.png?raw=true">
+> - [osu!Gatari](https://gatari.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/gatari.png?raw=true">
 
 # GUI
 
 We have a light theme and a dark theme. You can toggle between them in the bottom right corner of the about tab.
 
-![Light theme](https://i.imgur.com/iqvpEpHl.png)
-![Dark theme](https://i.imgur.com/ItqHz4p.png)
+![Light theme](https://minisbett.github.io/ultimate-osu-server-switcher/images/light.png)
+![Dark theme](https://minisbett.github.io/ultimate-osu-server-switcher/images/dark.png)
