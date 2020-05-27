@@ -1,4 +1,4 @@
-<a align="right" href="https://discord.gg/DuByk3D">
+<a href="https://discord.gg/DuByk3D">
   <img src="https://discordapp.com/api/guilds/715149105525030932/widget.png"></img>
 </a>
 
