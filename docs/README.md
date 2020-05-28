@@ -57,7 +57,7 @@ The certificates will be installed on the local machine, rather than just the lo
 has to agree with. This improves the switching agility to garantue the best user experience.
 
 # Current servers
-
+>
 > Currently the following servers are listed:
 >
 > - [osu!bancho](https://osu.ppy.sh/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true">
@@ -70,7 +70,8 @@ has to agree with. This improves the switching agility to garantue the best user
 > - [osu.ppy.sb](https://osu.ppy.sb/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/osu.ppy.sb.png?raw=true">
 > - [osu!Gatari](https://gatari.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/gatari.png?raw=true">
 > - [Misumi](https://misumi.me/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/misumi.png?raw=true">
-> - [osu!MaryJane](https://osumj.pw)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/maryjane.png?raw=true">
+> - [osu!MaryJane](https://osumj.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/maryjane.png?raw=true">
+> - [RealistikOsu!](https://ussr.pl/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/realistikosu.png?raw=true">
 
 # GUI
 
