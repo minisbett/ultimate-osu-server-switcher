@@ -27,6 +27,7 @@ If you wish to add a server, please follow these steps:
 - The server's website url
 - The server's ip-address
 - The certificate
+- The discord tag of the server owner (We need to verify that he is on our discord server)
 - The certificate thumbprint (can be grabbed with our thumbprint reader, see releases) <br>
   NOTE: The certificate should be base64 encoded (.cer file extension) <br>
   If your certificate has the file extension .crt, use [this tutorial](https://support.comodo.com/index.php?/Knowledgebase/Article/View/361/17/how-do-i-convert-crt-file-into-the-microsoft-cer-format) to convert the .crt certificate to a .cer certificate.
