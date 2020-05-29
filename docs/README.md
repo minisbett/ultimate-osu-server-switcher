@@ -16,6 +16,9 @@ click the «Connect» button.
 
 # How to add a server
 
+> **As of the 05/29/2020 every server's owner now needs to be member of our discord server as it is a requirement for our management!**
+> **Thank you for your understanding.**
+
 If you wish to add a server, please follow these steps:
 
 1. Ask the server owner (if not you) if it's okay to add their server to our switcher.
