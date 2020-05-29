@@ -38,15 +38,6 @@
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/kurikku.cer"
     },
     {
-      "name": "The Osu Realm",
-      "featured": false,
-      "ip": "3.136.108.8",
-      "website_url": "https://theosurealm.tk/",
-      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/theosurealm.png?raw=true",
-      "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/theosurealm.cer"
-    },
-    {
       "name": "Akatsuki",
       "featured": false,
       "ip": "144.217.254.156",
