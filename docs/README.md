@@ -1,6 +1,6 @@
 <a href="https://minisbett.github.io/ultimate-osu-server-switcher/discord.html"><img src="https://discordapp.com/api/guilds/715149105525030932/widget.png"></a>
 
-<img align="right" src="https://minisbett.github.io/ultimate-osu-server-switcher/images/logo.png">
+<a href="https://minisbett.github.io/ultimate-osu-server-switcher"><img align="right" src="https://minisbett.github.io/ultimate-osu-server-switcher/images/logo.png"></a>
 
 # Ultimate Osu Server Switcher
 
