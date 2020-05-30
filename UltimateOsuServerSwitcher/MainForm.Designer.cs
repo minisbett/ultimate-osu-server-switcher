@@ -38,16 +38,16 @@
       this.lblCurrentServer = new MetroFramework.Controls.MetroLabel();
       this.btnConnect = new MetroFramework.Controls.MetroButton();
       this.tbpgAbout = new MetroFramework.Controls.MetroTabPage();
+      this.lblClearIconCache = new MetroFramework.Controls.MetroLabel();
+      this.lblDiscord = new MetroFramework.Controls.MetroLabel();
       this.lblGithub = new MetroFramework.Controls.MetroLabel();
-      this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-      this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+      this.lblDarkMode = new MetroFramework.Controls.MetroLabel();
       this.tgglDarkTheme = new MetroFramework.Controls.MetroToggle();
       this.lblAbout = new MetroFramework.Controls.MetroLabel();
       this.lblTitle = new MetroFramework.Controls.MetroLabel();
       this.styleManager = new MetroFramework.Components.MetroStyleManager(this.components);
       this.osuWatcher = new System.Windows.Forms.Timer(this.components);
       this.btnUpdateAvailable = new MetroFramework.Controls.MetroButton();
-      this.lblDiscord = new MetroFramework.Controls.MetroLabel();
       this.tbcntrlMain.SuspendLayout();
       this.tbpgSwitcher.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pctrbxServerIcon)).BeginInit();
@@ -136,10 +136,10 @@
       // 
       // tbpgAbout
       // 
+      this.tbpgAbout.Controls.Add(this.lblClearIconCache);
       this.tbpgAbout.Controls.Add(this.lblDiscord);
       this.tbpgAbout.Controls.Add(this.lblGithub);
-      this.tbpgAbout.Controls.Add(this.metroLabel1);
-      this.tbpgAbout.Controls.Add(this.metroPanel1);
+      this.tbpgAbout.Controls.Add(this.lblDarkMode);
       this.tbpgAbout.Controls.Add(this.tgglDarkTheme);
       this.tbpgAbout.Controls.Add(this.lblAbout);
       this.tbpgAbout.HorizontalScrollbarBarColor = true;
@@ -150,44 +150,57 @@
       this.tbpgAbout.Text = "About";
       this.tbpgAbout.VerticalScrollbarBarColor = true;
       // 
+      // lblClearIconCache
+      // 
+      this.lblClearIconCache.AutoSize = true;
+      this.lblClearIconCache.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.lblClearIconCache.Location = new System.Drawing.Point(0, 127);
+      this.lblClearIconCache.Name = "lblClearIconCache";
+      this.lblClearIconCache.Size = new System.Drawing.Size(105, 19);
+      this.lblClearIconCache.TabIndex = 8;
+      this.lblClearIconCache.Text = "Clear icon cache";
+      this.lblClearIconCache.Click += new System.EventHandler(this.lblClearIconCache_Click);
+      // 
+      // lblDiscord
+      // 
+      this.lblDiscord.AutoSize = true;
+      this.lblDiscord.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.lblDiscord.CustomForeColor = true;
+      this.lblDiscord.ForeColor = System.Drawing.Color.Blue;
+      this.lblDiscord.Location = new System.Drawing.Point(146, 128);
+      this.lblDiscord.Name = "lblDiscord";
+      this.lblDiscord.Size = new System.Drawing.Size(53, 19);
+      this.lblDiscord.TabIndex = 7;
+      this.lblDiscord.Text = "Discord";
+      this.lblDiscord.Click += new System.EventHandler(this.lblDiscord_Click);
+      // 
       // lblGithub
       // 
       this.lblGithub.AutoSize = true;
       this.lblGithub.Cursor = System.Windows.Forms.Cursors.Hand;
-      this.lblGithub.Location = new System.Drawing.Point(351, 84);
+      this.lblGithub.CustomForeColor = true;
+      this.lblGithub.ForeColor = System.Drawing.Color.ForestGreen;
+      this.lblGithub.Location = new System.Drawing.Point(205, 128);
       this.lblGithub.Name = "lblGithub";
       this.lblGithub.Size = new System.Drawing.Size(49, 19);
       this.lblGithub.TabIndex = 6;
       this.lblGithub.Text = "GitHub";
       this.lblGithub.Click += new System.EventHandler(this.LblGithub_Click);
       // 
-      // metroLabel1
+      // lblDarkMode
       // 
-      this.metroLabel1.AutoSize = true;
-      this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Small;
-      this.metroLabel1.Location = new System.Drawing.Point(281, 110);
-      this.metroLabel1.Name = "metroLabel1";
-      this.metroLabel1.Size = new System.Drawing.Size(63, 15);
-      this.metroLabel1.TabIndex = 5;
-      this.metroLabel1.Text = "Dark Mode";
-      // 
-      // metroPanel1
-      // 
-      this.metroPanel1.HorizontalScrollbarBarColor = true;
-      this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
-      this.metroPanel1.HorizontalScrollbarSize = 10;
-      this.metroPanel1.Location = new System.Drawing.Point(304, 106);
-      this.metroPanel1.Name = "metroPanel1";
-      this.metroPanel1.Size = new System.Drawing.Size(41, 25);
-      this.metroPanel1.TabIndex = 4;
-      this.metroPanel1.VerticalScrollbarBarColor = true;
-      this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
-      this.metroPanel1.VerticalScrollbarSize = 10;
+      this.lblDarkMode.AutoSize = true;
+      this.lblDarkMode.FontSize = MetroFramework.MetroLabelSize.Small;
+      this.lblDarkMode.Location = new System.Drawing.Point(294, 128);
+      this.lblDarkMode.Name = "lblDarkMode";
+      this.lblDarkMode.Size = new System.Drawing.Size(63, 15);
+      this.lblDarkMode.TabIndex = 5;
+      this.lblDarkMode.Text = "Dark Mode";
       // 
       // tgglDarkTheme
       // 
       this.tgglDarkTheme.AutoSize = true;
-      this.tgglDarkTheme.Location = new System.Drawing.Point(318, 110);
+      this.tgglDarkTheme.Location = new System.Drawing.Point(330, 127);
       this.tgglDarkTheme.Name = "tgglDarkTheme";
       this.tgglDarkTheme.Size = new System.Drawing.Size(80, 17);
       this.tgglDarkTheme.TabIndex = 2;
@@ -197,9 +210,9 @@
       // 
       // lblAbout
       // 
-      this.lblAbout.Location = new System.Drawing.Point(19, 10);
+      this.lblAbout.Location = new System.Drawing.Point(3, 6);
       this.lblAbout.Name = "lblAbout";
-      this.lblAbout.Size = new System.Drawing.Size(379, 121);
+      this.lblAbout.Size = new System.Drawing.Size(402, 119);
       this.lblAbout.TabIndex = 3;
       this.lblAbout.Text = "loading...";
       // 
@@ -232,17 +245,6 @@
       this.btnUpdateAvailable.Text = "A new update is available!";
       this.btnUpdateAvailable.Visible = false;
       this.btnUpdateAvailable.Click += new System.EventHandler(this.btnUpdateAvailable_Click);
-      // 
-      // lblDiscord
-      // 
-      this.lblDiscord.AutoSize = true;
-      this.lblDiscord.Cursor = System.Windows.Forms.Cursors.Hand;
-      this.lblDiscord.Location = new System.Drawing.Point(351, 65);
-      this.lblDiscord.Name = "lblDiscord";
-      this.lblDiscord.Size = new System.Drawing.Size(53, 19);
-      this.lblDiscord.TabIndex = 7;
-      this.lblDiscord.Text = "Discord";
-      this.lblDiscord.Click += new System.EventHandler(this.lblDiscord_Click);
       // 
       // MainForm
       // 
@@ -282,14 +284,14 @@
     private MetroFramework.Controls.MetroToggle tgglDarkTheme;
     private MetroFramework.Controls.MetroLabel lblAbout;
     private MetroFramework.Components.MetroStyleManager styleManager;
-    private MetroFramework.Controls.MetroPanel metroPanel1;
-    private MetroFramework.Controls.MetroLabel metroLabel1;
+    private MetroFramework.Controls.MetroLabel lblDarkMode;
     private MetroFramework.Controls.MetroLabel lblGithub;
     private MetroFramework.Controls.MetroLabel lblOsuRunning;
     private System.Windows.Forms.Timer osuWatcher;
     private System.Windows.Forms.PictureBox pctrbxServerIcon;
     private MetroFramework.Controls.MetroButton btnUpdateAvailable;
     private MetroFramework.Controls.MetroLabel lblDiscord;
+    private MetroFramework.Controls.MetroLabel lblClearIconCache;
   }
 }
 

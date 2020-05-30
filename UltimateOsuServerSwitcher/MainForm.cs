@@ -23,6 +23,9 @@ namespace UltimateOsuServerSwitcher
 
     // Determines if osu is currently running
     bool m_osuRunning = false;
+
+    // Path to the icon cache
+    string m_iconCacheFolder = Environment.GetEnvironmentVariable("localappdata") + @"\UltimateOsuServerSwitcher\IconCache";
     #endregion
 
     #region Winforms
@@ -36,6 +39,10 @@ namespace UltimateOsuServerSwitcher
       //Initialize Theming
       styleManager.Theme = Properties.Settings.Default.darkMode ? MetroThemeStyle.Dark : MetroThemeStyle.Light;
       tgglDarkTheme.Checked = Properties.Settings.Default.darkMode;
+      tbcntrlMain.SelectedIndex = 0;
+
+      if (!Directory.Exists(m_iconCacheFolder))
+        Directory.CreateDirectory(m_iconCacheFolder);
     }
 
     private async void MainForm_Load(object sender, EventArgs e)
@@ -51,17 +58,30 @@ namespace UltimateOsuServerSwitcher
       m_servers.AddRange(data.Servers.Where(x => x.IsFeatured));
       m_servers.AddRange(data.Servers.Where(x => !x.IsFeatured));
 
-      // Retrieve images
-      WebClient client = new WebClient();
-      foreach (Server server in m_servers.Where(x => !string.IsNullOrEmpty(x.IconUrl)))
+      lblCurrentServer.Text = "Updating icon cache...";
+      Application.DoEvents();
+
+      // Check if servers which icon is in cache no longer exist
+      foreach (string icon in Directory.GetFiles(m_iconCacheFolder, "*.png", SearchOption.TopDirectoryOnly))
       {
-        try
-        {
-          using (Stream stream = client.OpenRead(server.IconUrl))
-            server.Icon = Image.FromStream(stream);
-        }
-        catch { }
+        string name = Path.GetFileNameWithoutExtension(icon);
+        if (!m_servers.Any(x => x.ServerName == name))
+          File.Delete(icon);
       }
+
+      // Check for servers which icons arent in cache yet
+      foreach (Server server in m_servers)
+      {
+        if (!File.Exists(m_iconCacheFolder + $@"\{server.ServerName}.png"))
+        {
+          lblCurrentServer.Text = $"Downloading icon of {server.ServerName}...";
+          Application.DoEvents();
+          server.Icon = await DownloadImageAsync(server.IconUrl);
+          server.Icon.Save(m_iconCacheFolder + $@"\{server.ServerName}.png");
+        }
+      }
+
+      // Download the icons in background
 
       //Adds all servers to combo box
       foreach (Server server in m_servers)
@@ -91,7 +111,31 @@ namespace UltimateOsuServerSwitcher
       Process.Start("https://minisbett.github.io/ultimate-osu-server-switcher/discord.html");
 
     private void btnUpdateAvailable_Click(object sender, EventArgs e) =>
-      Process.Start("https://www.github.com/MinisBett/ultimate-osu-server-switcher/releases/latest"); 
+      Process.Start("https://www.github.com/MinisBett/ultimate-osu-server-switcher/releases/latest");
+
+    private async void lblClearIconCache_Click(object sender, EventArgs e)
+    {
+      cmbbxServer.Enabled = false;
+      btnConnect.Enabled = false;
+      tbcntrlMain.SelectedIndex = 0;
+      lblCurrentServer.Text = "Clearing cache...";
+      Application.DoEvents();
+      Directory.Delete(m_iconCacheFolder, true);
+      Directory.CreateDirectory(m_iconCacheFolder);
+      m_servers.ForEach(x => x.Icon = null);
+
+      foreach (Server server in m_servers)
+      {
+        lblCurrentServer.Text = $"Downloading icon of {server.ServerName}...";
+        Application.DoEvents();
+        server.Icon = await DownloadImageAsync(server.IconUrl);
+        server.Icon.Save(m_iconCacheFolder + $@"\{server.ServerName}.png");
+      }
+
+      cmbbxServer.Enabled = true;
+      btnConnect.Enabled = true;
+      UpdateServerUI();
+    }
 
     private void pctrbxServerIcon_Click(object sender, EventArgs e)
     {
@@ -185,6 +229,18 @@ namespace UltimateOsuServerSwitcher
 
     private WebClient m_client = new WebClient();
 
+    private async Task<Image> DownloadImageAsync(string url)
+    {
+      try
+      {
+        using (Stream stream = m_client.OpenRead(url))
+          return Image.FromStream(stream);
+      }
+      catch { }
+
+      return null;
+    }
+
     private async Task<string> DownloadAsync(string url)
     {
       var result = await m_client.DownloadStringTaskAsync(new Uri(url));
@@ -247,6 +303,5 @@ namespace UltimateOsuServerSwitcher
     #endregion
 
     #endregion
-
   }
 }
