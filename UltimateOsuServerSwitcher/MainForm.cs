@@ -72,16 +72,20 @@ namespace UltimateOsuServerSwitcher
       // Check for servers which icons arent in cache yet
       foreach (Server server in m_servers)
       {
-        if (!File.Exists(m_iconCacheFolder + $@"\{server.ServerName}.png"))
+        if (!File.Exists(m_iconCacheFolder + $@"\{server.ServerName}.png") && !string.IsNullOrEmpty(server.IconUrl))
         {
           lblCurrentServer.Text = $"Downloading icon of {server.ServerName}...";
           Application.DoEvents();
-          server.Icon = await DownloadImageAsync(server.IconUrl);
-          server.Icon.Save(m_iconCacheFolder + $@"\{server.ServerName}.png");
+          Image icon = await DownloadImageAsync(server.IconUrl);
+          icon.Save(m_iconCacheFolder + $@"\{server.ServerName}.png");
+          icon.Dispose();
         }
       }
 
-      // Download the icons in background
+      // Load icons from cache
+      foreach (Server server in m_servers)
+        if (File.Exists(m_iconCacheFolder + $@"\{server.ServerName}.png"))
+          server.Icon = new Bitmap(Image.FromFile(m_iconCacheFolder + $@"\{server.ServerName}.png"));
 
       //Adds all servers to combo box
       foreach (Server server in m_servers)
@@ -124,13 +128,20 @@ namespace UltimateOsuServerSwitcher
       Directory.CreateDirectory(m_iconCacheFolder);
       m_servers.ForEach(x => x.Icon = null);
 
+      // Check for servers which icons arent in cache yet
       foreach (Server server in m_servers)
       {
         lblCurrentServer.Text = $"Downloading icon of {server.ServerName}...";
         Application.DoEvents();
-        server.Icon = await DownloadImageAsync(server.IconUrl);
-        server.Icon.Save(m_iconCacheFolder + $@"\{server.ServerName}.png");
+        Image icon = await DownloadImageAsync(server.IconUrl);
+        icon.Save(m_iconCacheFolder + $@"\{server.ServerName}.png");
+        icon.Dispose();
       }
+
+      // Load icons from cache
+      foreach (Server server in m_servers)
+        if (File.Exists(m_iconCacheFolder + $@"\{server.ServerName}.png"))
+          server.Icon = new Bitmap(Image.FromFile(m_iconCacheFolder + $@"\{server.ServerName}.png"));
 
       cmbbxServer.Enabled = true;
       btnConnect.Enabled = true;
