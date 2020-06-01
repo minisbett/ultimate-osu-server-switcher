@@ -28,7 +28,7 @@ namespace UltimateOsuServerSwitcher
       Server server = data.Servers.FirstOrDefault(x => x.ServerName == servername);
       if (server == null)
       {
-        MessageBox.Show("The referenced server could not be found.\r\n\r\nPlease try to recreate this sortcut.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show("The referenced server could not be found.\r\n\r\nPlease try to recreate this shortcut.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
         Application.Exit();
       }
     }
