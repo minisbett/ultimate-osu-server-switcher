@@ -85,7 +85,8 @@ namespace UltimateOsuServerSwitcher
       // Load icons from cache
       foreach (Server server in m_servers)
         if (File.Exists(m_iconCacheFolder + $@"\{server.ServerName}.png"))
-          server.Icon = new Bitmap(Image.FromFile(m_iconCacheFolder + $@"\{server.ServerName}.png"));
+          using (MemoryStream ms = new MemoryStream(File.ReadAllBytes(m_iconCacheFolder + $@"\{server.ServerName}.png")))
+            server.Icon = Image.FromStream(ms);
 
       //Adds all servers to combo box
       foreach (Server server in m_servers)
@@ -98,6 +99,8 @@ namespace UltimateOsuServerSwitcher
 
       bool newVersionAvailable = await VersionChecker.NewVersionAvailable();
       btnUpdateAvailable.Visible = newVersionAvailable;
+
+      lblClearIconCache.Enabled = true;
 
       UpdateServerUI();
 
@@ -121,6 +124,7 @@ namespace UltimateOsuServerSwitcher
     {
       cmbbxServer.Enabled = false;
       btnConnect.Enabled = false;
+      lblClearIconCache.Enabled = false;
       tbcntrlMain.SelectedIndex = 0;
       lblCurrentServer.Text = "Clearing cache...";
       Application.DoEvents();
@@ -132,7 +136,7 @@ namespace UltimateOsuServerSwitcher
       foreach (Server server in m_servers)
       {
         lblCurrentServer.Text = $"Downloading icon of {server.ServerName}...";
-        Application.DoEvents();
+        Application.DoEvents(); 
         Image icon = await DownloadImageAsync(server.IconUrl);
         icon.Save(m_iconCacheFolder + $@"\{server.ServerName}.png");
         icon.Dispose();
@@ -141,10 +145,14 @@ namespace UltimateOsuServerSwitcher
       // Load icons from cache
       foreach (Server server in m_servers)
         if (File.Exists(m_iconCacheFolder + $@"\{server.ServerName}.png"))
-          server.Icon = new Bitmap(Image.FromFile(m_iconCacheFolder + $@"\{server.ServerName}.png"));
+        {
+          using (MemoryStream ms = new MemoryStream(File.ReadAllBytes(m_iconCacheFolder + $@"\{server.ServerName}.png")))
+            server.Icon = Image.FromStream(ms);
+        }
 
       cmbbxServer.Enabled = true;
       btnConnect.Enabled = true;
+      lblClearIconCache.Enabled = true;
       UpdateServerUI();
     }
 
