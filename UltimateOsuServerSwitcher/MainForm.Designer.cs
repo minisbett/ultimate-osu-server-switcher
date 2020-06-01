@@ -154,6 +154,7 @@
       // 
       this.lblClearIconCache.AutoSize = true;
       this.lblClearIconCache.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.lblClearIconCache.Enabled = false;
       this.lblClearIconCache.Location = new System.Drawing.Point(0, 127);
       this.lblClearIconCache.Name = "lblClearIconCache";
       this.lblClearIconCache.Size = new System.Drawing.Size(105, 19);
