@@ -75,6 +75,7 @@ has to agree with. This improves the switching agility to garantue the best user
 > - [Misumi](https://misumi.me/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/misumi.png?raw=true">
 > - [osu!MaryJane](https://osumj.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/maryjane.png?raw=true">
 > - [RealistikOsu!](https://ussr.pl/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/realistikosu.png?raw=true">
+> - [RealistikOsu!](https://enjuu.click/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/enjuu.png?raw=true">
 
 # GUI
 

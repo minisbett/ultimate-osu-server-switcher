@@ -90,6 +90,15 @@
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/realistikosu.png?raw=true",
       "certificate_thumbprint": "F3188CAA6D3F724F63E7AB4772AE6796C7EF9646",
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/realistikosu.cer"
+    },
+    {
+      "name": "Enjuu",
+      "featured": false,
+      "ip": "148.251.234.42",
+      "website_url": "https://enjuu.click/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/enjuu.png?raw=true",
+      "certificate_thumbprint": "79889565CA264254A678D6836BB8DDBCB1F54661",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/enjuu.cer"
     }
   ]
 }
