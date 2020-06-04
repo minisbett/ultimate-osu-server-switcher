@@ -8,8 +8,6 @@ using System.Windows.Forms;
 
 namespace UltimateOsuServerSwitcher
 {
-
-
   static class Program
   {
 
@@ -20,12 +18,18 @@ namespace UltimateOsuServerSwitcher
     /// Der Haupteinstiegspunkt für die Anwendung.
     /// </summary>
     [STAThread]
-    static void Main()
+    static void Main(string[] args)
     {
       Process current = Process.GetCurrentProcess();
       Process[] instances = Process.GetProcessesByName(current.ProcessName).Where(x => x.Id != current.Id).ToArray();
       if(instances.Any())
         return;
+
+      if(args.Length == 1)
+      {
+        QuickSwitch.Switch(args[0]);
+        return;
+      }
 
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);

@@ -32,6 +32,7 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.tbcntrlMain = new MetroFramework.Controls.MetroTabControl();
       this.tbpgSwitcher = new MetroFramework.Controls.MetroTabPage();
+      this.lblCreateShortcut = new MetroFramework.Controls.MetroLabel();
       this.pctrbxServerIcon = new System.Windows.Forms.PictureBox();
       this.cmbbxServer = new MetroFramework.Controls.MetroComboBox();
       this.lblOsuRunning = new MetroFramework.Controls.MetroLabel();
@@ -61,12 +62,13 @@
       this.tbcntrlMain.Controls.Add(this.tbpgAbout);
       this.tbcntrlMain.Location = new System.Drawing.Point(0, 26);
       this.tbcntrlMain.Name = "tbcntrlMain";
-      this.tbcntrlMain.SelectedIndex = 1;
+      this.tbcntrlMain.SelectedIndex = 0;
       this.tbcntrlMain.Size = new System.Drawing.Size(424, 185);
       this.tbcntrlMain.TabIndex = 0;
       // 
       // tbpgSwitcher
       // 
+      this.tbpgSwitcher.Controls.Add(this.lblCreateShortcut);
       this.tbpgSwitcher.Controls.Add(this.pctrbxServerIcon);
       this.tbpgSwitcher.Controls.Add(this.cmbbxServer);
       this.tbpgSwitcher.Controls.Add(this.lblOsuRunning);
@@ -79,6 +81,18 @@
       this.tbpgSwitcher.TabIndex = 0;
       this.tbpgSwitcher.Text = "Server Switcher";
       this.tbpgSwitcher.VerticalScrollbarBarColor = true;
+      // 
+      // lblCreateShortcut
+      // 
+      this.lblCreateShortcut.AutoSize = true;
+      this.lblCreateShortcut.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.lblCreateShortcut.Location = new System.Drawing.Point(3, 127);
+      this.lblCreateShortcut.Name = "lblCreateShortcut";
+      this.lblCreateShortcut.Size = new System.Drawing.Size(101, 19);
+      this.lblCreateShortcut.TabIndex = 7;
+      this.lblCreateShortcut.Text = "Create Shortcut";
+      this.lblCreateShortcut.Visible = false;
+      this.lblCreateShortcut.Click += new System.EventHandler(this.lblCreateShortcut_Click);
       // 
       // pctrbxServerIcon
       // 
@@ -109,7 +123,7 @@
       this.lblOsuRunning.Name = "lblOsuRunning";
       this.lblOsuRunning.Size = new System.Drawing.Size(379, 20);
       this.lblOsuRunning.TabIndex = 5;
-      this.lblOsuRunning.Text = "Please close osu before switching your server!";
+      this.lblOsuRunning.Text = "osu! is currently running and will be restarted.";
       this.lblOsuRunning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       this.lblOsuRunning.Visible = false;
       // 
@@ -264,6 +278,7 @@
       this.Load += new System.EventHandler(this.MainForm_Load);
       this.tbcntrlMain.ResumeLayout(false);
       this.tbpgSwitcher.ResumeLayout(false);
+      this.tbpgSwitcher.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pctrbxServerIcon)).EndInit();
       this.tbpgAbout.ResumeLayout(false);
       this.tbpgAbout.PerformLayout();
@@ -293,6 +308,7 @@
     private MetroFramework.Controls.MetroButton btnUpdateAvailable;
     private MetroFramework.Controls.MetroLabel lblDiscord;
     private MetroFramework.Controls.MetroLabel lblClearIconCache;
+    private MetroFramework.Controls.MetroLabel lblCreateShortcut;
   }
 }
 

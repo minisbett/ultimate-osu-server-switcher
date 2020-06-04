@@ -1,4 +1,5 @@
-﻿using MetroFramework;
+﻿using IWshRuntimeLibrary;
+using MetroFramework;
 using MetroFramework.Forms;
 using Newtonsoft.Json;
 using System;
@@ -9,14 +10,15 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using File = System.IO.File;
 
 namespace UltimateOsuServerSwitcher
 {
   public partial class MainForm : MetroForm
   {
-
     #region Variable declaration
     // List with all servers fetched from the online data.
     private List<Server> m_servers = new List<Server>();
@@ -88,6 +90,14 @@ namespace UltimateOsuServerSwitcher
           using (MemoryStream ms = new MemoryStream(File.ReadAllBytes(m_iconCacheFolder + $@"\{server.ServerName}.png")))
             server.Icon = Image.FromStream(ms);
 
+      // Create .ico files for shortcuts
+      foreach (Server server in m_servers)
+      {
+        using (FileStream fs = File.OpenWrite(m_iconCacheFolder + $@"\{server.ServerName}.ico"))
+        using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
+          ImagingHelper.ConvertToIcon(ms, fs, 48, true);
+      }
+
       //Adds all servers to combo box
       foreach (Server server in m_servers)
       {
@@ -101,6 +111,7 @@ namespace UltimateOsuServerSwitcher
       btnUpdateAvailable.Visible = newVersionAvailable;
 
       lblClearIconCache.Enabled = true;
+      lblCreateShortcut.Show();
 
       UpdateServerUI();
 
@@ -120,11 +131,25 @@ namespace UltimateOsuServerSwitcher
     private void btnUpdateAvailable_Click(object sender, EventArgs e) =>
       Process.Start("https://www.github.com/MinisBett/ultimate-osu-server-switcher/releases/latest");
 
+    private void lblCreateShortcut_Click(object sender, EventArgs e)
+    {
+      SaveFileDialog sfd = new SaveFileDialog()
+      {
+        InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+        Filter = "Shortcut|*.lnk",
+        FileName = GetSelectedServer().ServerName
+      };
+
+      if (sfd.ShowDialog() == DialogResult.OK)
+        QuickSwitch.CreateShortcut(GetSelectedServer(), sfd.FileName);
+    }
+
     private async void lblClearIconCache_Click(object sender, EventArgs e)
     {
       cmbbxServer.Enabled = false;
       btnConnect.Enabled = false;
       lblClearIconCache.Enabled = false;
+      lblCreateShortcut.Hide();
       tbcntrlMain.SelectedIndex = 0;
       lblCurrentServer.Text = "Clearing cache...";
       Application.DoEvents();
@@ -136,7 +161,7 @@ namespace UltimateOsuServerSwitcher
       foreach (Server server in m_servers)
       {
         lblCurrentServer.Text = $"Downloading icon of {server.ServerName}...";
-        Application.DoEvents(); 
+        Application.DoEvents();
         Image icon = await DownloadImageAsync(server.IconUrl);
         icon.Save(m_iconCacheFolder + $@"\{server.ServerName}.png");
         icon.Dispose();
@@ -150,9 +175,18 @@ namespace UltimateOsuServerSwitcher
             server.Icon = Image.FromStream(ms);
         }
 
+      // Create .ico files for shortcuts
+      foreach(Server server in m_servers)
+      {
+        using (FileStream fs = File.OpenWrite(m_iconCacheFolder + $@"\{server.ServerName}.ico"))
+        using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
+          ImagingHelper.ConvertToIcon(ms, fs, 48, true);
+      }
+
       cmbbxServer.Enabled = true;
       btnConnect.Enabled = true;
       lblClearIconCache.Enabled = true;
+      lblCreateShortcut.Show();
       UpdateServerUI();
     }
 
@@ -164,6 +198,19 @@ namespace UltimateOsuServerSwitcher
 
     private void BtnConnect_Click(object sender, EventArgs e)
     {
+      bool osuWasRunning = m_osuRunning;
+      if (m_osuRunning)
+      {
+        Process p = Process.Start(new ProcessStartInfo()
+        {
+          FileName = "taskkill",
+          Arguments = "/IM osu!.exe",
+          CreateNoWindow = true,
+          UseShellExecute = false
+        });
+
+        p.WaitForExit();
+      }
       lblCurrentServer.Text = "Connecting...";
       Application.DoEvents();
       Server selectedServer = GetSelectedServer();
@@ -207,6 +254,9 @@ namespace UltimateOsuServerSwitcher
         CertificateManager.InstallCertificate(selectedServer);
       }
 
+      if (osuWasRunning)
+        Process.Start(QuickSwitch.GetOsuExecutablePath());
+
       UpdateServerUI();
     }
 
@@ -229,13 +279,12 @@ namespace UltimateOsuServerSwitcher
       {
         m_osuRunning = Process.GetProcessesByName("osu!").Any();
         lblOsuRunning.Visible = m_osuRunning;
-        btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != selected.ServerName;
       }
     }
 
     private void CmbbxServer_SelectedIndexChanged(object sender, EventArgs e)
     {
-      btnConnect.Enabled = !m_osuRunning && GetCurrentServer().ServerName != GetSelectedServer().ServerName;
+      btnConnect.Enabled = GetCurrentServer().ServerName != GetSelectedServer().ServerName;
       SetServerIcon();
     }
     #endregion
@@ -248,6 +297,7 @@ namespace UltimateOsuServerSwitcher
 
     private WebClient m_client = new WebClient();
 
+    #pragma warning disable CS1998
     private async Task<Image> DownloadImageAsync(string url)
     {
       try
@@ -315,7 +365,10 @@ namespace UltimateOsuServerSwitcher
       {
         cmbbxServer.SelectedIndex = m_servers.IndexOf(m_servers.First(x => x.ServerName == current.ServerName));
         CmbbxServer_SelectedIndexChanged(cmbbxServer, EventArgs.Empty);
-        lblCurrentServer.Text = $"You are connected to {current.ServerName}";
+        if (current.IsFeatured)
+          lblCurrentServer.Text = $"You are connected to ⭐{current.ServerName}⭐";
+        else
+          lblCurrentServer.Text = $"You are connected to {current.ServerName}";
       }
     }
 
