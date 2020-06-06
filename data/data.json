@@ -99,6 +99,15 @@
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/enjuu.png?raw=true",
       "certificate_thumbprint": "79889565CA264254A678D6836BB8DDBCB1F54661",
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/enjuu.cer"
+    },
+    {
+      "name": "Kawata",
+      "featured": false,
+      "ip": "88.198.32.214",
+      "website_url": "https://kawata.pw/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kawata.png?raw=true",
+      "certificate_thumbprint": "2B2172601AB162E0ACF7EB829BE29C9FD7907E91",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/kawata.cer"
     }
   ]
 }
