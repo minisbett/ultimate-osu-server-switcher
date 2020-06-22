@@ -47,15 +47,6 @@
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/akatsuki.cer"
     },
     {
-      "name": "osu.ppy.sb",
-      "featured": false,
-      "ip": "47.89.44.19",
-      "website_url": "https://osu.ppy.sb/",
-      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ppysb.png?raw=true",
-      "certificate_thumbprint": "8630E2B72FD660EA3684FCDAC3F0752096CD3ECE",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ppysb.cer"
-    },
-    {
       "name": "osu!Gatari",
       "featured": true,
       "ip": "163.172.255.98",
