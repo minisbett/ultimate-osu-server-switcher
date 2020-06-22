@@ -65,15 +65,6 @@
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/misumi.cer"
     },
     {
-      "name": "osu!MaryJane",
-      "featured": false,
-      "ip": "82.146.57.125",
-      "website_url": "https://osumj.pw",
-      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/maryjane.png?raw=true",
-      "certificate_thumbprint": "4D9B64577E55CC82CC9F35FC55CBC906C81CDAD6",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/maryjane.cer"
-    },
-    {
       "name": "RealistikOsu!",
       "featured": false,
       "ip": "95.179.225.194",
