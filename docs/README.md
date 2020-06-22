@@ -72,7 +72,6 @@ has to agree with. This improves the switching agility to garantue the best user
 > - [Akatsuki](https://akatsuki.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/akatsuki.png?raw=true">
 > - [osu!Gatari](https://gatari.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/gatari.png?raw=true"><sup>⭐</sup>
 > - [Misumi](https://misumi.me/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/misumi.png?raw=true">
-> - [osu!MaryJane](https://osumj.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/maryjane.png?raw=true">
 > - [RealistikOsu!](https://ussr.pl/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/realistikosu.png?raw=true">
 > - [Enjuu](https://enjuu.click/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/enjuu.png?raw=true">
 > - [Kawata](https://kawata.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kawata.png?raw=true">
