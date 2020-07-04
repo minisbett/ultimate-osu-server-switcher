@@ -42,10 +42,14 @@ namespace UltimateOsuServerSwitcher
 
     public bool IsUnidentified => ServerName == null;
 
+    public bool IsLocalhost => ServerName == "localhost" && ServerIP == "127.0.0.1";
+
     public bool IsBancho => ServerName == "osu!bancho";
 
     public static Server UnidentifiedServer => new Server();
 
     public static Server BanchoServer => new Server() { ServerName = "osu!bancho", WebsiteUrl = "https://osu.ppy.sh", IconUrl = "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true" };
+
+    public static Server LocalhostServer => new Server() { ServerName = "localhost", ServerIP = "127.0.0.1" };
   }
 }

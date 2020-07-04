@@ -28,7 +28,8 @@ namespace UltimateOsuServerSwitcher
       WshShell shell = new WshShell();
       IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(path);
       shortcut.Description = $"Switch to {server.ServerName} and start osu!";
-      shortcut.IconLocation = m_iconCacheFolder + $@"\{server.ServerName}.ico";
+      if (server.Icon != null)
+        shortcut.IconLocation = m_iconCacheFolder + $@"\{server.ServerName}.ico";
       shortcut.TargetPath = "cmd";
       shortcut.Arguments = $"/c call \"{Application.ExecutablePath}\" \"{server.ServerName}\"";
       shortcut.Save();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,13 +11,12 @@ namespace UltimateOsuServerSwitcher
 {
   public static class HostsUtil
   {
-
     public static string[] GetHosts()
     {
       return File.ReadAllLines(Environment.SystemDirectory + @"\drivers\etc\hosts");
     }
 
-    public static void SetHosts(string[] hosts)
+    public static void SetHosts(string[] hosts, int retry = 0)
     {
       try
       {
@@ -24,17 +24,32 @@ namespace UltimateOsuServerSwitcher
       }
       catch (Exception ex)
       {
-        DialogResult dr = MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-        if (dr == DialogResult.Retry)
+        if (retry < 3) // Reply twice
         {
-          try
+          SetHosts(hosts, retry++);
+        }
+        else
+        {
+          string error = "";
+
+          if (ex is DirectoryNotFoundException)
           {
-            File.WriteAllLines(Environment.SystemDirectory + @"\drivers\etc\hosts", hosts);
+            error = "The hosts file could not be found. (DirectoryNotFoundException)\r\nPlease visit our discord server so we can provide help to you.";
           }
-          catch
+          else if(ex is IOException)
           {
-            MessageBox.Show("Something went really wrong.\r\n\r\nPlease restart the switcher and try again.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            error = "(Retry 3/3) Cannot open the hosts file. (IOException)\r\nPlease try to deactivate your antivurs.\r\n\r\nIf this doesn't fix your issue, please visit our discord server so we can provide help to you.";
           }
+          else if(ex is UnauthorizedAccessException)
+          {
+            error = "(Retry 3/3) Cannot access the hosts file. (UnauthorizedAccessException)\r\nPlease try to deactivate your antivurs.\r\n\r\nIf this doesn't fix your issue, please visit our discord server so we can provide help to you.";
+          }
+          else
+          {
+            error = "(Retry 3/3) " + ex.Message;
+          }
+
+          MessageBox.Show(error, "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
       }
     }

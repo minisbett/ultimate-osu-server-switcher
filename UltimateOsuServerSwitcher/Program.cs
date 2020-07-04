@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,7 +27,11 @@ namespace UltimateOsuServerSwitcher
       if(instances.Any())
         return;
 
-      if(args.Length == 1)
+      // Fix https://github.com/MinisBett/ultimate-osu-server-switcher/issues/9
+      // (Windows 7 only)
+      ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+      if (args.Length == 1)
       {
         QuickSwitch.Switch(args[0]);
         return;

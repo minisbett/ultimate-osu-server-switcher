@@ -59,6 +59,7 @@ namespace UltimateOsuServerSwitcher
       m_servers.Add(Server.BanchoServer);
       m_servers.AddRange(data.Servers.Where(x => x.IsFeatured));
       m_servers.AddRange(data.Servers.Where(x => !x.IsFeatured));
+      m_servers.Add(Server.LocalhostServer);
 
       lblCurrentServer.Text = "Updating icon cache...";
       Application.DoEvents();
@@ -93,9 +94,10 @@ namespace UltimateOsuServerSwitcher
       // Create .ico files for shortcuts
       foreach (Server server in m_servers)
       {
-        using (FileStream fs = File.OpenWrite(m_iconCacheFolder + $@"\{server.ServerName}.ico"))
-        using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
-          ImagingHelper.ConvertToIcon(ms, fs, 48, true);
+        if (server.Icon != null)
+          using (FileStream fs = File.OpenWrite(m_iconCacheFolder + $@"\{server.ServerName}.ico"))
+          using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
+            ImagingHelper.ConvertToIcon(ms, fs, 48, true);
       }
 
       //Adds all servers to combo box
@@ -176,7 +178,7 @@ namespace UltimateOsuServerSwitcher
         }
 
       // Create .ico files for shortcuts
-      foreach(Server server in m_servers)
+      foreach (Server server in m_servers)
       {
         using (FileStream fs = File.OpenWrite(m_iconCacheFolder + $@"\{server.ServerName}.ico"))
         using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
@@ -220,13 +222,7 @@ namespace UltimateOsuServerSwitcher
       hosts.RemoveAll(x => x.Contains(".ppy.sh"));
       HostsUtil.SetHosts(hosts.ToArray());
 
-      if (selectedServer.IsBancho)
-      {
-        string[] _hosts = HostsUtil.GetHosts();
-        _hosts = _hosts.Where(x => !x.Contains(".ppy.sh")).ToArray();
-        HostsUtil.SetHosts(_hosts);
-      }
-      else
+      if (!selectedServer.IsBancho)
       {
         string[] osu_domains = new string[]
         {
@@ -251,7 +247,8 @@ namespace UltimateOsuServerSwitcher
           hosts.Add(selectedServer.ServerIP + " " + domain);
         HostsUtil.SetHosts(hosts.ToArray());
 
-        CertificateManager.InstallCertificate(selectedServer);
+        if (!selectedServer.IsLocalhost)
+          CertificateManager.InstallCertificate(selectedServer);
       }
 
       if (osuWasRunning)
@@ -297,7 +294,7 @@ namespace UltimateOsuServerSwitcher
 
     private WebClient m_client = new WebClient();
 
-    #pragma warning disable CS1998
+#pragma warning disable CS1998
     private async Task<Image> DownloadImageAsync(string url)
     {
       try
@@ -305,7 +302,11 @@ namespace UltimateOsuServerSwitcher
         using (Stream stream = m_client.OpenRead(url))
           return Image.FromStream(stream);
       }
-      catch { }
+      catch (Exception ex)
+      {
+        MessageBox.Show("An error ocurred.\r\n\r\n" + ex.Message + "\r\n\r\nPlease try again or create an issue on github.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        Environment.Exit(0);
+      }
 
       return null;
     }
@@ -359,8 +360,17 @@ namespace UltimateOsuServerSwitcher
     private void UpdateServerUI()
     {
       Server current = GetCurrentServer();
+
+      lblCreateShortcut.Visible = !current.IsUnidentified;
+
       if (current.IsUnidentified)
         lblCurrentServer.Text = $"You are connected to a yet unknown server!";
+      else if (current.IsLocalhost)
+      {
+        cmbbxServer.SelectedIndex = cmbbxServer.Items.Count - 1;
+        lblCurrentServer.Text = "You are connected to localhost";
+        CmbbxServer_SelectedIndexChanged(cmbbxServer, EventArgs.Empty);
+      }
       else
       {
         cmbbxServer.SelectedIndex = m_servers.IndexOf(m_servers.First(x => x.ServerName == current.ServerName));
