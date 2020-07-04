@@ -47,15 +47,6 @@
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/akatsuki.cer"
     },
     {
-      "name": "osu.ppy.sb",
-      "featured": false,
-      "ip": "47.89.44.19",
-      "website_url": "https://osu.ppy.sb/",
-      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ppysb.png?raw=true",
-      "certificate_thumbprint": "8630E2B72FD660EA3684FCDAC3F0752096CD3ECE",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/ppysb.cer"
-    },
-    {
       "name": "osu!Gatari",
       "featured": true,
       "ip": "163.172.255.98",
@@ -72,15 +63,6 @@
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/misumi.png?raw=true",
       "certificate_thumbprint": "C386F82BC66A296A78B399C9F087D0206218E283",
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/misumi.cer"
-    },
-    {
-      "name": "osu!MaryJane",
-      "featured": false,
-      "ip": "82.146.57.125",
-      "website_url": "https://osumj.pw",
-      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/maryjane.png?raw=true",
-      "certificate_thumbprint": "4D9B64577E55CC82CC9F35FC55CBC906C81CDAD6",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/maryjane.cer"
     },
     {
       "name": "RealistikOsu!",
@@ -108,6 +90,15 @@
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kawata.png?raw=true",
       "certificate_thumbprint": "2B2172601AB162E0ACF7EB829BE29C9FD7907E91",
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/kawata.cer"
+    },
+    {
+      "name": "Datenshi",
+      "featured": false,
+      "ip": "139.99.88.243",
+      "website_url": "https://datenshi.xyz/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/datenshi.png?raw=true",
+      "certificate_thumbprint": "1CC98B7AA832873E6B8B8C40FB24EEDB296AC2E6",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/datenshi.cer"
     }
   ]
 }
