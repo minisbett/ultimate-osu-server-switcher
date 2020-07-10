@@ -42,7 +42,7 @@ To expand the switcher and to gain popularity, partnerships are welcome!
 
 If you and your private server want to help us please DM us on Discord!
 
-> minisbett#0001
+> minisbett#8873
 >
 > Julaaaan#7635
 
