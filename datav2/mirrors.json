@@ -1,8 +1,6 @@
-{
-  "mirrors": [
-    {
-      "url": "https://ez-pp.farm/static/uoss.json",
-      "featured": true
-    }
-  ]
-}
+[
+  {
+    "url": "https://ez-pp.farm/static/uoss.json",
+    "featured": true
+  }
+]
