@@ -10,5 +10,9 @@
   {
     "url": "https://enjuu.click/static/uoss.json",
     "featured": false
+  },
+  {
+    "url": "https://misumi.me/static/uoss.json",
+    "featured": false
   }
 ]
