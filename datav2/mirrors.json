@@ -2,5 +2,9 @@
   {
     "url": "https://ez-pp.farm/static/uoss.json",
     "featured": true
+  },
+  {
+    "url": "https://ussr.pl/static/uoss.json",
+    "featured": false
   }
 ]
