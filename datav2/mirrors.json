@@ -6,5 +6,9 @@
   {
     "url": "https://ussr.pl/static/uoss.json",
     "featured": false
+  },
+  {
+    "url": "https://enjuu.click/static/uoss.json",
+    "featured": false
   }
 ]
