@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,8 +19,7 @@ namespace UltimateOsuServerSwitcher
     [JsonProperty("name")]
     public string ServerName { get; private set; } = null;
 
-    [JsonProperty("featured")]
-    public bool IsFeatured { get; private set; } = false;
+    public bool IsFeatured { get; set; } = false;
 
     [JsonProperty("ip")]
     public string ServerIP { get; private set; } = null;
@@ -27,13 +27,12 @@ namespace UltimateOsuServerSwitcher
     [JsonProperty("certificate_url")]
     public string CertificateUrl { get; private set; } = null;
 
-    public byte[] ServerCertificate => Encoding.UTF8.GetBytes(m_client.DownloadString(CertificateUrl));
+    public byte[] Certificate { get; set; } = null;
 
-    [JsonProperty("certificate_thumbprint")]
-    public string CertificateThumbprint { get; private set; } = null;
+    public string CertificateThumbprint { get; set; } = null;
 
-    [JsonProperty("website_url")]
-    public string WebsiteUrl { get; private set; } = null;
+    [JsonProperty("discord_url")]
+    public string DiscordUrl { get; private set; } = null;
 
     [JsonProperty("icon_url")]
     public string IconUrl { get; private set; } = null;
@@ -46,10 +45,26 @@ namespace UltimateOsuServerSwitcher
 
     public bool IsBancho => ServerName == "osu!bancho";
 
+    public bool HasCertificate => !IsLocalhost && !IsUnidentified && !IsBancho;
+
+    public int Priority
+    {
+      get
+      {
+        if (IsBancho)
+          return 4;
+        else if (IsFeatured)
+          return 3;
+        else if (IsLocalhost)
+          return 1;
+        return 2;
+      }
+    }
+
     public static Server UnidentifiedServer => new Server();
 
-    public static Server BanchoServer => new Server() { ServerName = "osu!bancho", WebsiteUrl = "https://osu.ppy.sh", IconUrl = "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true" };
+    public static Server BanchoServer => new Server() { ServerName = "osu!bancho", DiscordUrl = "", CertificateUrl = "", IconUrl = "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/datav2/osu_256.png" };
 
-    public static Server LocalhostServer => new Server() { ServerName = "localhost", ServerIP = "127.0.0.1" };
-  }
+    public static Server LocalhostServer => new Server() { ServerName = "localhost", ServerIP = "127.0.0.1", IconUrl = "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/datav2/osu_256.png" };
+    }
 }
