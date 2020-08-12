@@ -1,0 +1,22 @@
+[
+  {
+    "url": "https://ez-pp.farm/static/uoss.json",
+    "featured": true
+  },
+  {
+    "url": "https://ussr.pl/static/uoss.json",
+    "featured": false
+  },
+  {
+    "url": "https://enjuu.click/static/uoss.json",
+    "featured": false
+  },
+  {
+    "url": "https://misumi.me/static/uoss.json",
+    "featured": false
+  },
+  {
+    "url": "https://kurikku.pw/static/uoss.json",
+    "featured": true
+  }
+]
