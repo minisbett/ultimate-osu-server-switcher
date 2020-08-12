@@ -133,24 +133,20 @@ namespace UltimateOsuServerSwitcher
           continue;
         }
 
-        // Check if icon is valid and exists
-        if (!File.Exists(m_iconCacheFolder + $@"\{s.ServerName}.png"))
+        // Check if icon is valid
+        try
         {
-          try
-          {
-            Image icon = await DownloadImageAsync(s.IconUrl);
-            if (icon.Width != 256 || icon.Height != 256)
-              continue;
-            icon.Save(m_iconCacheFolder + $@"\{s.ServerName}.png");
-            icon.Dispose();
-          }
-          catch // Image could not be downloaded or loaded
-          {
+          Image icon = await DownloadImageAsync(s.IconUrl);
+          if (icon.Width != 256 || icon.Height != 256)
             continue;
-          }
-        }
+          s.Icon = icon;
 
-        m_servers.Add(s);
+          m_servers.Add(s);
+        }
+        catch // Image could not be downloaded or loaded
+        {
+          continue;
+        }
       }
 
       // Load bancho and localhost
@@ -158,12 +154,7 @@ namespace UltimateOsuServerSwitcher
       {
         Image icon = await DownloadImageAsync(Server.BanchoServer.IconUrl);
         if (icon.Width == 256 && icon.Height == 256)
-        {
-          icon.Save(m_iconCacheFolder + $@"\{Server.BanchoServer.ServerName}.png");
-          icon.Dispose();
-
           m_servers.Add(Server.BanchoServer);
-        }
       }
       catch // Image could not be downloaded or loaded
       {
@@ -174,12 +165,7 @@ namespace UltimateOsuServerSwitcher
       {
         Image icon = await DownloadImageAsync(Server.LocalhostServer.IconUrl);
         if (icon.Width == 256 && icon.Height == 256)
-        {
-          icon.Save(m_iconCacheFolder + $@"\{Server.LocalhostServer.ServerName}.png");
-          icon.Dispose();
-
           m_servers.Add(Server.LocalhostServer);
-        }
       }
       catch // Image could not be downloaded or loaded
       {
@@ -188,21 +174,6 @@ namespace UltimateOsuServerSwitcher
 
       // Sort the servers by priority (first bancho, then featured, then normal, then localhost)
       m_servers = m_servers.OrderByDescending(x => x.Priority).ToList();
-
-
-      // Check if servers which icon is in cache no longer exist
-      foreach (string icon in Directory.GetFiles(m_iconCacheFolder, "*.png", SearchOption.TopDirectoryOnly))
-      {
-        string name = Path.GetFileNameWithoutExtension(icon);
-        if (!m_servers.Any(x => x.ServerName == name))
-          File.Delete(icon);
-      }
-
-      // Load icons from cache
-      foreach (Server server in m_servers)
-        if (File.Exists(m_iconCacheFolder + $@"\{server.ServerName}.png"))
-          using (MemoryStream ms = new MemoryStream(File.ReadAllBytes(m_iconCacheFolder + $@"\{server.ServerName}.png")))
-            server.Icon = Image.FromStream(ms);
 
       // Create .ico files for shortcuts
       foreach (Server server in m_servers)
