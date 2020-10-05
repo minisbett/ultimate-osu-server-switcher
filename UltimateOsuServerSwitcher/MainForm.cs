@@ -379,6 +379,25 @@ namespace UltimateOsuServerSwitcher
           lblCurrentServer.Text = $"You are connected to ⭐{current.ServerName}⭐";
         else
           lblCurrentServer.Text = $"You are connected to {current.ServerName}";
+        if (!current.IsBancho)
+        {
+          using (var client = new WebClient())
+          {
+            try
+            {
+              Stopwatch sw = Stopwatch.StartNew();
+              client.DownloadString("http://" + GetSelectedServer().ServerIP);
+              sw.Stop();
+              serverPingText.Text = "Online - " + sw.Elapsed.Milliseconds + "ms";
+            }
+            catch
+            {
+              serverPingText.Text = "Offline";
+            }
+          }
+        }
+        else
+          serverPingText.Text = "Online";
       }
     }
 
