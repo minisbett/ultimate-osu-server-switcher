@@ -92,15 +92,6 @@
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/kawata.cer"
     },
     {
-      "name": "Datenshi",
-      "featured": false,
-      "ip": "139.99.88.243",
-      "website_url": "https://datenshi.xyz/",
-      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/datenshi.png?raw=true",
-      "certificate_thumbprint": "1CC98B7AA832873E6B8B8C40FB24EEDB296AC2E6",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/datenshi.cer"
-    },
-    {
       "name": "Astellia",
       "featured": false,
       "ip": "3.134.83.9",
