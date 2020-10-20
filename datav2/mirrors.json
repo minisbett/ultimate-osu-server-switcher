@@ -12,10 +12,6 @@
     "featured": false
   },
   {
-    "url": "https://misumi.me/static/uoss.json",
-    "featured": false
-  },
-  {
     "url": "https://kurikku.pw/static/uoss.json",
     "featured": true
   },
