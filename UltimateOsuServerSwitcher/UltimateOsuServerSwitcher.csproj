@@ -90,7 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CertificateManager.cs" />
-    <Compile Include="Data.cs" />
     <Compile Include="HostsUtil.cs" />
     <Compile Include="ImagingHelper.cs" />
     <Compile Include="MainForm.cs">
@@ -99,10 +98,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mirror.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuickSwitch.cs" />
     <Compile Include="Server.cs" />
+    <Compile Include="TelemetryService.cs" />
     <Compile Include="VersionChecker.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

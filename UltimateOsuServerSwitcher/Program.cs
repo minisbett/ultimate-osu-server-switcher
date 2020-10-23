@@ -31,12 +31,6 @@ namespace UltimateOsuServerSwitcher
       // (Windows 7 only)
       ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-      if (args.Length == 1)
-      {
-        QuickSwitch.Switch(args[0]);
-        return;
-      }
-
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
       Application.Run(new MainForm());

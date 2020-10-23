@@ -24,7 +24,7 @@ namespace UltimateOsuServerSwitcher
     {
       X509Store x509Store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
       x509Store.Open(OpenFlags.ReadWrite);
-      X509Certificate2 certificate = new X509Certificate2(server.ServerCertificate);
+      X509Certificate2 certificate = new X509Certificate2(server.Certificate);
       x509Store.Add(certificate);
       x509Store.Close();
     }
@@ -33,7 +33,7 @@ namespace UltimateOsuServerSwitcher
     {
       X509Store x509Store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
       x509Store.Open(OpenFlags.ReadWrite);
-      foreach (Server server in servers.Where(x => x.CertificateUrl != null))
+      foreach (Server server in servers.Where(x => x.HasCertificate))
         foreach (X509Certificate2 certificate in x509Store.Certificates.Find(X509FindType.FindByThumbprint, server.CertificateThumbprint, true))
         {
           try
