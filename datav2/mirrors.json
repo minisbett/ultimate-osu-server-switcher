@@ -12,11 +12,19 @@
     "featured": false
   },
   {
-    "url": "https://misumi.me/static/uoss.json",
+    "url": "https://kurikku.pw/static/uoss.json",
+    "featured": true
+  },
+  {
+    "url": "https://ripple.moe/static/uoss.json",
     "featured": false
   },
   {
-    "url": "https://kurikku.pw/static/uoss.json",
-    "featured": true
+    "url": "https://astellia.club/static/uoss.json",
+    "featured": false
+  },
+  {
+    "url": "https://ainu.pw/static/uoss.json",
+    "featured": false
   }
 ]

@@ -4,7 +4,7 @@
     {
       "name": "Ripple",
       "featured": false,
-      "ip": "51.15.26.118",
+      "ip": "136.243.80.59",
       "website_url": "https://ripple.moe/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ripple.png?raw=true",
       "certificate_thumbprint": "7094FAE830E319B36426422957160769E06CDB9B",
@@ -22,7 +22,7 @@
     {
       "name": "osu!Ainu",
       "featured": false,
-      "ip": "137.116.253.13",
+      "ip": "185.212.149.227",
       "website_url": "https://ainu.pw/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/ainu.png?raw=true",
       "certificate_thumbprint": "69FC31C0FC4B6913CD7161630C6051735B8A844B",
@@ -92,13 +92,13 @@
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/kawata.cer"
     },
     {
-      "name": "Datenshi",
+      "name": "Astellia",
       "featured": false,
-      "ip": "139.99.88.243",
-      "website_url": "https://datenshi.xyz/",
-      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/datenshi.png?raw=true",
-      "certificate_thumbprint": "1CC98B7AA832873E6B8B8C40FB24EEDB296AC2E6",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/datenshi.cer"
+      "ip": "3.134.83.9",
+      "website_url": "https://astellia.club/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/astellia.png?raw=true",
+      "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/astellia.cer"
     }
   ]
 }
