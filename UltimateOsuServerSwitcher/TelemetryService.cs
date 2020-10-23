@@ -71,15 +71,15 @@ namespace UltimateOsuServerSwitcher
       }
       else if (hours > 0)
       {
-        return $"{hours} hour{(days > 1 ? "s" : "")}";
+        return $"{hours} hour{(hours > 1 ? "s" : "")}";
       }
       else if (minutes > 0)
       {
-        return $"{minutes} minute{(days > 1 ? "s" : "")}";
+        return $"{minutes} minute{(minutes > 1 ? "s" : "")}";
       }
       else if (seconds > 0)
       {
-        return $"{seconds} second{(days > 1 ? "s" : "")}";
+        return $"{seconds} second{(seconds > 1 ? "s" : "")}";
       }
 
       return "Undefined";
