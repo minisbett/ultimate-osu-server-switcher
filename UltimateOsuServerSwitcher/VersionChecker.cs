@@ -10,7 +10,7 @@ namespace UltimateOsuServerSwitcher
 {
   public static class VersionChecker
   {
-    public static string CurrentVersion = "2.0";
+    public static string CurrentVersion = "2.0.0";
 
     private static WebClient m_client = new WebClient();
 

@@ -32,9 +32,10 @@
       this.btnSwitcher = new System.Windows.Forms.Button();
       this.btnExit = new System.Windows.Forms.Button();
       this.pnlSwitcher = new System.Windows.Forms.Panel();
+      this.lblInfo = new System.Windows.Forms.Label();
+      this.pctrVerified = new System.Windows.Forms.PictureBox();
       this.pctrCurrentServer = new System.Windows.Forms.PictureBox();
       this.pctrConnecting = new System.Windows.Forms.PictureBox();
-      this.lblInfo = new System.Windows.Forms.Label();
       this.btnLeft = new System.Windows.Forms.PictureBox();
       this.btnRight = new System.Windows.Forms.PictureBox();
       this.pctrCurrentSelectedServer = new System.Windows.Forms.PictureBox();
@@ -43,9 +44,19 @@
       this.pctrLoading = new System.Windows.Forms.PictureBox();
       this.btnSettings = new System.Windows.Forms.Button();
       this.pnlSettings = new System.Windows.Forms.Panel();
+      this.lnklblTelemetryLearnMore = new System.Windows.Forms.LinkLabel();
+      this.chckbxSendTelemetry = new System.Windows.Forms.CheckBox();
       this.btnHelp = new System.Windows.Forms.Button();
       this.pnlHelp = new System.Windows.Forms.Panel();
+      this.label2 = new System.Windows.Forms.Label();
+      this.lblVersion = new System.Windows.Forms.Label();
+      this.pictureBox2 = new System.Windows.Forms.PictureBox();
+      this.pictureBox1 = new System.Windows.Forms.PictureBox();
+      this.label1 = new System.Windows.Forms.Label();
+      this.pctrDiscord = new System.Windows.Forms.PictureBox();
+      this.pctrGithub = new System.Windows.Forms.PictureBox();
       this.pnlSwitcher.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pctrVerified)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrCurrentServer)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrConnecting)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.btnLeft)).BeginInit();
@@ -54,6 +65,12 @@
       ((System.ComponentModel.ISupportInitialize)(this.pctrAlreadyConnected)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.btnConnect)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrLoading)).BeginInit();
+      this.pnlSettings.SuspendLayout();
+      this.pnlHelp.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pctrDiscord)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pctrGithub)).BeginInit();
       this.SuspendLayout();
       // 
       // btnSwitcher
@@ -93,9 +110,10 @@
       // 
       // pnlSwitcher
       // 
+      this.pnlSwitcher.Controls.Add(this.pctrVerified);
+      this.pnlSwitcher.Controls.Add(this.lblInfo);
       this.pnlSwitcher.Controls.Add(this.pctrCurrentServer);
       this.pnlSwitcher.Controls.Add(this.pctrConnecting);
-      this.pnlSwitcher.Controls.Add(this.lblInfo);
       this.pnlSwitcher.Controls.Add(this.btnLeft);
       this.pnlSwitcher.Controls.Add(this.btnRight);
       this.pnlSwitcher.Controls.Add(this.pctrCurrentSelectedServer);
@@ -107,6 +125,27 @@
       this.pnlSwitcher.Size = new System.Drawing.Size(560, 405);
       this.pnlSwitcher.TabIndex = 3;
       this.pnlSwitcher.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
+      // 
+      // lblInfo
+      // 
+      this.lblInfo.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblInfo.ForeColor = System.Drawing.Color.White;
+      this.lblInfo.Location = new System.Drawing.Point(3, 293);
+      this.lblInfo.Name = "lblInfo";
+      this.lblInfo.Size = new System.Drawing.Size(554, 34);
+      this.lblInfo.TabIndex = 6;
+      this.lblInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+      // 
+      // pctrVerified
+      // 
+      this.pctrVerified.Image = ((System.Drawing.Image)(resources.GetObject("pctrVerified.Image")));
+      this.pctrVerified.Location = new System.Drawing.Point(330, 294);
+      this.pctrVerified.Name = "pctrVerified";
+      this.pctrVerified.Size = new System.Drawing.Size(16, 16);
+      this.pctrVerified.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.pctrVerified.TabIndex = 9;
+      this.pctrVerified.TabStop = false;
+      this.pctrVerified.Visible = false;
       // 
       // pctrCurrentServer
       // 
@@ -129,16 +168,6 @@
       this.pctrConnecting.TabStop = false;
       this.pctrConnecting.Visible = false;
       // 
-      // lblInfo
-      // 
-      this.lblInfo.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lblInfo.ForeColor = System.Drawing.Color.White;
-      this.lblInfo.Location = new System.Drawing.Point(3, 287);
-      this.lblInfo.Name = "lblInfo";
-      this.lblInfo.Size = new System.Drawing.Size(554, 34);
-      this.lblInfo.TabIndex = 6;
-      this.lblInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-      // 
       // btnLeft
       // 
       this.btnLeft.Image = ((System.Drawing.Image)(resources.GetObject("btnLeft.Image")));
@@ -150,6 +179,7 @@
       this.btnLeft.TabStop = false;
       this.btnLeft.Visible = false;
       this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
+      this.btnLeft.DoubleClick += new System.EventHandler(this.btnLeft_Click);
       // 
       // btnRight
       // 
@@ -162,6 +192,7 @@
       this.btnRight.TabStop = false;
       this.btnRight.Visible = false;
       this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
+      this.btnRight.DoubleClick += new System.EventHandler(this.btnRight_Click);
       // 
       // pctrCurrentSelectedServer
       // 
@@ -228,12 +259,41 @@
       // 
       // pnlSettings
       // 
+      this.pnlSettings.Controls.Add(this.lnklblTelemetryLearnMore);
+      this.pnlSettings.Controls.Add(this.chckbxSendTelemetry);
       this.pnlSettings.Location = new System.Drawing.Point(12, 52);
       this.pnlSettings.Name = "pnlSettings";
       this.pnlSettings.Size = new System.Drawing.Size(560, 405);
       this.pnlSettings.TabIndex = 8;
       this.pnlSettings.Visible = false;
       this.pnlSettings.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
+      // 
+      // lnklblTelemetryLearnMore
+      // 
+      this.lnklblTelemetryLearnMore.AutoSize = true;
+      this.lnklblTelemetryLearnMore.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lnklblTelemetryLearnMore.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+      this.lnklblTelemetryLearnMore.Location = new System.Drawing.Point(437, 375);
+      this.lnklblTelemetryLearnMore.Name = "lnklblTelemetryLearnMore";
+      this.lnklblTelemetryLearnMore.Size = new System.Drawing.Size(90, 21);
+      this.lnklblTelemetryLearnMore.TabIndex = 1;
+      this.lnklblTelemetryLearnMore.TabStop = true;
+      this.lnklblTelemetryLearnMore.Text = "Learn more";
+      this.lnklblTelemetryLearnMore.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblTelemetryLearnMore_LinkClicked);
+      // 
+      // chckbxSendTelemetry
+      // 
+      this.chckbxSendTelemetry.AutoSize = true;
+      this.chckbxSendTelemetry.Checked = true;
+      this.chckbxSendTelemetry.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxSendTelemetry.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.chckbxSendTelemetry.ForeColor = System.Drawing.Color.White;
+      this.chckbxSendTelemetry.Location = new System.Drawing.Point(8, 374);
+      this.chckbxSendTelemetry.Name = "chckbxSendTelemetry";
+      this.chckbxSendTelemetry.Size = new System.Drawing.Size(435, 25);
+      this.chckbxSendTelemetry.TabIndex = 0;
+      this.chckbxSendTelemetry.Text = "Send anonymous telemetry data for better user experience";
+      this.chckbxSendTelemetry.UseVisualStyleBackColor = true;
       // 
       // btnHelp
       // 
@@ -255,10 +315,93 @@
       // 
       // pnlHelp
       // 
+      this.pnlHelp.Controls.Add(this.label2);
+      this.pnlHelp.Controls.Add(this.lblVersion);
+      this.pnlHelp.Controls.Add(this.pictureBox2);
+      this.pnlHelp.Controls.Add(this.pictureBox1);
+      this.pnlHelp.Controls.Add(this.label1);
+      this.pnlHelp.Controls.Add(this.pctrDiscord);
+      this.pnlHelp.Controls.Add(this.pctrGithub);
       this.pnlHelp.Location = new System.Drawing.Point(12, 52);
       this.pnlHelp.Name = "pnlHelp";
       this.pnlHelp.Size = new System.Drawing.Size(560, 405);
       this.pnlHelp.TabIndex = 8;
+      this.pnlHelp.Visible = false;
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label2.ForeColor = System.Drawing.Color.Gray;
+      this.label2.Location = new System.Drawing.Point(5, 365);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(177, 15);
+      this.label2.TabIndex = 6;
+      this.label2.Text = "Copyright (c) Niklas Fehde, 2020";
+      // 
+      // lblVersion
+      // 
+      this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblVersion.ForeColor = System.Drawing.Color.Gray;
+      this.lblVersion.Location = new System.Drawing.Point(423, 3);
+      this.lblVersion.Name = "lblVersion";
+      this.lblVersion.Size = new System.Drawing.Size(134, 21);
+      this.lblVersion.TabIndex = 5;
+      this.lblVersion.Text = "Version X.X.X";
+      this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // pictureBox2
+      // 
+      this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+      this.pictureBox2.Location = new System.Drawing.Point(247, 54);
+      this.pictureBox2.Name = "pictureBox2";
+      this.pictureBox2.Size = new System.Drawing.Size(292, 49);
+      this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.pictureBox2.TabIndex = 4;
+      this.pictureBox2.TabStop = false;
+      // 
+      // pictureBox1
+      // 
+      this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+      this.pictureBox1.Location = new System.Drawing.Point(22, 3);
+      this.pictureBox1.Name = "pictureBox1";
+      this.pictureBox1.Size = new System.Drawing.Size(301, 59);
+      this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.pictureBox1.TabIndex = 3;
+      this.pictureBox1.TabStop = false;
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label1.ForeColor = System.Drawing.Color.White;
+      this.label1.Location = new System.Drawing.Point(5, 384);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(391, 15);
+      this.label1.TabIndex = 2;
+      this.label1.Text = "Ultimate Osu Server Switcher is not affiliated in any way with ppy. Pty Ltd";
+      // 
+      // pctrDiscord
+      // 
+      this.pctrDiscord.Image = ((System.Drawing.Image)(resources.GetObject("pctrDiscord.Image")));
+      this.pctrDiscord.Location = new System.Drawing.Point(423, 338);
+      this.pctrDiscord.Name = "pctrDiscord";
+      this.pctrDiscord.Size = new System.Drawing.Size(64, 64);
+      this.pctrDiscord.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.pctrDiscord.TabIndex = 1;
+      this.pctrDiscord.TabStop = false;
+      this.pctrDiscord.Click += new System.EventHandler(this.pctrDiscord_Click);
+      // 
+      // pctrGithub
+      // 
+      this.pctrGithub.Image = ((System.Drawing.Image)(resources.GetObject("pctrGithub.Image")));
+      this.pctrGithub.Location = new System.Drawing.Point(493, 338);
+      this.pctrGithub.Name = "pctrGithub";
+      this.pctrGithub.Size = new System.Drawing.Size(64, 64);
+      this.pctrGithub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.pctrGithub.TabIndex = 0;
+      this.pctrGithub.TabStop = false;
+      this.pctrGithub.Click += new System.EventHandler(this.pctrGithub_Click);
       // 
       // MainForm
       // 
@@ -268,11 +411,11 @@
       this.ClientSize = new System.Drawing.Size(584, 469);
       this.Controls.Add(this.btnHelp);
       this.Controls.Add(this.btnSettings);
-      this.Controls.Add(this.pnlSwitcher);
       this.Controls.Add(this.btnExit);
       this.Controls.Add(this.btnSwitcher);
-      this.Controls.Add(this.pnlSettings);
       this.Controls.Add(this.pnlHelp);
+      this.Controls.Add(this.pnlSwitcher);
+      this.Controls.Add(this.pnlSettings);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
@@ -285,6 +428,7 @@
       this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
       this.pnlSwitcher.ResumeLayout(false);
       this.pnlSwitcher.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pctrVerified)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrCurrentServer)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrConnecting)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.btnLeft)).EndInit();
@@ -293,6 +437,14 @@
       ((System.ComponentModel.ISupportInitialize)(this.pctrAlreadyConnected)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.btnConnect)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrLoading)).EndInit();
+      this.pnlSettings.ResumeLayout(false);
+      this.pnlSettings.PerformLayout();
+      this.pnlHelp.ResumeLayout(false);
+      this.pnlHelp.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pctrDiscord)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pctrGithub)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -314,6 +466,16 @@
     private System.Windows.Forms.Button btnHelp;
     private System.Windows.Forms.Panel pnlHelp;
     private System.Windows.Forms.PictureBox pctrCurrentServer;
+    private System.Windows.Forms.PictureBox pctrGithub;
+    private System.Windows.Forms.PictureBox pctrDiscord;
+    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.PictureBox pictureBox2;
+    private System.Windows.Forms.PictureBox pictureBox1;
+    private System.Windows.Forms.Label lblVersion;
+    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.PictureBox pctrVerified;
+    private System.Windows.Forms.CheckBox chckbxSendTelemetry;
+    private System.Windows.Forms.LinkLabel lnklblTelemetryLearnMore;
   }
 }
 

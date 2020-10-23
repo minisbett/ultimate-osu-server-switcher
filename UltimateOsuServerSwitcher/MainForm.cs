@@ -25,6 +25,7 @@ namespace UltimateOsuServerSwitcher
   public partial class MainForm : Form
   {
     #region Dll Imports
+    // Import DLL files to make a borderless window moveable
     [System.Runtime.InteropServices.DllImport("user32.dll")]
     public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
     [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -32,15 +33,19 @@ namespace UltimateOsuServerSwitcher
     #endregion
 
     #region Variable declaration
+
     // List with all servers fetched from the online data.
     private List<Server> m_servers = new List<Server>();
 
+    // The server that is currently selected (not the one the user is connected to)
     private Server m_currentSelectedServer = null;
 
+    // The index of the server above
     private int m_currentSelectedServerIndex => m_servers.IndexOf(m_currentSelectedServer);
 
     // Path to the icon cache
     string m_iconCacheFolder = Environment.GetEnvironmentVariable("localappdata") + @"\UltimateOsuServerSwitcher\IconCache";
+   
     #endregion
 
     #region Winforms
@@ -51,40 +56,49 @@ namespace UltimateOsuServerSwitcher
     {
       InitializeComponent();
 
+      // Check if the icon cache folder exists
       if (!Directory.Exists(m_iconCacheFolder))
         Directory.CreateDirectory(m_iconCacheFolder);
+
+      // Set the version label
+      lblVersion.Text = "Version: " + VersionChecker.CurrentVersion;
     }
 
     private async void MainForm_Load(object sender, EventArgs e)
     {
+      // Hide the connect button, show the loading button to make the user clear that the servers are being fetched
       btnConnect.Visible = false;
       pctrLoading.Visible = true;
       Application.DoEvents();
 
       await Task.Delay(1);
 
-
+      // Check the state of the current version
       VersionState vs = await VersionChecker.GetCurrentState();
       if (vs == VersionState.BLACKLISTED)
       {
+        // If the current version is blacklisted, prevent the user from using it.
         MessageBox.Show($"Your current version ({VersionChecker.CurrentVersion}) is blacklisted.\r\n\r\nThis can happen when the version contains security flaws or other things that could interrupt a good user experience.\r\n\r\nPlease download the newest version of the switcher from its website. (github.com/minisbett/ultimate-osu-server-switcher/releases).", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
         Environment.Exit(0);
         return;
       }
       else if (vs == VersionState.MAINTENANCE)
       {
+        // If the switcher is in maintenance, also prevent the user from using it.
         MessageBox.Show("The switcher is currently hold in maintenance mode which means that the switcher is currently not available.\r\n\r\nJoin our discord server for more informations.\r\nThe discord server and be found on our github page.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
         Environment.Exit(0);
         return;
       }
       else if (vs == VersionState.OUTDATED)
       {
+        // Show the user a message that a new version is available if the current switcher is outdated.
         MessageBox.Show($"Your switcher version ({VersionChecker.CurrentVersion}) is outdated.\r\nA newer version ({await VersionChecker.GetNewestVersion()}) is available.\r\n\r\nYou can download it from our github page.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
       }
 
 
       lblInfo.Text = "Fetching mirrors...";
       Application.DoEvents();
+
       // Load online data and verify servers
       List<Mirror> mirrors = await FetchMirrorsAsync();
       foreach (Mirror m in mirrors)
@@ -125,6 +139,7 @@ namespace UltimateOsuServerSwitcher
 
         try
         {
+          // Try to parse the certificate from the given url
           s.Certificate = Encoding.UTF8.GetBytes(await DownloadAsync(s.CertificateUrl));
           s.CertificateThumbprint = new X509Certificate2(s.Certificate).Thumbprint;
         }
@@ -136,6 +151,7 @@ namespace UltimateOsuServerSwitcher
         // Check if icon is valid
         try
         {
+          // Download the icon and check if its 256x256
           Image icon = await DownloadImageAsync(s.IconUrl);
           if (icon.Width != 256 || icon.Height != 256)
             continue;
@@ -152,9 +168,14 @@ namespace UltimateOsuServerSwitcher
       // Load bancho and localhost
       try
       {
+        // Download the icon and check if its 256x256
         Image icon = await DownloadImageAsync(Server.BanchoServer.IconUrl);
         if (icon.Width == 256 && icon.Height == 256)
-          m_servers.Add(Server.BanchoServer);
+        {
+          Server s = Server.BanchoServer;
+          s.Icon = icon;
+          m_servers.Add(s);
+        }
       }
       catch // Image could not be downloaded or loaded
       {
@@ -163,9 +184,14 @@ namespace UltimateOsuServerSwitcher
 
       try
       {
+        // Download the icon and check if its 256x256
         Image icon = await DownloadImageAsync(Server.LocalhostServer.IconUrl);
         if (icon.Width == 256 && icon.Height == 256)
-          m_servers.Add(Server.LocalhostServer);
+        {
+          Server s = Server.LocalhostServer;
+          s.Icon = icon;
+          m_servers.Add(s);
+        }
       }
       catch // Image could not be downloaded or loaded
       {
@@ -197,20 +223,30 @@ namespace UltimateOsuServerSwitcher
 
     private void pctrServerIcon_Click(object sender, EventArgs e)
     {
+      // If the server has a discord, open the link
       if (!string.IsNullOrEmpty(m_currentSelectedServer.DiscordUrl))
         Process.Start(m_currentSelectedServer.DiscordUrl);
     }
 
     private async void BtnConnect_Click(object sender, EventArgs e)
     {
+      // Log the current server (before switching) for telemetry
+      Server from = GetCurrentServer();
+
+      // Show the connecting button and hide the connect button
       btnConnect.Visible = false;
       pctrConnecting.Visible = true;
       Application.DoEvents();
+
+      // Get rid of all uneccessary certificates
       CertificateManager.UninstallAllCertificates(m_servers);
+
+      // Clean up the hosts file
       List<string> hosts = HostsUtil.GetHosts().ToList();
       hosts.RemoveAll(x => x.Contains(".ppy.sh"));
       HostsUtil.SetHosts(hosts.ToArray());
 
+      // Edit the hosts file if the server is not bancho
       if (!m_currentSelectedServer.IsBancho)
       {
 
@@ -229,19 +265,41 @@ namespace UltimateOsuServerSwitcher
           "i.ppy.sh"
         };
 
+        // Change the hosts file
         hosts = HostsUtil.GetHosts().ToList();
         foreach (string domain in osu_domains)
           hosts.Add(m_currentSelectedServer.ServerIP + " " + domain);
         HostsUtil.SetHosts(hosts.ToArray());
 
-        if (!m_currentSelectedServer.IsLocalhost)
+        // Install the certificate if needed
+        if (m_currentSelectedServer.HasCertificate)
           CertificateManager.InstallCertificate(m_currentSelectedServer);
+      }
 
-        bool available = await CheckServerAvailability();
-        if (!available)
+      // Check if the server is available
+      bool available = await CheckServerAvailability();
+      if (!available)
+      {
+        MessageBox.Show("The connection test failed. Please restart the switcher and try again.\r\n\r\nIf it's still not working the server either didn't update their mirror yet or their server is currently not running (for example due to maintenance).", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+      }
+
+      if (chckbxSendTelemetry.Checked)
+      {
+        // Get the span between this and the last switching in unix milliseconds
+        int span = -1;
+        long currentUnixTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        // If the unix time in the telemetry cache somehow cannot be converted
+        // For example if the file was edited or the timestamp not set in the first place
+        // Send an undefined timespan (-1)
+        if(long.TryParse(TelemetryService.GetTelemetryCache(), out long lastUnixTime))
         {
-          MessageBox.Show("The connection test failed. Please restart the switcher and try again.\r\n\r\nIf it's still not working the server either didn't update their mirror yet or their server is currently not running (for example due to maintenance).", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+          span = (int)(currentUnixTime - lastUnixTime);
         }
+
+        // Set the timestamp in the file to the current one for the next switching
+        TelemetryService.SetTelemetryCache(currentUnixTime.ToString());
+
+        TelemetryService.SendTelemetry(from.ServerName ?? "Unknown", GetCurrentServer().ServerName, span, available);
       }
 
       pctrConnecting.Visible = false;
@@ -249,21 +307,37 @@ namespace UltimateOsuServerSwitcher
       UpdateUI();
     }
 
-    private void btnExit_Click(object sender, EventArgs e)
-    {
-      Application.Exit();
-    }
-
     private void btnLeft_Click(object sender, EventArgs e)
     {
+      // Move the selection 1 to the left
       m_currentSelectedServer = m_servers[m_currentSelectedServerIndex - 1];
       UpdateUI();
     }
 
     private void btnRight_Click(object sender, EventArgs e)
     {
+      // Move the selection 1 to the right
       m_currentSelectedServer = m_servers[m_currentSelectedServerIndex + 1];
       UpdateUI();
+    }
+    private void lnklblTelemetryLearnMore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      MessageBox.Show("We would appreciate to log some data to improve the user experience for everyone.\r\n\r\nThe following data will be transmitted to our server:\r\n\r\n- Server you are coming from and switching to\r\n- The time span between switching the server\r\n- Connectivity status of servers\r\n\r\n\r\nNote: No informations that would identify you will be transmitted. All informations are completely anonymous.\r\n\r\nYou can stop sending telemtry data by disabling that option at any time.", "UOSS Telemetry Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    private void btnExit_Click(object sender, EventArgs e)
+    {
+      Application.Exit();
+    }
+
+    private void pctrGithub_Click(object sender, EventArgs e)
+    {
+      Process.Start("https://github.com/minisbett/ultimate-osu-server-switcher");
+    }
+
+    private void pctrDiscord_Click(object sender, EventArgs e)
+    {
+      Process.Start("https://minisbett.github.io/ultimate-osu-server-switcher/discord.html");
     }
 
     #region Tab pages
@@ -320,6 +394,7 @@ namespace UltimateOsuServerSwitcher
 
     private void BorderlessDragMouseDown(object sender, MouseEventArgs e)
     {
+      // Make borderless window moveable
       if (e.Button == MouseButtons.Left)
       {
         ReleaseCapture();
@@ -390,11 +465,15 @@ namespace UltimateOsuServerSwitcher
 
     private void UpdateUI()
     {
+      // Show the image of the selected server if the server was identified
       if (!m_currentSelectedServer.IsUnidentified)
         pctrCurrentSelectedServer.Image = m_currentSelectedServer.Icon;
+
+      // Show/Hide the connect/already connected button depending on if you are currently connected to the selected server
       Server s = GetCurrentServer();
       btnConnect.Visible = m_currentSelectedServer != s;
       pctrAlreadyConnected.Visible = m_currentSelectedServer == s;
+      // Show the image of the connected server if the server was identified
       if (!s.IsUnidentified)
         pctrCurrentServer.Image = s.Icon;
 
@@ -403,6 +482,10 @@ namespace UltimateOsuServerSwitcher
 
       lblInfo.Text = m_currentSelectedServer.ServerName;
       lblInfo.ForeColor = m_currentSelectedServer.IsFeatured ? Color.Orange : Color.White;
+      pctrVerified.Visible = m_currentSelectedServer.IsFeatured;
+
+      Graphics g = CreateGraphics();
+      pctrVerified.Location = new Point(pnlSwitcher.Width / 2 + (int)g.MeasureString(m_currentSelectedServer.ServerName, lblInfo.Font).Width / 2, pctrVerified.Location.Y);
     }
 
     #endregion
