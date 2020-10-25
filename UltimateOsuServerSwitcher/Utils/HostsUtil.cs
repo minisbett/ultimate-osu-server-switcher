@@ -11,25 +11,38 @@ namespace UltimateOsuServerSwitcher
 {
   public static class HostsUtil
   {
+    /// <summary>
+    /// Reads all lines of the hosts file and returns them in a string array
+    /// </summary>
+    /// <returns>The lines of the hosts file</returns>
     public static string[] GetHosts()
     {
       return File.ReadAllLines(Environment.SystemDirectory + @"\drivers\etc\hosts");
     }
 
+    /// <summary>
+    /// Overwrites all lines of the hosts file.
+    /// Will retry 2 times if failed
+    /// </summary>
+    /// <param name="hosts">The lines that will be written in the hosts file</param>
+    /// <param name="retry">(Internal use only) the amount of retries that are already done</param>
     public static void SetHosts(string[] hosts, int retry = 0)
     {
+      // Try to change the hosts file (cannot be successful due to anti virus, file lock, ...)
       try
       {
         File.WriteAllLines(Environment.SystemDirectory + @"\drivers\etc\hosts", hosts);
       }
       catch (Exception ex)
       {
-        if (retry < 3) // Reply twice
+        // Retry it 2 more times
+        if (retry < 3)
         {
           SetHosts(hosts, retry++);
         }
         else
         {
+          // Show the corresponding error message
           string error = "";
 
           if (ex is DirectoryNotFoundException)

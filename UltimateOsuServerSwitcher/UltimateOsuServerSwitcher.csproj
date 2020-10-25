@@ -63,16 +63,6 @@
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="MetroFramework, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroFramework.RunTime.1.2.0.3\lib\net40-Client\MetroFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroFramework.Design, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroFramework.Design.1.2.0.3\lib\net40\MetroFramework.Design.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MetroFramework.Fonts, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroFramework.Fonts.1.2.0.3\lib\net40\MetroFramework.Fonts.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -89,21 +79,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CertificateManager.cs" />
-    <Compile Include="HostsUtil.cs" />
-    <Compile Include="ImagingHelper.cs" />
+    <Compile Include="Controls\BetterCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Configuration\Paths.cs" />
+    <Compile Include="Infrastructure\Configuration\Urls.cs" />
+    <Compile Include="Infrastructure\Configuration\Variables.cs" />
+    <Compile Include="Infrastructure\Switcher.cs" />
+    <Compile Include="Infrastructure\Settings.cs" />
+    <Compile Include="Utils\CertificateManager.cs" />
+    <Compile Include="Utils\HostsUtil.cs" />
+    <Compile Include="Utils\ImagingHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mirror.cs" />
+    <Compile Include="Model\Mirror.cs" />
+    <Compile Include="Infrastructure\NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Server.cs" />
-    <Compile Include="TelemetryService.cs" />
-    <Compile Include="VersionChecker.cs" />
+    <Compile Include="Model\Server.cs" />
+    <Compile Include="Infrastructure\TelemetryService.cs" />
+    <Compile Include="Infrastructure\VersionChecker.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
-    <Content Include="MetroFramework.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
