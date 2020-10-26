@@ -10,10 +10,6 @@ namespace UltimateOsuServerSwitcher
 {
   public static class TelemetryService
   {
-
-    // The telemetry cache file
-    private static string telemetryCacheFile = Environment.GetEnvironmentVariable("localappdata") + @"\UltimateOsuServerSwitcher\telemetry_cache.txt";
-
     /// <summary>
     /// Send telemetry to the server
     /// </summary>
@@ -34,9 +30,9 @@ namespace UltimateOsuServerSwitcher
     /// <returns>The telemetry cache</returns>
     public static string GetTelemetryCache()
     {
-      if (!File.Exists(telemetryCacheFile))
+      if (!File.Exists(Paths.TelemetryCacheFile))
         return "";
-      return File.ReadAllText(telemetryCacheFile);
+      return File.ReadAllText(Paths.TelemetryCacheFile);
     }
 
     /// <summary>
@@ -45,7 +41,7 @@ namespace UltimateOsuServerSwitcher
     /// <param name="cache">The telemetry cache</param>
     public static void SetTelemetryCache(string cache)
     {
-      File.WriteAllText(telemetryCacheFile, cache);
+      File.WriteAllText(Paths.TelemetryCacheFile, cache);
     }
 
     // Converts a millisecond integer into a readable string e.g.

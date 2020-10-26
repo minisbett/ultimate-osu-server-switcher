@@ -22,17 +22,5 @@ namespace UltimateOsuServerSwitcher.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool darkMode {
-            get {
-                return ((bool)(this["darkMode"]));
-            }
-            set {
-                this["darkMode"] = value;
-            }
-        }
     }
 }
