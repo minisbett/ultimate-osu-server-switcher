@@ -558,5 +558,22 @@ namespace UltimateOsuServerSwitcher
 
     #endregion
 
+    async private void checkRedirectButton_Click(object sender, EventArgs e)
+    {
+      redirectUrlLabel.Text = "Sending request...";
+      var proc = new Process
+      {
+        StartInfo = new ProcessStartInfo
+        {
+          FileName = "powershell.exe",
+          Arguments = $"([System.Net.WebRequest]::Create('https://osu.ppy.sh/').GetResponse()).ResponseUri.OriginalString",
+          UseShellExecute = false,
+          RedirectStandardOutput = true,
+          CreateNoWindow = true
+        }
+      };
+      proc.Start();
+      redirectUrlLabel.Text = "https://osu.ppy.sh/ redirects to " + await proc.StandardOutput.ReadToEndAsync();
+    }
   }
 }
