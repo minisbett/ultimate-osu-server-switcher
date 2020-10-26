@@ -20,14 +20,6 @@ namespace UltimateOsuServerSwitcher
 {
   public partial class MainForm : Form
   {
-    #region Dll Imports
-    // Import DLL files to make a borderless window moveable
-    [System.Runtime.InteropServices.DllImport("user32.dll")]
-    public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-    [System.Runtime.InteropServices.DllImport("user32.dll")]
-    public static extern bool ReleaseCapture();
-    #endregion
-
     #region Variable declaration
 
     // The server that is currently selected (not the one the user is connected to)
@@ -474,8 +466,8 @@ namespace UltimateOsuServerSwitcher
       // Make borderless window moveable
       if (e.Button == MouseButtons.Left)
       {
-        ReleaseCapture();
-        SendMessage(Handle, 0xA1, 0x2, 0);
+        WinApi.ReleaseCapture();
+        WinApi.SendMessage(Handle, 0xA1, 0x2, 0);
       }
     }
 

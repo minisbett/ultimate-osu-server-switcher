@@ -14,10 +14,6 @@ namespace UltimateOsuServerSwitcher
 {
   static class Program
   {
-    // Dll import to send a message to the current running instance if a second is started
-    [System.Runtime.InteropServices.DllImport("user32.dll")]
-    public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
     /// <summary>
     /// Der Haupteinstiegspunkt für die Anwendung.
     /// </summary>
@@ -54,7 +50,7 @@ namespace UltimateOsuServerSwitcher
       {
         // If the mutex is owned by another process (a switcher instance is already running)
         // sent the WM_WAKEUP message to all processes to put the current instance in the foreground
-        NativeMethods.PostMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_WAKEUP, IntPtr.Zero, IntPtr.Zero);
+        WinApi.SendMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_WAKEUP, 0, 0);
       }
     }
   }

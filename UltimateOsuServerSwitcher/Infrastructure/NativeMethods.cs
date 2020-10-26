@@ -18,20 +18,6 @@ namespace UltimateOsuServerSwitcher
     /// <summary>
     /// Message to "wake up" the running switcher instance
     /// </summary>
-    public static readonly int WM_WAKEUP = RegisterWindowMessage("WM_WAKEUP");
-
-    /// <summary>
-    /// Send a message to another process
-    /// </summary>
-    /// <returns></returns>
-    [DllImport("user32")]
-    public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
-
-    /// <summary>
-    /// Get a message id by registering it using win api calls
-    /// </summary>
-    /// <returns></returns>
-    [DllImport("user32")]
-    public static extern int RegisterWindowMessage(string message);
+    public static readonly int WM_WAKEUP = WinApi.RegisterWindowMessage("WM_WAKEUP");
   }
 }
