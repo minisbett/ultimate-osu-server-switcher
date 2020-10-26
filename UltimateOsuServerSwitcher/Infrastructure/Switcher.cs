@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IWshRuntimeLibrary;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace UltimateOsuServerSwitcher
 {
@@ -58,6 +60,25 @@ namespace UltimateOsuServerSwitcher
         SendTelemetry(from, server);
       }
     }
+
+    #region QuickSwitch
+    /// <summary>
+    /// Creates a QuickSwitch shortcut at the given location for the given server
+    /// </summary>
+    /// <param name="file">The path to the .lnk file</param>
+    /// <param name="server">The server the shortcuts lets you switch to</param>
+    public static void CreateShortcut(string file, Server server)
+    {
+      WshShell shell = new WshShell();
+      IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(file);
+      shortcut.Description = $"Switch to {server.ServerName}";
+      if (server.Icon != null)
+        shortcut.IconLocation = Paths.IconCacheFolder + $@"\{server.UID}.ico";
+      shortcut.TargetPath = "cmd";
+      shortcut.Arguments = $"/c call \"{Application.ExecutablePath}\" \"{server.UID}\"";
+      shortcut.Save();
+    }
+    #endregion
 
     /// <summary>
     /// Returns the server the user is currently connected to

@@ -47,8 +47,13 @@
       this.pnlSettings = new System.Windows.Forms.Panel();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.lnklblWhyMinimize = new System.Windows.Forms.LinkLabel();
+      this.chckbxMinimize = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
+      this.chckbxOpenAfterQuickSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.chckbxReopenAfterSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.chckbxCloseBeforeSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.chckbxSendTelemetry = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.lnklblTelemetryLearnMore = new System.Windows.Forms.LinkLabel();
       this.btnHelp = new System.Windows.Forms.Button();
       this.pnlHelp = new System.Windows.Forms.Panel();
@@ -64,11 +69,6 @@
       this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.chckbxMinimize = new UltimateOsuServerSwitcher.BetterCheckBox();
-      this.chckbxOpenAfterQuickSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
-      this.chckbxReopenAfterSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
-      this.chckbxCloseBeforeSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
-      this.chckbxSendTelemetry = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.pnlSwitcher.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pctrVerified)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrCurrentServer)).BeginInit();
@@ -312,6 +312,21 @@
       this.lnklblWhyMinimize.Text = "Why?";
       this.lnklblWhyMinimize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblWhyMinimize_LinkClicked);
       // 
+      // chckbxMinimize
+      // 
+      this.chckbxMinimize.AutoSize = true;
+      this.chckbxMinimize.Checked = true;
+      this.chckbxMinimize.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxMinimize.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxMinimize.ForeColor = System.Drawing.Color.White;
+      this.chckbxMinimize.Location = new System.Drawing.Point(1, 27);
+      this.chckbxMinimize.Name = "chckbxMinimize";
+      this.chckbxMinimize.Size = new System.Drawing.Size(195, 25);
+      this.chckbxMinimize.TabIndex = 3;
+      this.chckbxMinimize.Text = "Minimize to system tray";
+      this.chckbxMinimize.UseVisualStyleBackColor = true;
+      this.chckbxMinimize.CheckedChanged += new System.EventHandler(this.chckbxMinimize_CheckedChanged);
+      // 
       // groupBox3
       // 
       this.groupBox3.Controls.Add(this.chckbxOpenAfterQuickSwitching);
@@ -326,6 +341,51 @@
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "Switching Behaviour";
       // 
+      // chckbxOpenAfterQuickSwitching
+      // 
+      this.chckbxOpenAfterQuickSwitching.AutoSize = true;
+      this.chckbxOpenAfterQuickSwitching.Checked = true;
+      this.chckbxOpenAfterQuickSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxOpenAfterQuickSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxOpenAfterQuickSwitching.ForeColor = System.Drawing.Color.White;
+      this.chckbxOpenAfterQuickSwitching.Location = new System.Drawing.Point(1, 94);
+      this.chckbxOpenAfterQuickSwitching.Name = "chckbxOpenAfterQuickSwitching";
+      this.chckbxOpenAfterQuickSwitching.Size = new System.Drawing.Size(391, 25);
+      this.chckbxOpenAfterQuickSwitching.TabIndex = 9;
+      this.chckbxOpenAfterQuickSwitching.Text = "Open osu after quick-switching the server (Shortcut)";
+      this.chckbxOpenAfterQuickSwitching.UseVisualStyleBackColor = true;
+      this.chckbxOpenAfterQuickSwitching.CheckedChanged += new System.EventHandler(this.chckbxOpenAfterQuickSwitching_CheckedChanged);
+      // 
+      // chckbxReopenAfterSwitching
+      // 
+      this.chckbxReopenAfterSwitching.AutoSize = true;
+      this.chckbxReopenAfterSwitching.Checked = true;
+      this.chckbxReopenAfterSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxReopenAfterSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxReopenAfterSwitching.ForeColor = System.Drawing.Color.White;
+      this.chckbxReopenAfterSwitching.Location = new System.Drawing.Point(1, 63);
+      this.chckbxReopenAfterSwitching.Name = "chckbxReopenAfterSwitching";
+      this.chckbxReopenAfterSwitching.Size = new System.Drawing.Size(296, 25);
+      this.chckbxReopenAfterSwitching.TabIndex = 7;
+      this.chckbxReopenAfterSwitching.Text = "Re-open osu after switching the server";
+      this.chckbxReopenAfterSwitching.UseVisualStyleBackColor = true;
+      this.chckbxReopenAfterSwitching.CheckedChanged += new System.EventHandler(this.chckbxReopenAfterSwitching_CheckedChanged);
+      // 
+      // chckbxCloseBeforeSwitching
+      // 
+      this.chckbxCloseBeforeSwitching.AutoSize = true;
+      this.chckbxCloseBeforeSwitching.Checked = true;
+      this.chckbxCloseBeforeSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxCloseBeforeSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxCloseBeforeSwitching.ForeColor = System.Drawing.Color.White;
+      this.chckbxCloseBeforeSwitching.Location = new System.Drawing.Point(1, 32);
+      this.chckbxCloseBeforeSwitching.Name = "chckbxCloseBeforeSwitching";
+      this.chckbxCloseBeforeSwitching.Size = new System.Drawing.Size(288, 25);
+      this.chckbxCloseBeforeSwitching.TabIndex = 6;
+      this.chckbxCloseBeforeSwitching.Text = "Close osu before switching the server";
+      this.chckbxCloseBeforeSwitching.UseVisualStyleBackColor = true;
+      this.chckbxCloseBeforeSwitching.CheckedChanged += new System.EventHandler(this.chckbxCloseBeforeSwitching_CheckedChanged);
+      // 
       // groupBox2
       // 
       this.groupBox2.Controls.Add(this.chckbxSendTelemetry);
@@ -338,6 +398,21 @@
       this.groupBox2.TabIndex = 4;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Other";
+      // 
+      // chckbxSendTelemetry
+      // 
+      this.chckbxSendTelemetry.AutoSize = true;
+      this.chckbxSendTelemetry.Checked = true;
+      this.chckbxSendTelemetry.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxSendTelemetry.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxSendTelemetry.ForeColor = System.Drawing.Color.White;
+      this.chckbxSendTelemetry.Location = new System.Drawing.Point(0, 32);
+      this.chckbxSendTelemetry.Name = "chckbxSendTelemetry";
+      this.chckbxSendTelemetry.Size = new System.Drawing.Size(435, 25);
+      this.chckbxSendTelemetry.TabIndex = 2;
+      this.chckbxSendTelemetry.Text = "Send anonymous telemetry data for better user experience";
+      this.chckbxSendTelemetry.UseVisualStyleBackColor = true;
+      this.chckbxSendTelemetry.CheckedChanged += new System.EventHandler(this.chckbxSendTelemetry_CheckedChanged);
       // 
       // lnklblTelemetryLearnMore
       // 
@@ -493,81 +568,6 @@
       this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
       this.exitToolStripMenuItem.Text = "Exit";
       this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-      // 
-      // chckbxMinimize
-      // 
-      this.chckbxMinimize.AutoSize = true;
-      this.chckbxMinimize.Checked = true;
-      this.chckbxMinimize.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chckbxMinimize.Font = new System.Drawing.Font("Segoe UI", 12F);
-      this.chckbxMinimize.ForeColor = System.Drawing.Color.White;
-      this.chckbxMinimize.Location = new System.Drawing.Point(1, 27);
-      this.chckbxMinimize.Name = "chckbxMinimize";
-      this.chckbxMinimize.Size = new System.Drawing.Size(195, 25);
-      this.chckbxMinimize.TabIndex = 3;
-      this.chckbxMinimize.Text = "Minimize to system tray";
-      this.chckbxMinimize.UseVisualStyleBackColor = true;
-      this.chckbxMinimize.CheckedChanged += new System.EventHandler(this.chckbxMinimize_CheckedChanged);
-      // 
-      // chckbxOpenAfterQuickSwitching
-      // 
-      this.chckbxOpenAfterQuickSwitching.AutoSize = true;
-      this.chckbxOpenAfterQuickSwitching.Checked = true;
-      this.chckbxOpenAfterQuickSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chckbxOpenAfterQuickSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
-      this.chckbxOpenAfterQuickSwitching.ForeColor = System.Drawing.Color.White;
-      this.chckbxOpenAfterQuickSwitching.Location = new System.Drawing.Point(1, 94);
-      this.chckbxOpenAfterQuickSwitching.Name = "chckbxOpenAfterQuickSwitching";
-      this.chckbxOpenAfterQuickSwitching.Size = new System.Drawing.Size(391, 25);
-      this.chckbxOpenAfterQuickSwitching.TabIndex = 9;
-      this.chckbxOpenAfterQuickSwitching.Text = "Open osu after quick-switching the server (Shortcut)";
-      this.chckbxOpenAfterQuickSwitching.UseVisualStyleBackColor = true;
-      this.chckbxOpenAfterQuickSwitching.CheckedChanged += new System.EventHandler(this.chckbxOpenAfterQuickSwitching_CheckedChanged);
-      // 
-      // chckbxReopenAfterSwitching
-      // 
-      this.chckbxReopenAfterSwitching.AutoSize = true;
-      this.chckbxReopenAfterSwitching.Checked = true;
-      this.chckbxReopenAfterSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chckbxReopenAfterSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
-      this.chckbxReopenAfterSwitching.ForeColor = System.Drawing.Color.White;
-      this.chckbxReopenAfterSwitching.Location = new System.Drawing.Point(1, 63);
-      this.chckbxReopenAfterSwitching.Name = "chckbxReopenAfterSwitching";
-      this.chckbxReopenAfterSwitching.Size = new System.Drawing.Size(296, 25);
-      this.chckbxReopenAfterSwitching.TabIndex = 7;
-      this.chckbxReopenAfterSwitching.Text = "Re-open osu after switching the server";
-      this.chckbxReopenAfterSwitching.UseVisualStyleBackColor = true;
-      this.chckbxReopenAfterSwitching.CheckedChanged += new System.EventHandler(this.chckbxReopenAfterSwitching_CheckedChanged);
-      // 
-      // chckbxCloseBeforeSwitching
-      // 
-      this.chckbxCloseBeforeSwitching.AutoSize = true;
-      this.chckbxCloseBeforeSwitching.Checked = true;
-      this.chckbxCloseBeforeSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chckbxCloseBeforeSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
-      this.chckbxCloseBeforeSwitching.ForeColor = System.Drawing.Color.White;
-      this.chckbxCloseBeforeSwitching.Location = new System.Drawing.Point(1, 32);
-      this.chckbxCloseBeforeSwitching.Name = "chckbxCloseBeforeSwitching";
-      this.chckbxCloseBeforeSwitching.Size = new System.Drawing.Size(288, 25);
-      this.chckbxCloseBeforeSwitching.TabIndex = 6;
-      this.chckbxCloseBeforeSwitching.Text = "Close osu before switching the server";
-      this.chckbxCloseBeforeSwitching.UseVisualStyleBackColor = true;
-      this.chckbxCloseBeforeSwitching.CheckedChanged += new System.EventHandler(this.chckbxCloseBeforeSwitching_CheckedChanged);
-      // 
-      // chckbxSendTelemetry
-      // 
-      this.chckbxSendTelemetry.AutoSize = true;
-      this.chckbxSendTelemetry.Checked = true;
-      this.chckbxSendTelemetry.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chckbxSendTelemetry.Font = new System.Drawing.Font("Segoe UI", 12F);
-      this.chckbxSendTelemetry.ForeColor = System.Drawing.Color.White;
-      this.chckbxSendTelemetry.Location = new System.Drawing.Point(0, 32);
-      this.chckbxSendTelemetry.Name = "chckbxSendTelemetry";
-      this.chckbxSendTelemetry.Size = new System.Drawing.Size(435, 25);
-      this.chckbxSendTelemetry.TabIndex = 2;
-      this.chckbxSendTelemetry.Text = "Send anonymous telemetry data for better user experience";
-      this.chckbxSendTelemetry.UseVisualStyleBackColor = true;
-      this.chckbxSendTelemetry.CheckedChanged += new System.EventHandler(this.chckbxSendTelemetry_CheckedChanged);
       // 
       // MainForm
       // 

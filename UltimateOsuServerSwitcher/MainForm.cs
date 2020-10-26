@@ -273,7 +273,7 @@ namespace UltimateOsuServerSwitcher
         Process.Start(m_currentSelectedServer.DiscordUrl);
     }
 
-    private async void BtnConnect_Click(object sender, EventArgs e)
+    private void BtnConnect_Click(object sender, EventArgs e)
     {
       // Change the shown button to the "connecting" one
       btnConnect.Visible = false;

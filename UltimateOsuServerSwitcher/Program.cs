@@ -24,19 +24,25 @@ namespace UltimateOsuServerSwitcher
     [STAThread]
     static void Main(string[] args)
     {
+      // Check if the program was started from a QuickSwitch Shortcut
+      if (args.Length == 1)
+      {
+        MessageBox.Show("QuickSwitch to " + args[0]);
+        return;
+      }
+
+      // Fix https://github.com/MinisBett/ultimate-osu-server-switcher/issues/9
+      // (Windows 7 only)
+      ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+
       // https://stackoverflow.com/questions/19147/what-is-the-correct-way-to-create-a-single-instance-wpf-application
-      
       // Create mutex for single instance checks
       Mutex mutex = new Mutex(true, "UltimateOsuServerSwitcher");
 
       // Check if the mutex is owned by another process
       if (mutex.WaitOne(TimeSpan.Zero, true))
       {
-
-        // Fix https://github.com/MinisBett/ultimate-osu-server-switcher/issues/9
-        // (Windows 7 only)
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
         Application.Run(new MainForm());
