@@ -110,7 +110,7 @@ namespace UltimateOsuServerSwitcher
       Application.DoEvents();
 
       // Load online data and verify servers
-      List<Mirror> mirrors = await FetchMirrorsAsync();
+      List<Mirror> mirrors = JsonConvert.DeserializeObject<List<Mirror>>(await WebHelper.DownloadStringAsync(Urls.Mirrors));
       // Try to load all servers
       List<Server> servers = new List<Server>();
       foreach (Mirror mirror in mirrors)
@@ -118,7 +118,7 @@ namespace UltimateOsuServerSwitcher
         lblInfo.Text = $"Parsing mirror {mirror.Url}";
         Application.DoEvents();
         // Serialize the mirror into a server
-        Server server = JsonConvert.DeserializeObject<Server>(await DownloadAsync(mirror.Url));
+        Server server = JsonConvert.DeserializeObject<Server>(await WebHelper.DownloadStringAsync(mirror.Url));
         // Forward mirror variables to the server
         server.IsFeatured = mirror.Featured;
         server.UID = mirror.UID;
@@ -134,24 +134,34 @@ namespace UltimateOsuServerSwitcher
           continue;
 
         // Check if everything is set
-        if (server.ServerName == null || server.IP == null || server.IconUrl == null || server.CertificateUrl == null || server.DiscordUrl == null)
+        if (server.ServerName == null || 
+            server.IP == null || 
+            server.IconUrl == null ||
+            server.CertificateUrl == null ||
+            server.DiscordUrl == null)
           continue;
 
-        // Check if server name is valid
+        // Check if server name length is valid (between 3 and 24)
         if (server.ServerName.Replace(" ", "").Length < 3 || server.ServerName.Length > 24)
           continue;
+        // Check if it neither start with a space, nor end
         if (server.ServerName.StartsWith(" "))
           continue;
         if (server.ServerName.EndsWith(" "))
           continue;
-        if (!Regex.Match(server.ServerName.Replace("!", "").Replace(" ", ""), "^\\w+$").Success) // Only a-zA-Z0-9 !
+        // // Only a-zA-Z0-9 ! is allowed
+        if (!Regex.Match(server.ServerName.Replace("!", "").Replace(" ", ""), "^\\w+$").Success)
           continue;
-        if (server.ServerName.Replace("  ", "") != server.ServerName) // Double space is invalid
+        // Double spaces are invalid because its hard to tell how many spaces there are
+        // (One server could be named test 123 and the other test  123)
+        if (server.ServerName.Replace("  ", "") != server.ServerName)
           continue;
-        if (server.ServerName == Server.BanchoServer.ServerName || server.ServerName == Server.LocalhostServer.ServerName)
+        // Check if the server fakes bancho or localhost
+        if (server.ServerName == Server.BanchoServer.ServerName ||
+            server.ServerName == Server.LocalhostServer.ServerName)
           continue;
 
-        // Check if the server ip is formatted correct
+        // Check if the server ip is formatted correctly
         if (!Regex.IsMatch(server.IP, @"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"))
           continue;
 
@@ -159,14 +169,17 @@ namespace UltimateOsuServerSwitcher
         if (servers.Any(x => x.ServerName.ToLower().Replace(" ", "") == server.ServerName.ToLower().Replace(" ", "")))
           continue;
 
-        // Check discord url
+        // Check if its a real discord invite url
         if (!server.DiscordUrl.Replace("https", "").Replace("http", "").Replace("://", "").StartsWith("discord.gg"))
           continue;
+
+        // Initialize variables like Certificate and Icon that are downloaded from their urls when
+        // all checks are done (IconUrl, CertificateUrl)
 
         try
         {
           // Try to parse the certificate from the given url
-          server.Certificate = Encoding.UTF8.GetBytes(await DownloadAsync(server.CertificateUrl));
+          server.Certificate = await WebHelper.DownloadBytesAsync(server.CertificateUrl);
           server.CertificateThumbprint = new X509Certificate2(server.Certificate).Thumbprint;
         }
         catch // Cerfiticate url not valid or certificate type is not cer (base64 encoded)
@@ -178,7 +191,7 @@ namespace UltimateOsuServerSwitcher
         try
         {
           // Download the icon and check if its at least 256x256
-          Image icon = await DownloadImageAsync(server.IconUrl);
+          Image icon = await WebHelper.DownloadImageAsync(server.IconUrl);
           if (icon.Width < 256 || icon.Height < 256)
             continue;
 
@@ -198,7 +211,7 @@ namespace UltimateOsuServerSwitcher
       try
       {
         // Download the icon and check if its at least 256x256
-        Image icon = await DownloadImageAsync(Server.BanchoServer.IconUrl);
+        Image icon = await WebHelper.DownloadImageAsync(Server.BanchoServer.IconUrl);
         if (icon.Width >= 256 && icon.Height >= 256)
         {
           // Add the bancho server
@@ -215,7 +228,7 @@ namespace UltimateOsuServerSwitcher
       try
       {
         // Download the icon and check if its at least 256x256
-        Image icon = await DownloadImageAsync(Server.LocalhostServer.IconUrl);
+        Image icon = await WebHelper.DownloadImageAsync(Server.LocalhostServer.IconUrl);
         if (icon.Width >= 256 && icon.Height >= 256)
         {
           // Add the localhost server
@@ -351,7 +364,7 @@ namespace UltimateOsuServerSwitcher
 
     private void notifyIcon_Click(object sender, EventArgs e)
     {
-      // Hide the notify icon and show the switcher
+      // Hide the notify icon and show the switcher when clicked on the notify icon
       notifyIcon.Visible = false;
       Show();
     }
@@ -366,6 +379,8 @@ namespace UltimateOsuServerSwitcher
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
     {
       // If the exit tool strip of the context menu from the notify icon is clicked, force-close the program
+      // (force close needed because otherwise the FormClosing event would be cancelled again and the program
+      // just minimized to the taskbar again)
       m_forceclose = true;
       Application.Exit();
     }
@@ -466,7 +481,8 @@ namespace UltimateOsuServerSwitcher
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-      // If the minimize to tray option is enabled, hide the switcher, show the tray symbol and cancel the exit
+      // If the minimize to tray option is enabled, hide the switcher, 
+      // show the tray symbol and cancel the exit
       if (chckbxMinimize.Checked && !m_forceclose)
       {
         e.Cancel = true;
@@ -494,8 +510,6 @@ namespace UltimateOsuServerSwitcher
     #endregion
 
     #region Other Methods
-
-
 
     private void UpdateUI()
     {
@@ -528,35 +542,5 @@ namespace UltimateOsuServerSwitcher
     #endregion
 
     #endregion
-
-    #region Web stuff
-
-    // The web client used for all web connections in this class
-    private WebClient m_client = new WebClient();
-
-#pragma warning disable CS1998
-    private async Task<Image> DownloadImageAsync(string url)
-    {
-      // Download an image
-      using (Stream stream = m_client.OpenRead(url))
-        return Image.FromStream(stream);
-    }
-
-    private async Task<string> DownloadAsync(string url)
-    {
-      // Download the string of an url asynchronous
-      var result = await m_client.DownloadStringTaskAsync(new Uri(url));
-      return result;
-    }
-
-    private async Task<List<Mirror>> FetchMirrorsAsync()
-    {
-      // Download the mirrors.json file and deserialize it into a mirror list
-      string raw = await DownloadAsync(Urls.Mirrors);
-      return JsonConvert.DeserializeObject<List<Mirror>>(raw);
-    }
-
-    #endregion
-
   }
 }
