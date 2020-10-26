@@ -126,8 +126,8 @@ namespace UltimateOsuServerSwitcher
           continue;
 
         // Check if everything is set
-        if (server.ServerName == null || 
-            server.IP == null || 
+        if (server.ServerName == null ||
+            server.IP == null ||
             server.IconUrl == null ||
             server.CertificateUrl == null ||
             server.DiscordUrl == null)
@@ -354,18 +354,11 @@ namespace UltimateOsuServerSwitcher
       Process.Start(Urls.Discord);
     }
 
-    private void notifyIcon_Click(object sender, EventArgs e)
-    {
-      // Hide the notify icon and show the switcher when clicked on the notify icon
-      notifyIcon.Visible = false;
-      Show();
-    }
-
     private void showToolStripMenuItem_Click(object sender, EventArgs e)
     {
       // If the show tool strip of the context menu from the notify icon is clicked, show the switcher
       // by simulating a click on the notify icon
-      notifyIcon_Click(notifyIcon, EventArgs.Empty);
+      notifyIcon_MouseClick(notifyIcon, new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0));
     }
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -407,6 +400,17 @@ namespace UltimateOsuServerSwitcher
     private void chckbxOpenAfterQuickSwitching_CheckedChanged(object sender, EventArgs e)
     {
       m_settings["openOsuAfterQuickSwitching"] = chckbxOpenAfterQuickSwitching.Checked ? "true" : "false";
+    }
+
+    private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+    {
+      // Only show when left mouse button is used because the right should show the context menu
+      if (e.Button == MouseButtons.Left)
+      {
+        // Hide the notify icon and show the switcher when clicked on the notify icon
+        notifyIcon.Visible = false;
+        Show();
+      }
     }
 
     #region Tab pages
@@ -493,7 +497,7 @@ namespace UltimateOsuServerSwitcher
         if (Visible)
           Focus();
         else
-          notifyIcon_Click(notifyIcon, EventArgs.Empty);
+          notifyIcon_MouseClick(notifyIcon, new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0));
       }
       else
         base.WndProc(ref m);
