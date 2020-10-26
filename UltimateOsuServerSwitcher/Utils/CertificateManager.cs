@@ -8,8 +8,14 @@ namespace UltimateOsuServerSwitcher
 {
   public static class CertificateManager
   {
-    public static Task<bool> GetStatusAsync(Server server)
+    /// <summary>
+    /// Determines whether the certificate of the specified server is installed, or not.
+    /// </summary>
+    /// <param name="server">The server with the certificate to check</param>
+    /// <returns>bool, if the certificate is installed</returns>
+    public static Task<bool> CheckCertificateInstalled(Server server)
     {
+      // Check if the certificate of the specified server awas found in the x509 store
       return Task.Run(() =>
       {
         X509Store x509Store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
@@ -20,8 +26,13 @@ namespace UltimateOsuServerSwitcher
       });
     }
 
+    /// <summary>
+    /// Installs the certificate of the specified server
+    /// </summary>
+    /// <param name="server">The server which certificate will be installed</param>
     public static void InstallCertificate(Server server)
     {
+      // Install the certificate of the specified server
       X509Store x509Store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
       x509Store.Open(OpenFlags.ReadWrite);
       X509Certificate2 certificate = new X509Certificate2(server.Certificate);
@@ -29,8 +40,13 @@ namespace UltimateOsuServerSwitcher
       x509Store.Close();
     }
 
+    /// <summary>
+    /// Uninstalls the certificates of all specified servers
+    /// </summary>
+    /// <param name="servers">The servers which certificates will be uninstalled</param>
     public static void UninstallAllCertificates(List<Server> servers)
     {
+      // Uninstall the certificates of all specified servers that has a certificate
       X509Store x509Store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
       x509Store.Open(OpenFlags.ReadWrite);
       foreach (Server server in servers.Where(x => x.HasCertificate))

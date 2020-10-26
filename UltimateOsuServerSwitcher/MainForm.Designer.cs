@@ -28,12 +28,13 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.btnSwitcher = new System.Windows.Forms.Button();
       this.btnExit = new System.Windows.Forms.Button();
       this.pnlSwitcher = new System.Windows.Forms.Panel();
-      this.lblInfo = new System.Windows.Forms.Label();
       this.pctrVerified = new System.Windows.Forms.PictureBox();
+      this.lblInfo = new System.Windows.Forms.Label();
       this.pctrCurrentServer = new System.Windows.Forms.PictureBox();
       this.pctrConnecting = new System.Windows.Forms.PictureBox();
       this.btnLeft = new System.Windows.Forms.PictureBox();
@@ -44,8 +45,11 @@
       this.pctrLoading = new System.Windows.Forms.PictureBox();
       this.btnSettings = new System.Windows.Forms.Button();
       this.pnlSettings = new System.Windows.Forms.Panel();
+      this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.lnklblWhyMinimize = new System.Windows.Forms.LinkLabel();
+      this.groupBox3 = new System.Windows.Forms.GroupBox();
+      this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.lnklblTelemetryLearnMore = new System.Windows.Forms.LinkLabel();
-      this.chckbxSendTelemetry = new System.Windows.Forms.CheckBox();
       this.btnHelp = new System.Windows.Forms.Button();
       this.pnlHelp = new System.Windows.Forms.Panel();
       this.label2 = new System.Windows.Forms.Label();
@@ -55,6 +59,16 @@
       this.label1 = new System.Windows.Forms.Label();
       this.pctrDiscord = new System.Windows.Forms.PictureBox();
       this.pctrGithub = new System.Windows.Forms.PictureBox();
+      this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+      this.cntxtmnNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+      this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.chckbxMinimize = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.chckbxOpenAfterQuickSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.chckbxReopenAfterSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.chckbxCloseBeforeSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.chckbxSendTelemetry = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.pnlSwitcher.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pctrVerified)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrCurrentServer)).BeginInit();
@@ -66,11 +80,15 @@
       ((System.ComponentModel.ISupportInitialize)(this.btnConnect)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrLoading)).BeginInit();
       this.pnlSettings.SuspendLayout();
+      this.groupBox1.SuspendLayout();
+      this.groupBox3.SuspendLayout();
+      this.groupBox2.SuspendLayout();
       this.pnlHelp.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrDiscord)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrGithub)).BeginInit();
+      this.cntxtmnNotifyIcon.SuspendLayout();
       this.SuspendLayout();
       // 
       // btnSwitcher
@@ -83,7 +101,7 @@
       this.btnSwitcher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.btnSwitcher.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.btnSwitcher.ForeColor = System.Drawing.Color.White;
-      this.btnSwitcher.Location = new System.Drawing.Point(12, 12);
+      this.btnSwitcher.Location = new System.Drawing.Point(12, 10);
       this.btnSwitcher.Name = "btnSwitcher";
       this.btnSwitcher.Size = new System.Drawing.Size(88, 34);
       this.btnSwitcher.TabIndex = 1;
@@ -126,16 +144,6 @@
       this.pnlSwitcher.TabIndex = 3;
       this.pnlSwitcher.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
       // 
-      // lblInfo
-      // 
-      this.lblInfo.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lblInfo.ForeColor = System.Drawing.Color.White;
-      this.lblInfo.Location = new System.Drawing.Point(3, 293);
-      this.lblInfo.Name = "lblInfo";
-      this.lblInfo.Size = new System.Drawing.Size(554, 34);
-      this.lblInfo.TabIndex = 6;
-      this.lblInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-      // 
       // pctrVerified
       // 
       this.pctrVerified.Image = ((System.Drawing.Image)(resources.GetObject("pctrVerified.Image")));
@@ -146,6 +154,16 @@
       this.pctrVerified.TabIndex = 9;
       this.pctrVerified.TabStop = false;
       this.pctrVerified.Visible = false;
+      // 
+      // lblInfo
+      // 
+      this.lblInfo.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblInfo.ForeColor = System.Drawing.Color.White;
+      this.lblInfo.Location = new System.Drawing.Point(3, 293);
+      this.lblInfo.Name = "lblInfo";
+      this.lblInfo.Size = new System.Drawing.Size(554, 34);
+      this.lblInfo.TabIndex = 6;
+      this.lblInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
       // 
       // pctrCurrentServer
       // 
@@ -199,7 +217,7 @@
       this.pctrCurrentSelectedServer.Location = new System.Drawing.Point(152, 28);
       this.pctrCurrentSelectedServer.Name = "pctrCurrentSelectedServer";
       this.pctrCurrentSelectedServer.Size = new System.Drawing.Size(256, 256);
-      this.pctrCurrentSelectedServer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.pctrCurrentSelectedServer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
       this.pctrCurrentSelectedServer.TabIndex = 0;
       this.pctrCurrentSelectedServer.TabStop = false;
       this.pctrCurrentSelectedServer.Click += new System.EventHandler(this.pctrServerIcon_Click);
@@ -259,8 +277,7 @@
       // 
       // pnlSettings
       // 
-      this.pnlSettings.Controls.Add(this.lnklblTelemetryLearnMore);
-      this.pnlSettings.Controls.Add(this.chckbxSendTelemetry);
+      this.pnlSettings.Controls.Add(this.groupBox1);
       this.pnlSettings.Location = new System.Drawing.Point(12, 52);
       this.pnlSettings.Name = "pnlSettings";
       this.pnlSettings.Size = new System.Drawing.Size(560, 405);
@@ -268,32 +285,72 @@
       this.pnlSettings.Visible = false;
       this.pnlSettings.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
       // 
+      // groupBox1
+      // 
+      this.groupBox1.Controls.Add(this.lnklblWhyMinimize);
+      this.groupBox1.Controls.Add(this.chckbxMinimize);
+      this.groupBox1.Controls.Add(this.groupBox3);
+      this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.groupBox1.ForeColor = System.Drawing.Color.White;
+      this.groupBox1.Location = new System.Drawing.Point(-1, 8);
+      this.groupBox1.Name = "groupBox1";
+      this.groupBox1.Size = new System.Drawing.Size(579, 402);
+      this.groupBox1.TabIndex = 4;
+      this.groupBox1.TabStop = false;
+      this.groupBox1.Text = "General";
+      // 
+      // lnklblWhyMinimize
+      // 
+      this.lnklblWhyMinimize.AutoSize = true;
+      this.lnklblWhyMinimize.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lnklblWhyMinimize.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+      this.lnklblWhyMinimize.Location = new System.Drawing.Point(193, 28);
+      this.lnklblWhyMinimize.Name = "lnklblWhyMinimize";
+      this.lnklblWhyMinimize.Size = new System.Drawing.Size(49, 21);
+      this.lnklblWhyMinimize.TabIndex = 3;
+      this.lnklblWhyMinimize.TabStop = true;
+      this.lnklblWhyMinimize.Text = "Why?";
+      this.lnklblWhyMinimize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblWhyMinimize_LinkClicked);
+      // 
+      // groupBox3
+      // 
+      this.groupBox3.Controls.Add(this.chckbxOpenAfterQuickSwitching);
+      this.groupBox3.Controls.Add(this.chckbxReopenAfterSwitching);
+      this.groupBox3.Controls.Add(this.chckbxCloseBeforeSwitching);
+      this.groupBox3.Controls.Add(this.groupBox2);
+      this.groupBox3.ForeColor = System.Drawing.Color.White;
+      this.groupBox3.Location = new System.Drawing.Point(0, 101);
+      this.groupBox3.Name = "groupBox3";
+      this.groupBox3.Size = new System.Drawing.Size(579, 328);
+      this.groupBox3.TabIndex = 5;
+      this.groupBox3.TabStop = false;
+      this.groupBox3.Text = "Switching Behaviour";
+      // 
+      // groupBox2
+      // 
+      this.groupBox2.Controls.Add(this.chckbxSendTelemetry);
+      this.groupBox2.Controls.Add(this.lnklblTelemetryLearnMore);
+      this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.groupBox2.ForeColor = System.Drawing.Color.White;
+      this.groupBox2.Location = new System.Drawing.Point(0, 238);
+      this.groupBox2.Name = "groupBox2";
+      this.groupBox2.Size = new System.Drawing.Size(601, 155);
+      this.groupBox2.TabIndex = 4;
+      this.groupBox2.TabStop = false;
+      this.groupBox2.Text = "Other";
+      // 
       // lnklblTelemetryLearnMore
       // 
       this.lnklblTelemetryLearnMore.AutoSize = true;
       this.lnklblTelemetryLearnMore.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.lnklblTelemetryLearnMore.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-      this.lnklblTelemetryLearnMore.Location = new System.Drawing.Point(437, 375);
+      this.lnklblTelemetryLearnMore.Location = new System.Drawing.Point(437, 32);
       this.lnklblTelemetryLearnMore.Name = "lnklblTelemetryLearnMore";
       this.lnklblTelemetryLearnMore.Size = new System.Drawing.Size(90, 21);
       this.lnklblTelemetryLearnMore.TabIndex = 1;
       this.lnklblTelemetryLearnMore.TabStop = true;
       this.lnklblTelemetryLearnMore.Text = "Learn more";
       this.lnklblTelemetryLearnMore.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblTelemetryLearnMore_LinkClicked);
-      // 
-      // chckbxSendTelemetry
-      // 
-      this.chckbxSendTelemetry.AutoSize = true;
-      this.chckbxSendTelemetry.Checked = true;
-      this.chckbxSendTelemetry.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chckbxSendTelemetry.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.chckbxSendTelemetry.ForeColor = System.Drawing.Color.White;
-      this.chckbxSendTelemetry.Location = new System.Drawing.Point(8, 374);
-      this.chckbxSendTelemetry.Name = "chckbxSendTelemetry";
-      this.chckbxSendTelemetry.Size = new System.Drawing.Size(435, 25);
-      this.chckbxSendTelemetry.TabIndex = 0;
-      this.chckbxSendTelemetry.Text = "Send anonymous telemetry data for better user experience";
-      this.chckbxSendTelemetry.UseVisualStyleBackColor = true;
       // 
       // btnHelp
       // 
@@ -403,6 +460,115 @@
       this.pctrGithub.TabStop = false;
       this.pctrGithub.Click += new System.EventHandler(this.pctrGithub_Click);
       // 
+      // notifyIcon
+      // 
+      this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+      this.notifyIcon.Text = "Ultimate Osu Server Switcher";
+      this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
+      // 
+      // cntxtmnNotifyIcon
+      // 
+      this.cntxtmnNotifyIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exitToolStripMenuItem});
+      this.cntxtmnNotifyIcon.Name = "cntxtmnNotifyIcon";
+      this.cntxtmnNotifyIcon.Size = new System.Drawing.Size(104, 54);
+      // 
+      // showToolStripMenuItem
+      // 
+      this.showToolStripMenuItem.Name = "showToolStripMenuItem";
+      this.showToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+      this.showToolStripMenuItem.Text = "Show";
+      this.showToolStripMenuItem.Click += new System.EventHandler(this.showToolStripMenuItem_Click);
+      // 
+      // toolStripSeparator1
+      // 
+      this.toolStripSeparator1.Name = "toolStripSeparator1";
+      this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+      // 
+      // exitToolStripMenuItem
+      // 
+      this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+      this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+      this.exitToolStripMenuItem.Text = "Exit";
+      this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+      // 
+      // chckbxMinimize
+      // 
+      this.chckbxMinimize.AutoSize = true;
+      this.chckbxMinimize.Checked = true;
+      this.chckbxMinimize.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxMinimize.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxMinimize.ForeColor = System.Drawing.Color.White;
+      this.chckbxMinimize.Location = new System.Drawing.Point(1, 27);
+      this.chckbxMinimize.Name = "chckbxMinimize";
+      this.chckbxMinimize.Size = new System.Drawing.Size(195, 25);
+      this.chckbxMinimize.TabIndex = 3;
+      this.chckbxMinimize.Text = "Minimize to system tray";
+      this.chckbxMinimize.UseVisualStyleBackColor = true;
+      this.chckbxMinimize.CheckedChanged += new System.EventHandler(this.chckbxMinimize_CheckedChanged);
+      // 
+      // chckbxOpenAfterQuickSwitching
+      // 
+      this.chckbxOpenAfterQuickSwitching.AutoSize = true;
+      this.chckbxOpenAfterQuickSwitching.Checked = true;
+      this.chckbxOpenAfterQuickSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxOpenAfterQuickSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxOpenAfterQuickSwitching.ForeColor = System.Drawing.Color.White;
+      this.chckbxOpenAfterQuickSwitching.Location = new System.Drawing.Point(1, 94);
+      this.chckbxOpenAfterQuickSwitching.Name = "chckbxOpenAfterQuickSwitching";
+      this.chckbxOpenAfterQuickSwitching.Size = new System.Drawing.Size(391, 25);
+      this.chckbxOpenAfterQuickSwitching.TabIndex = 9;
+      this.chckbxOpenAfterQuickSwitching.Text = "Open osu after quick-switching the server (Shortcut)";
+      this.chckbxOpenAfterQuickSwitching.UseVisualStyleBackColor = true;
+      this.chckbxOpenAfterQuickSwitching.CheckedChanged += new System.EventHandler(this.chckbxOpenAfterQuickSwitching_CheckedChanged);
+      // 
+      // chckbxReopenAfterSwitching
+      // 
+      this.chckbxReopenAfterSwitching.AutoSize = true;
+      this.chckbxReopenAfterSwitching.Checked = true;
+      this.chckbxReopenAfterSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxReopenAfterSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxReopenAfterSwitching.ForeColor = System.Drawing.Color.White;
+      this.chckbxReopenAfterSwitching.Location = new System.Drawing.Point(1, 63);
+      this.chckbxReopenAfterSwitching.Name = "chckbxReopenAfterSwitching";
+      this.chckbxReopenAfterSwitching.Size = new System.Drawing.Size(296, 25);
+      this.chckbxReopenAfterSwitching.TabIndex = 7;
+      this.chckbxReopenAfterSwitching.Text = "Re-open osu after switching the server";
+      this.chckbxReopenAfterSwitching.UseVisualStyleBackColor = true;
+      this.chckbxReopenAfterSwitching.CheckedChanged += new System.EventHandler(this.chckbxReopenAfterSwitching_CheckedChanged);
+      // 
+      // chckbxCloseBeforeSwitching
+      // 
+      this.chckbxCloseBeforeSwitching.AutoSize = true;
+      this.chckbxCloseBeforeSwitching.Checked = true;
+      this.chckbxCloseBeforeSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxCloseBeforeSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxCloseBeforeSwitching.ForeColor = System.Drawing.Color.White;
+      this.chckbxCloseBeforeSwitching.Location = new System.Drawing.Point(1, 32);
+      this.chckbxCloseBeforeSwitching.Name = "chckbxCloseBeforeSwitching";
+      this.chckbxCloseBeforeSwitching.Size = new System.Drawing.Size(288, 25);
+      this.chckbxCloseBeforeSwitching.TabIndex = 6;
+      this.chckbxCloseBeforeSwitching.Text = "Close osu before switching the server";
+      this.chckbxCloseBeforeSwitching.UseVisualStyleBackColor = true;
+      this.chckbxCloseBeforeSwitching.CheckedChanged += new System.EventHandler(this.chckbxCloseBeforeSwitching_CheckedChanged);
+      // 
+      // chckbxSendTelemetry
+      // 
+      this.chckbxSendTelemetry.AutoSize = true;
+      this.chckbxSendTelemetry.Checked = true;
+      this.chckbxSendTelemetry.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxSendTelemetry.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxSendTelemetry.ForeColor = System.Drawing.Color.White;
+      this.chckbxSendTelemetry.Location = new System.Drawing.Point(0, 32);
+      this.chckbxSendTelemetry.Name = "chckbxSendTelemetry";
+      this.chckbxSendTelemetry.Size = new System.Drawing.Size(435, 25);
+      this.chckbxSendTelemetry.TabIndex = 2;
+      this.chckbxSendTelemetry.Text = "Send anonymous telemetry data for better user experience";
+      this.chckbxSendTelemetry.UseVisualStyleBackColor = true;
+      this.chckbxSendTelemetry.CheckedChanged += new System.EventHandler(this.chckbxSendTelemetry_CheckedChanged);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,6 +590,7 @@
       this.ShowIcon = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Ultimate Osu Server Switcher";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
       this.Load += new System.EventHandler(this.MainForm_Load);
       this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
       this.pnlSwitcher.ResumeLayout(false);
@@ -438,13 +605,19 @@
       ((System.ComponentModel.ISupportInitialize)(this.btnConnect)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrLoading)).EndInit();
       this.pnlSettings.ResumeLayout(false);
-      this.pnlSettings.PerformLayout();
+      this.groupBox1.ResumeLayout(false);
+      this.groupBox1.PerformLayout();
+      this.groupBox3.ResumeLayout(false);
+      this.groupBox3.PerformLayout();
+      this.groupBox2.ResumeLayout(false);
+      this.groupBox2.PerformLayout();
       this.pnlHelp.ResumeLayout(false);
       this.pnlHelp.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrDiscord)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrGithub)).EndInit();
+      this.cntxtmnNotifyIcon.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -474,8 +647,21 @@
     private System.Windows.Forms.Label lblVersion;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.PictureBox pctrVerified;
-    private System.Windows.Forms.CheckBox chckbxSendTelemetry;
     private System.Windows.Forms.LinkLabel lnklblTelemetryLearnMore;
-  }
+        private BetterCheckBox chckbxSendTelemetry;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private BetterCheckBox chckbxMinimize;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.LinkLabel lnklblWhyMinimize;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip cntxtmnNotifyIcon;
+        private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private BetterCheckBox chckbxCloseBeforeSwitching;
+        private BetterCheckBox chckbxReopenAfterSwitching;
+        private BetterCheckBox chckbxOpenAfterQuickSwitching;
+    }
 }
 
