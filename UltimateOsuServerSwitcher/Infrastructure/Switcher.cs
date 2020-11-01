@@ -59,6 +59,8 @@ namespace UltimateOsuServerSwitcher
       {
         SendTelemetry(from, server);
       }
+
+      Discord.SetPresenceServer(server);
     }
 
     #region QuickSwitch

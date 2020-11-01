@@ -63,6 +63,9 @@
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
+    <Reference Include="DiscordRPC, Version=1.0.150.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DiscordRichPresence.1.0.150\lib\net35\DiscordRPC.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -82,9 +85,13 @@
     <Compile Include="Controls\BetterCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ImageLoadingBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Infrastructure\Configuration\Paths.cs" />
     <Compile Include="Infrastructure\Configuration\Urls.cs" />
     <Compile Include="Infrastructure\Configuration\Variables.cs" />
+    <Compile Include="Infrastructure\Discord.cs" />
     <Compile Include="Infrastructure\Switcher.cs" />
     <Compile Include="Infrastructure\Settings.cs" />
     <Compile Include="Utils\CertificateManager.cs" />

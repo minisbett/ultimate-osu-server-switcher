@@ -103,6 +103,7 @@ namespace UltimateOsuServerSwitcher
 
       // Load online data and verify servers
       List<Mirror> mirrors = JsonConvert.DeserializeObject<List<Mirror>>(await WebHelper.DownloadStringAsync(Urls.Mirrors));
+      imgLoadingBar.Maximum = mirrors.Count;
       // Try to load all servers
       List<Server> servers = new List<Server>();
       foreach (Mirror mirror in mirrors)
@@ -197,6 +198,8 @@ namespace UltimateOsuServerSwitcher
         {
           continue;
         }
+
+        imgLoadingBar.Value++;
       }
 
       // Load bancho and localhost
@@ -249,6 +252,14 @@ namespace UltimateOsuServerSwitcher
 
       // Initialize the current selected server variable
       m_currentSelectedServer = Switcher.GetCurrentServer();
+
+      // Set the discord rich presence
+      if (!Switcher.GetCurrentServer().IsUnidentified)
+        Discord.SetPresenceServer(Switcher.GetCurrentServer());
+
+      // Hide loading button and loading bar after all mirrors are loaded
+      pctrLoading.Visible = false;
+      imgLoadingBar.Visible = false;
 
       // Update the UI
       UpdateUI();

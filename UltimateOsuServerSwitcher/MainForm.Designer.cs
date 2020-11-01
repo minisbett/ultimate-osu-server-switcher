@@ -64,6 +64,7 @@
       this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.imgLoadingBar = new UltimateOsuServerSwitcher.Controls.ImageLoadingBar();
       this.chckbxMinimize = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.chckbxOpenAfterQuickSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.chckbxReopenAfterSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
@@ -128,6 +129,7 @@
       // 
       // pnlSwitcher
       // 
+      this.pnlSwitcher.Controls.Add(this.imgLoadingBar);
       this.pnlSwitcher.Controls.Add(this.pctrVerified);
       this.pnlSwitcher.Controls.Add(this.lblInfo);
       this.pnlSwitcher.Controls.Add(this.pctrCurrentServer);
@@ -495,6 +497,18 @@
       this.exitToolStripMenuItem.Text = "Exit";
       this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
       // 
+      // imgLoadingBar
+      // 
+      this.imgLoadingBar.LoadedImage = ((System.Drawing.Image)(resources.GetObject("imgLoadingBar.LoadedImage")));
+      this.imgLoadingBar.Location = new System.Drawing.Point(152, 28);
+      this.imgLoadingBar.Maximum = 100;
+      this.imgLoadingBar.Name = "imgLoadingBar";
+      this.imgLoadingBar.Size = new System.Drawing.Size(256, 256);
+      this.imgLoadingBar.TabIndex = 10;
+      this.imgLoadingBar.Text = "imageLoadingBar1";
+      this.imgLoadingBar.UnloadedImage = ((System.Drawing.Image)(resources.GetObject("imgLoadingBar.UnloadedImage")));
+      this.imgLoadingBar.Value = 0;
+      // 
       // chckbxMinimize
       // 
       this.chckbxMinimize.AutoSize = true;
@@ -580,15 +594,14 @@
       this.Controls.Add(this.btnSettings);
       this.Controls.Add(this.btnExit);
       this.Controls.Add(this.btnSwitcher);
-      this.Controls.Add(this.pnlHelp);
       this.Controls.Add(this.pnlSwitcher);
       this.Controls.Add(this.pnlSettings);
+      this.Controls.Add(this.pnlHelp);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "MainForm";
-      this.ShowIcon = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Ultimate Osu Server Switcher";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -663,6 +676,7 @@
         private BetterCheckBox chckbxCloseBeforeSwitching;
         private BetterCheckBox chckbxReopenAfterSwitching;
         private BetterCheckBox chckbxOpenAfterQuickSwitching;
-    }
+    private Controls.ImageLoadingBar imgLoadingBar;
+  }
 }
 
