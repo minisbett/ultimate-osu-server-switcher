@@ -63,25 +63,6 @@ namespace UltimateOsuServerSwitcher
       Discord.SetPresenceServer(server);
     }
 
-    #region QuickSwitch
-    /// <summary>
-    /// Creates a QuickSwitch shortcut at the given location for the given server
-    /// </summary>
-    /// <param name="file">The path to the .lnk file</param>
-    /// <param name="server">The server the shortcuts lets you switch to</param>
-    public static void CreateShortcut(string file, Server server)
-    {
-      WshShell shell = new WshShell();
-      IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(file);
-      shortcut.Description = $"Switch to {server.ServerName}";
-      if (server.Icon != null)
-        shortcut.IconLocation = Paths.IconCacheFolder + $@"\{server.UID}.ico";
-      shortcut.TargetPath = "cmd";
-      shortcut.Arguments = $"/c call \"{Application.ExecutablePath}\" \"{server.UID}\"";
-      shortcut.Save();
-    }
-    #endregion
-
     /// <summary>
     /// Returns the server the user is currently connected to
     /// </summary>
@@ -122,9 +103,31 @@ namespace UltimateOsuServerSwitcher
       // Set the timestamp in the file to the current one for the next switching
       TelemetryService.SetTelemetryCache(currentUnixTime.ToString());
 
-      TelemetryService.SendTelemetry(from.ServerName ?? "Unknown", GetCurrentServer().ServerName, span, CheckServerAvailability());
+      TelemetryService.SendTelemetry(from.ServerName ?? "Unknown", to.ServerName ?? "Unknown", TelemetryUtils.MillisecondsToString(span), CheckServerAvailability());
     }
 
+    #region QuickSwitch
+    /// <summary>
+    /// Creates a QuickSwitch shortcut at the given location for the given server
+    /// </summary>
+    /// <param name="file">The path to the .lnk file</param>
+    /// <param name="server">The server the shortcuts lets you switch to</param>
+    public static void CreateShortcut(string file, Server server)
+    {
+      WshShell shell = new WshShell();
+      IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(file);
+      shortcut.Description = $"Switch to {server.ServerName}";
+      if (server.Icon != null)
+        shortcut.IconLocation = Paths.IconCacheFolder + $@"\{server.UID}.ico";
+      shortcut.TargetPath = "cmd";
+      shortcut.Arguments = $"/c call \"{Application.ExecutablePath}\" \"{server.UID}\"";
+      shortcut.Save();
+    }
+    #endregion
+
+    /// <summary>
+    /// Checks if the currently redirected server is available (c.ppy.sh:80 ping)
+    /// </summary>
     public static bool CheckServerAvailability()
     {
       // Try to build up a connection to the c interface of the osu server

@@ -17,10 +17,11 @@ namespace UltimateOsuServerSwitcher
     /// <param name="to">The server the user is switching to</param>
     /// <param name="span">The span between this and the last switch</param>
     /// <param name="successful">Connectivity status of the switched to server</param>
-    public static void SendTelemetry(string from, string to, int span, bool successful)
+    public static void SendTelemetry(string from, string to, string span, bool successful)
     {
+      // Send a get request with the arguments as parameters
       string url = "https://uosuss.000webhostapp.com/index.php";
-      string get = $"from={from}&to={to}&span={(span != -1 ? millisecondsToReadableString(span) : "undefined")}&successful={(successful ? 1 : 0)}";
+      string get = $"from={from}&to={to}&span={span}&successful={(successful ? 1 : 0)}";
       new WebClient().DownloadData(url + "?" + get);
     }
 
@@ -30,6 +31,7 @@ namespace UltimateOsuServerSwitcher
     /// <returns>The telemetry cache</returns>
     public static string GetTelemetryCache()
     {
+      // If the file does not exist yet, return nothing
       if (!File.Exists(Paths.TelemetryCacheFile))
         return "";
       return File.ReadAllText(Paths.TelemetryCacheFile);
@@ -41,44 +43,8 @@ namespace UltimateOsuServerSwitcher
     /// <param name="cache">The telemetry cache</param>
     public static void SetTelemetryCache(string cache)
     {
+      // Write to the telemetry cache file
       File.WriteAllText(Paths.TelemetryCacheFile, cache);
-    }
-
-    // Converts a millisecond integer into a readable string e.g.
-    // 5000 = 5 seconds
-    // 62000 = 1 minute
-    // 345,600,000 = 4 days
-    private static string millisecondsToReadableString(int millis)
-    {
-      // If the milliseconds are 0 or negative, it makes no fucking sense
-      // I mean, -4 days?! I will switch the server in 4 days!
-      if (millis < 1)
-        return "Undefined";
-      // Get how many days/hours/minutes/... would be these milliseconds
-      int seconds = (int)Math.Floor((double)millis / 1000);
-      int minutes = (int)Math.Floor((double)seconds / 60);
-      int hours = (int)Math.Floor((double)minutes / 60);
-      int days = (int)Math.Floor((double)hours / 24);
-
-      // Check if it is at least a day, an hour, a minute, ...
-      if (days > 0)
-      {
-        return $"{days} day{(days > 1 ? "s" : "")}";
-      }
-      else if (hours > 0)
-      {
-        return $"{hours} hour{(hours > 1 ? "s" : "")}";
-      }
-      else if (minutes > 0)
-      {
-        return $"{minutes} minute{(minutes > 1 ? "s" : "")}";
-      }
-      else if (seconds > 0)
-      {
-        return $"{seconds} second{(seconds > 1 ? "s" : "")}";
-      }
-
-      return "Undefined";
     }
   }
 }

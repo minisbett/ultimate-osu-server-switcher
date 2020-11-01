@@ -110,6 +110,7 @@
     <Compile Include="Model\Server.cs" />
     <Compile Include="Infrastructure\TelemetryService.cs" />
     <Compile Include="Infrastructure\VersionChecker.cs" />
+    <Compile Include="Utils\TelemetryUtils.cs" />
     <Compile Include="Utils\WebHelper.cs" />
     <Compile Include="Utils\WinApi.cs" />
     <EmbeddedResource Include="MainForm.resx">
