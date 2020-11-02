@@ -20,8 +20,6 @@ namespace UltimateOsuServerSwitcher
 {
   public partial class MainForm : Form
   {
-    #region Variable declaration
-
     // The server that is currently selected (not the one the user is connected to)
     private Server m_currentSelectedServer = null;
 
@@ -33,10 +31,6 @@ namespace UltimateOsuServerSwitcher
 
     // The settings for the switcher
     private Settings m_settings => new Settings(Paths.SettingsFile);
-
-    #endregion
-
-    #region Program
 
     #region Program initialize
 
@@ -252,6 +246,8 @@ namespace UltimateOsuServerSwitcher
 
       // Initialize the current selected server variable
       m_currentSelectedServer = Switcher.GetCurrentServer();
+      if (m_currentSelectedServer.IsUnidentified)
+        m_currentSelectedServer = Switcher.Servers.First(x => x.UID == "bancho");
 
       // Set the discord rich presence
       if (!Switcher.GetCurrentServer().IsUnidentified)
@@ -324,14 +320,14 @@ namespace UltimateOsuServerSwitcher
 
     private void btnLeft_Click(object sender, EventArgs e)
     {
-      // Move the selection 1 to the left
+      // Move the selection 1 to the left and update the UI
       m_currentSelectedServer = Switcher.Servers[m_currentSelectedServerIndex - 1];
       UpdateUI();
     }
 
     private void btnRight_Click(object sender, EventArgs e)
     {
-      // Move the selection 1 to the right
+      // Move the selection 1 to the right and update the UI
       m_currentSelectedServer = Switcher.Servers[m_currentSelectedServerIndex + 1];
       UpdateUI();
     }
@@ -516,38 +512,42 @@ namespace UltimateOsuServerSwitcher
 
     #endregion
 
-    #region Other Methods
-
     private void UpdateUI()
     {
-      // Show the image of the selected server only if the server was identified
-      if (!m_currentSelectedServer.IsUnidentified)
-        pctrCurrentSelectedServer.Image = m_currentSelectedServer.Icon;
+      // Get the current server to update the UI
+      Server currentServer = Switcher.GetCurrentServer();
 
-      // Show/Hide the connect/already connected button depending on if you are currently connected to the selected server
-      Server s = Switcher.GetCurrentServer();
-      btnConnect.Visible = m_currentSelectedServer != s;
-      pctrAlreadyConnected.Visible = m_currentSelectedServer == s;
-      // Show the image of the connected server only if the server was identified
-      if (!s.IsUnidentified)
-        pctrCurrentServer.Image = s.Icon;
+      // If the server the user is currently connected to unidentified the icon of the server cannot be shown
+      // because its unknown. Otherwise show the icon of the current connected server
+      pctrCurrentServer.Image = currentServer.IsUnidentified ? null : currentServer.Icon;
 
-      // Hide/Show the navigation buttons depending on if a navigation to the left/right
-      btnRight.Visible = m_currentSelectedServerIndex + 1 != Switcher.Servers.Count;
-      btnLeft.Visible = m_currentSelectedServerIndex != 0;
+      // Show the image of the server that is currently selected
+      pctrCurrentSelectedServer.Image = m_currentSelectedServer.Icon;
 
-      // Show the server name and set the color and show the verified icon, depending on if the server is featured or not
+      // Show the connect / already connected button whether the currently selected server
+      // is the one the user is connected to or not
+      btnConnect.Visible = m_currentSelectedServer.UID != currentServer.UID;
+      pctrAlreadyConnected.Visible = m_currentSelectedServer.UID == currentServer.UID;
+
+      // Show the left and right arrow whether the index allows to go to the left or right
+      btnRight.Visible = m_currentSelectedServerIndex < Switcher.Servers.Count - 1;
+      btnLeft.Visible = m_currentSelectedServerIndex > 0;
+
+      // Set the info text to the name of the current selected server
       lblInfo.Text = m_currentSelectedServer.ServerName;
+      // Change the color of the server name depending on if the server is featured or not
       lblInfo.ForeColor = m_currentSelectedServer.IsFeatured ? Color.Orange : Color.White;
+      // Show the verified badge depending on if the server is featured or not
       pctrVerified.Visible = m_currentSelectedServer.IsFeatured;
 
-      // Measure the width of the text to position the verified icon correctly
+      // Get a graphics object to measure the size to the info text
+      // in order to position the verified badge next to the text
       Graphics g = CreateGraphics();
-      pctrVerified.Location = new Point(pnlSwitcher.Width / 2 + (int)g.MeasureString(m_currentSelectedServer.ServerName, lblInfo.Font).Width / 2 - 5, pctrVerified.Location.Y);
+      // Measure the size of the text
+      SizeF textSize = g.MeasureString(m_currentSelectedServer.ServerName, lblInfo.Font);
+      // Set the location, x is the middle of the panel + half the text - 5
+      // to position the verified badge next to the next (-5 to make the distance less)
+      pctrVerified.Location = new Point(pnlSwitcher.Width / 2 + (int)textSize.Width / 2 - 5, pctrVerified.Location.Y);
     }
-
-    #endregion
-
-    #endregion
   }
 }

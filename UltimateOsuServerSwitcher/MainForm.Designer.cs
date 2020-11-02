@@ -129,17 +129,17 @@
       // 
       // pnlSwitcher
       // 
-      this.pnlSwitcher.Controls.Add(this.imgLoadingBar);
       this.pnlSwitcher.Controls.Add(this.pctrVerified);
       this.pnlSwitcher.Controls.Add(this.lblInfo);
       this.pnlSwitcher.Controls.Add(this.pctrCurrentServer);
       this.pnlSwitcher.Controls.Add(this.pctrConnecting);
       this.pnlSwitcher.Controls.Add(this.btnLeft);
       this.pnlSwitcher.Controls.Add(this.btnRight);
-      this.pnlSwitcher.Controls.Add(this.pctrCurrentSelectedServer);
       this.pnlSwitcher.Controls.Add(this.pctrAlreadyConnected);
       this.pnlSwitcher.Controls.Add(this.btnConnect);
       this.pnlSwitcher.Controls.Add(this.pctrLoading);
+      this.pnlSwitcher.Controls.Add(this.imgLoadingBar);
+      this.pnlSwitcher.Controls.Add(this.pctrCurrentSelectedServer);
       this.pnlSwitcher.Location = new System.Drawing.Point(12, 52);
       this.pnlSwitcher.Name = "pnlSwitcher";
       this.pnlSwitcher.Size = new System.Drawing.Size(560, 405);
@@ -219,7 +219,7 @@
       this.pctrCurrentSelectedServer.Location = new System.Drawing.Point(152, 28);
       this.pctrCurrentSelectedServer.Name = "pctrCurrentSelectedServer";
       this.pctrCurrentSelectedServer.Size = new System.Drawing.Size(256, 256);
-      this.pctrCurrentSelectedServer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+      this.pctrCurrentSelectedServer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
       this.pctrCurrentSelectedServer.TabIndex = 0;
       this.pctrCurrentSelectedServer.TabStop = false;
       this.pctrCurrentSelectedServer.Click += new System.EventHandler(this.pctrServerIcon_Click);
