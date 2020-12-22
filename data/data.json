@@ -99,6 +99,15 @@
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/astellia.png?raw=true",
       "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/astellia.cer"
+    },
+    {
+      "name": "Horizon",
+      "featured": false,
+      "ip": "5.189.146.179",
+      "website_url": "https://lemres.de/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/horizon.png?raw=true",
+      "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/horizon.cer"
     }
   ]
 }
