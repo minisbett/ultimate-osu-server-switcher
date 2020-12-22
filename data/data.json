@@ -99,6 +99,33 @@
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/astellia.png?raw=true",
       "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/astellia.cer"
+    },
+    {
+      "name": "Debian",
+      "featured": false,
+      "ip": "49.165.136.97",
+      "website_url": "https://debian.moe/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/debian.png?raw=true",
+      "certificate_thumbprint": "350FCE0F2A489229928E2EC7DC2B426B49192F16",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/debian.cer"
+    },
+    {
+      "name": "Horizon",
+      "featured": false,
+      "ip": "5.189.146.179",
+      "website_url": "https://lemres.de/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/horizon.png?raw=true",
+      "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/horizon.cer"
+    },
+    {
+      "name": "Aisuru",
+      "featured": false,
+      "ip": "18.132.248.125",
+      "website_url": "https://aisuru.xyz/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/aisuru.png?raw=true",
+      "certificate_thumbprint": "0A2DD2632412D829FAA9DF7BDD59DB3200F7F847",
+      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/aisuru.cer"
     }
   ]
 }
