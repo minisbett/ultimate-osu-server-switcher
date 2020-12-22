@@ -77,7 +77,6 @@ has to agree with. This improves the switching agility to garantue the best user
 > - [Kawata](https://kawata.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kawata.png?raw=true">
 > - [Debian](https://debian.moe/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/debian.png?raw=true">
 > - [Horizon](https://lemres.de/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/horizon.png?raw=true">
-> - [Aisuru](https://admin.aisuru.xyz/static/cert.cer)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/aisuru.png?raw=true">
 
 # GUI
 
