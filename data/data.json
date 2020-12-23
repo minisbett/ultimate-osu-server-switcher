@@ -56,15 +56,6 @@
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/gatari.cer"
     },
     {
-      "name": "Misumi",
-      "featured": false,
-      "ip": "5.83.161.92",
-      "website_url": "https://misumi.me",
-      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/misumi.png?raw=true",
-      "certificate_thumbprint": "142BB234C91877E240957A297DA407AFD5D4C835",
-      "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/misumi.cer"
-    },
-    {
       "name": "RealistikOsu!",
       "featured": false,
       "ip": "95.179.225.194",
