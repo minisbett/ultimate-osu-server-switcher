@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateOsuServerSwitcher", "UltimateOsuServerSwitcher\UltimateOsuServerSwitcher.csproj", "{C7D2F832-D5F7-4338-97D8-AC77F20D192D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{4CF3C959-8473-41CD-9523-DD5CE47A1CA1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{C7D2F832-D5F7-4338-97D8-AC77F20D192D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7D2F832-D5F7-4338-97D8-AC77F20D192D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7D2F832-D5F7-4338-97D8-AC77F20D192D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CF3C959-8473-41CD-9523-DD5CE47A1CA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CF3C959-8473-41CD-9523-DD5CE47A1CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CF3C959-8473-41CD-9523-DD5CE47A1CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CF3C959-8473-41CD-9523-DD5CE47A1CA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

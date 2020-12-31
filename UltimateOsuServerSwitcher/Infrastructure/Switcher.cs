@@ -59,8 +59,6 @@ namespace UltimateOsuServerSwitcher
       {
         SendTelemetry(from, server);
       }
-
-      Discord.SetPresenceServer(server);
     }
 
     /// <summary>

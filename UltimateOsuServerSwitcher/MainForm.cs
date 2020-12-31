@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -47,10 +48,11 @@ namespace UltimateOsuServerSwitcher
 
       // Initialize all settings with their default values
       m_settings.SetDefaultValue("minimizeToTray", "true");
-      m_settings.SetDefaultValue("sendTelemetry", "true");
+      m_settings.SetDefaultValue("sendTelemetry", "false");
       m_settings.SetDefaultValue("closeOsuBeforeSwitching", "true");
       m_settings.SetDefaultValue("reopenOsuAfterSwitching", "true");
       m_settings.SetDefaultValue("openOsuAfterQuickSwitching", "true");
+      m_settings.SetDefaultValue("useDiscordRichPresence", "true");
 
       // Set the settings controls to their state from the settings file
       chckbxMinimize.Checked = m_settings["minimizeToTray"] == "true";
@@ -58,6 +60,13 @@ namespace UltimateOsuServerSwitcher
       chckbxCloseBeforeSwitching.Checked = m_settings["closeOsuBeforeSwitching"] == "true";
       chckbxReopenAfterSwitching.Checked = m_settings["reopenOsuAfterSwitching"] == "true";
       chckbxOpenAfterQuickSwitching.Checked = m_settings["openOsuAfterQuickSwitching"] == "true";
+      chckbxUseDiscordRichPresence.Checked = m_settings["useDiscordRichPresence"] == "true";
+
+      //
+      // Telemetry disabled because not finished yet
+      //
+      m_settings["sendTelemetry"] = "false";
+      chckbxSendTelemetry.Checked = false;
     }
 
     private async void MainForm_Load(object sender, EventArgs e)
@@ -95,8 +104,21 @@ namespace UltimateOsuServerSwitcher
       lblInfo.Text = "Fetching mirrors...";
       Application.DoEvents();
 
-      // Load online data and verify servers
-      List<Mirror> mirrors = JsonConvert.DeserializeObject<List<Mirror>>(await WebHelper.DownloadStringAsync(Urls.Mirrors));
+      // Try to load online data and verify servers
+      List<Mirror> mirrors = null;
+      try
+      {
+        // Download the mirror data from github and deserialize it into a mirror list
+        mirrors = JsonConvert.DeserializeObject<List<Mirror>>(await WebHelper.DownloadStringAsync(Urls.Mirrors));
+      }
+      catch
+      {
+        // If it was not successful, github may cannot currently be reached or I made a mistake in the json data.
+        MessageBox.Show("Error whilst parsing the server mirrors from GitHub!\r\nPlease make sure you can connect to www.github.com in your browser.\r\n\r\nIf this issue persists, please visit our discord. You can find the invite link on our GitHub Page (minisbett/ultimate-osu-server-switcher)", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        Application.Exit();
+        return;
+      }
+
       imgLoadingBar.Maximum = mirrors.Count;
       // Try to load all servers
       List<Server> servers = new List<Server>();
@@ -104,8 +126,18 @@ namespace UltimateOsuServerSwitcher
       {
         lblInfo.Text = $"Parsing mirror {mirror.Url}";
         Application.DoEvents();
-        // Serialize the mirror into a server
-        Server server = JsonConvert.DeserializeObject<Server>(await WebHelper.DownloadStringAsync(mirror.Url));
+        Server server = null;
+        // Try to serialize the mirror into a server
+        try
+        {
+          // Download the data from the mirror and try to parse it into a server object.
+          server = JsonConvert.DeserializeObject<Server>(await WebHelper.DownloadStringAsync(mirror.Url));
+        }
+        catch
+        {
+          // If the cast was not successful (invalid json) or the mirror could not be reached, skip the mirror
+          continue;
+        }
         // Forward mirror variables to the server
         server.IsFeatured = mirror.Featured;
         server.UID = mirror.UID;
@@ -143,9 +175,8 @@ namespace UltimateOsuServerSwitcher
         // (One server could be named test 123 and the other test  123)
         if (server.ServerName.Replace("  ", "") != server.ServerName)
           continue;
-        // Check if the server fakes bancho or localhost
-        if (server.ServerName == Server.BanchoServer.ServerName ||
-            server.ServerName == Server.LocalhostServer.ServerName)
+        // Check if the server fakes a hardcoded server
+        if (Server.StaticServers.Any(x => x.ServerName == server.ServerName))
           continue;
 
         // Check if the server ip is formatted correctly
@@ -205,7 +236,8 @@ namespace UltimateOsuServerSwitcher
         {
           // Add the bancho server
           Server s = Server.BanchoServer;
-          s.Icon = icon;
+          // Scale the image to 256x256
+          s.Icon = new Bitmap(icon, new Size(256, 256));
           servers.Add(s);
         }
       }
@@ -222,7 +254,8 @@ namespace UltimateOsuServerSwitcher
         {
           // Add the localhost server
           Server s = Server.LocalhostServer;
-          s.Icon = icon;
+          // Scale the image to 256x256
+          s.Icon = new Bitmap(icon, new Size(256, 256));
           servers.Add(s);
         }
       }
@@ -244,18 +277,21 @@ namespace UltimateOsuServerSwitcher
 
       Switcher.Servers = servers;
 
+      // Enable/Disable the timer depending on if useDiscordRichPresence is true or false
+      // Set here because the timer needs to have the servers loaded
+      richPresenceUpdateTimer.Enabled = m_settings["useDiscordRichPresence"] == "true";
+
       // Initialize the current selected server variable
       m_currentSelectedServer = Switcher.GetCurrentServer();
       if (m_currentSelectedServer.IsUnidentified)
         m_currentSelectedServer = Switcher.Servers.First(x => x.UID == "bancho");
 
-      // Set the discord rich presence
-      if (!Switcher.GetCurrentServer().IsUnidentified)
-        Discord.SetPresenceServer(Switcher.GetCurrentServer());
-
       // Hide loading button and loading bar after all mirrors are loaded
       pctrLoading.Visible = false;
       imgLoadingBar.Visible = false;
+
+      // Show the account manager button because all servers are loaded now
+      btnAccountManager.Visible = true;
 
       // Update the UI
       UpdateUI();
@@ -334,13 +370,19 @@ namespace UltimateOsuServerSwitcher
     private void lnklblTelemetryLearnMore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
       // Show informations about telemetry logging
-      MessageBox.Show("We would appreciate to log some data to improve the user experience for everyone.\r\n\r\nThe following data will be transmitted to our server:\r\n\r\n- Server you are coming from and switching to\r\n- The time span between switching the server\r\n- Connectivity status of servers\r\n\r\n\r\nNote: No informations that would identify you will be transmitted. All informations are completely anonymous.\r\n\r\nYou can stop sending telemtry data by disabling that option at any time.", "UOSS Telemetry Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      MessageBox.Show("We would appreciate to log some data to improve the user experience for everyone.\r\n\r\nThe following data will be transmitted to our server:\r\n\r\n- Server you are coming from and switching to\r\n- The time span between switching the server\r\n- Connectivity status of servers\r\n\r\n\r\nNote: No informations that would identify you will be transmitted. All informations are completely anonymous.\r\n\r\nYou can stop sending telemtry data at any time by disabling that option.", "UOSS Telemetry Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
     private void lnklblWhyMinimize_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
       // Show informations about the minimize to tray option
       MessageBox.Show("Minimize to system tray means that if you close the program it just gets minimized to the system tray\r\n(icons next to the clock in the taskbar).\r\n\r\nThis way, the switcher will run in background and, when you open it again, doesn't need to load all servers again.\r\n\r\nThis feature is useful when you switch the server quite often.\r\n\r\nYou can still close the switcher by either disabling this option or right clicking the icon in the system tray, and then 'Exit'.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    private void lnklblWhatRichPresence_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      // Open a discord video about discord rich presence for explaination
+      Process.Start(Urls.RichPresenceExplanation);
     }
 
     private void btnExit_Click(object sender, EventArgs e)
@@ -403,10 +445,23 @@ namespace UltimateOsuServerSwitcher
       m_settings["reopenOsuAfterSwitching"] = chckbxReopenAfterSwitching.Checked ? "true" : "false";
     }
 
-
     private void chckbxOpenAfterQuickSwitching_CheckedChanged(object sender, EventArgs e)
     {
       m_settings["openOsuAfterQuickSwitching"] = chckbxOpenAfterQuickSwitching.Checked ? "true" : "false";
+    }
+
+    private void chckbxUseDiscordRichPresence_CheckedChanged(object sender, EventArgs e)
+    {
+      m_settings["useDiscordRichPresence"] = chckbxUseDiscordRichPresence.Checked ? "true" : "false";
+
+      // If the presence feature gets deactivated, remove the precense if needed
+      if (!chckbxUseDiscordRichPresence.Checked && Discord.IsPrecenseSet)
+        Discord.RemovePresence();
+      else
+        MessageBox.Show("In order to make this feature run properly, please disable the Discord Rich Presense in your osu! settings.\r\n\r\nIf it still doesn't show up, try to switch the server or restart the switcher in order to reload the Discord Rich Presence.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+      // En/Disable the timer that constantly checks if osu is running
+      richPresenceUpdateTimer.Enabled = chckbxUseDiscordRichPresence.Checked;
     }
 
     private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
@@ -471,6 +526,24 @@ namespace UltimateOsuServerSwitcher
     #endregion
 
     #region Other events
+
+    private void richPresenceUpdateTimer_Tick(object sender, EventArgs e)
+    {
+      // Get all osu instances to check if osu is running
+      Process[] osuInstances = Process.GetProcessesByName("osu!");
+      // If no osu is running but a presence is set, remove that presence
+      if (osuInstances.Length == 0 && Discord.IsPrecenseSet)
+        Discord.RemovePresence();
+      else if (osuInstances.Length > 0)
+      {
+        // Get the current server
+        Server currentServer = Switcher.GetCurrentServer();
+        // Check if either no presence is set or the current presence is a different server
+        // If the presence is a different server, update the presence (server was switched)
+        if (!Discord.IsPrecenseSet || Discord.ShownServer.UID != currentServer.UID)
+          Discord.SetPresenceServer(currentServer);
+      }
+    }
 
     private void BorderlessDragMouseDown(object sender, MouseEventArgs e)
     {
