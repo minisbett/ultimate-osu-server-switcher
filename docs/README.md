@@ -58,7 +58,8 @@ Switching a server includes deinstalling all certificates, modfying the hosts fi
 (if you chose to play on a third-party server).
 
 The certificates will be installed on the local machine, rather than just the local user to avoid a warning prompt the user
-has to agree with. This improves the switching agility to garantue the best user experience.
+has to agree with. This improves the switching agility to garantue the best user experience. Also why not, the hosts changes apply to
+the whole computer too.
 
 # Current servers
 >
