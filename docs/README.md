@@ -58,7 +58,8 @@ Switching a server includes deinstalling all certificates, modfying the hosts fi
 (if you chose to play on a third-party server).
 
 The certificates will be installed on the local machine, rather than just the local user to avoid a warning prompt the user
-has to agree with. This improves the switching agility to garantue the best user experience.
+has to agree with. This improves the switching agility to garantue the best user experience. Also why not, the hosts changes apply to
+the whole computer too.
 
 # Current servers
 >
@@ -76,6 +77,8 @@ has to agree with. This improves the switching agility to garantue the best user
 > - [Kawata](https://kawata.pw/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/kawata.png?raw=true">
 > - [Astellia](https://astellia.club/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/astellia.png?raw=true">
 > - [Horizon](https://lemres.de/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/horizon.png?raw=true">
+> - [Debian](https://debian.moe/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/debian.png?raw=true">
+> - [Nekosu](https://nekosu.cf/)<img width="16" height="16" src="https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/nekosu.png?raw=true">
 
 # GUI
 
