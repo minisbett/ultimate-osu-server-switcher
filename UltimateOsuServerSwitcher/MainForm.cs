@@ -51,7 +51,6 @@ namespace UltimateOsuServerSwitcher
       m_settings.SetDefaultValue("sendTelemetry", "false");
       m_settings.SetDefaultValue("closeOsuBeforeSwitching", "true");
       m_settings.SetDefaultValue("reopenOsuAfterSwitching", "true");
-      m_settings.SetDefaultValue("openOsuAfterQuickSwitching", "true");
       m_settings.SetDefaultValue("useDiscordRichPresence", "true");
 
       // Set the settings controls to their state from the settings file
@@ -59,7 +58,6 @@ namespace UltimateOsuServerSwitcher
       chckbxSendTelemetry.Checked = m_settings["sendTelemetry"] == "true";
       chckbxCloseBeforeSwitching.Checked = m_settings["closeOsuBeforeSwitching"] == "true";
       chckbxReopenAfterSwitching.Checked = m_settings["reopenOsuAfterSwitching"] == "true";
-      chckbxOpenAfterQuickSwitching.Checked = m_settings["openOsuAfterQuickSwitching"] == "true";
       chckbxUseDiscordRichPresence.Checked = m_settings["useDiscordRichPresence"] == "true";
 
       //
@@ -138,6 +136,7 @@ namespace UltimateOsuServerSwitcher
           // If the cast was not successful (invalid json) or the mirror could not be reached, skip the mirror
           continue;
         }
+
         // Forward mirror variables to the server
         server.IsFeatured = mirror.Featured;
         server.UID = mirror.UID;
@@ -175,6 +174,7 @@ namespace UltimateOsuServerSwitcher
         // (One server could be named test 123 and the other test  123)
         if (server.ServerName.Replace("  ", "") != server.ServerName)
           continue;
+
         // Check if the server fakes a hardcoded server
         if (Server.StaticServers.Any(x => x.ServerName == server.ServerName))
           continue;
@@ -188,7 +188,7 @@ namespace UltimateOsuServerSwitcher
           continue;
 
         // Check if its a real discord invite url
-        if (!server.DiscordUrl.Replace("https", "").Replace("http", "").Replace("://", "").StartsWith("discord.gg"))
+        if (server.DiscordUrl != "" && !server.DiscordUrl.Replace("https", "").Replace("http", "").Replace("://", "").StartsWith("discord.gg"))
           continue;
 
         // Initialize variables like Certificate and Icon that are downloaded from their urls when
@@ -227,45 +227,31 @@ namespace UltimateOsuServerSwitcher
         imgLoadingBar.Value++;
       }
 
-      // Load bancho and localhost
-      try
+      // Load static servers (bancho and localhost)
+      foreach (Server server in Server.StaticServers)
       {
-        // Download the icon and check if its at least 256x256
-        Image icon = await WebHelper.DownloadImageAsync(Server.BanchoServer.IconUrl);
-        if (icon.Width >= 256 && icon.Height >= 256)
+        try
         {
-          // Add the bancho server
-          Server s = Server.BanchoServer;
-          // Scale the image to 256x256
-          s.Icon = new Bitmap(icon, new Size(256, 256));
-          servers.Add(s);
+          // Download the icon and check if its at least 256x256
+          Image icon = await WebHelper.DownloadImageAsync(server.IconUrl);
+          if (icon.Width >= 256 && icon.Height >= 256)
+          {
+            // Scale the image to 256x256
+            server.Icon = new Bitmap(icon, new Size(256, 256));
+            servers.Add(server);
+          }
         }
-      }
-      catch // Image could not be downloaded or loaded
-      {
-
-      }
-
-      try
-      {
-        // Download the icon and check if its at least 256x256
-        Image icon = await WebHelper.DownloadImageAsync(Server.LocalhostServer.IconUrl);
-        if (icon.Width >= 256 && icon.Height >= 256)
+        catch // Image could not be downloaded or loaded
         {
-          // Add the localhost server
-          Server s = Server.LocalhostServer;
-          // Scale the image to 256x256
-          s.Icon = new Bitmap(icon, new Size(256, 256));
-          servers.Add(s);
-        }
-      }
-      catch // Image could not be downloaded or loaded
-      {
 
+        }
       }
 
       // Sort the servers by priority (first bancho, then featured, then normal, then localhost)
       servers = servers.OrderByDescending(x => x.Priority).ToList();
+
+      lblInfo.Text = "Updating icon files...";
+      Application.DoEvents();
 
       // Create .ico files for shortcuts
       foreach (Server server in servers)
@@ -283,6 +269,7 @@ namespace UltimateOsuServerSwitcher
 
       // Initialize the current selected server variable
       m_currentSelectedServer = Switcher.GetCurrentServer();
+      // If current connected server is unidentified, show/select bancho
       if (m_currentSelectedServer.IsUnidentified)
         m_currentSelectedServer = Switcher.Servers.First(x => x.UID == "bancho");
 
@@ -301,7 +288,7 @@ namespace UltimateOsuServerSwitcher
 
     #region Click & CheckChanged Events
 
-    private void pctrServerIcon_Click(object sender, EventArgs e)
+    private void pctrCurrentSelectedServer_DoubleClick(object sender, EventArgs e)
     {
       // If the server is set has a discord, open the link
       if (m_currentSelectedServer != null && !string.IsNullOrEmpty(m_currentSelectedServer.DiscordUrl))
@@ -445,13 +432,9 @@ namespace UltimateOsuServerSwitcher
       m_settings["reopenOsuAfterSwitching"] = chckbxReopenAfterSwitching.Checked ? "true" : "false";
     }
 
-    private void chckbxOpenAfterQuickSwitching_CheckedChanged(object sender, EventArgs e)
-    {
-      m_settings["openOsuAfterQuickSwitching"] = chckbxOpenAfterQuickSwitching.Checked ? "true" : "false";
-    }
-
     private void chckbxUseDiscordRichPresence_CheckedChanged(object sender, EventArgs e)
     {
+      // Save the useDiscordRichPresence setting
       m_settings["useDiscordRichPresence"] = chckbxUseDiscordRichPresence.Checked ? "true" : "false";
 
       // If the presence feature gets deactivated, remove the precense if needed

@@ -118,7 +118,7 @@ namespace UltimateOsuServerSwitcher
     /// <summary>
     /// A server object that represents a localhost server
     /// </summary>
-    public static Server LocalhostServer => new Server() { UID = "localhost", ServerName = "localhost", IP = "127.0.0.1", IconUrl = "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/datav2/osu_256.png" };
+    public static Server LocalhostServer => new Server() { UID = "localhost", ServerName = "localhost (for development purposes)", IP = "127.0.0.1", IconUrl = "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/datav2/osu_256.png" };
 
     /// <summary>
     /// Returns an array with new instances of all static/hardcoded servers
