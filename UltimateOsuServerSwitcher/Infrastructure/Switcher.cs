@@ -10,6 +10,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UltimateOsuServerSwitcher.Model;
+using UltimateOsuServerSwitcher.Utils;
 
 namespace UltimateOsuServerSwitcher
 {
@@ -17,6 +19,9 @@ namespace UltimateOsuServerSwitcher
   {
     // The settings for the switcher
     private static Settings m_settings => new Settings(Paths.SettingsFile);
+
+    // The settings instance for the saved osu accounts
+    private static Settings m_accounts => new Settings(Paths.AccountsFile);
 
     /// <summary>
     /// The servers that were parsed from the web
@@ -32,26 +37,65 @@ namespace UltimateOsuServerSwitcher
       // Remember the old server for telemetry
       Server from = GetCurrentServer();
 
-      // Get rid of all uneccessary certificates
-      CertificateManager.UninstallAllCertificates(Servers);
-
-      // Clean up the hosts file
+      // Get the hosts file to edit it
       List<string> hosts = HostsUtil.GetHosts().ToList();
-      hosts.RemoveAll(x => x.Contains(".ppy.sh"));
-      HostsUtil.SetHosts(hosts.ToArray());
 
-      // Edit the hosts file if the server is not bancho
-      if (!server.IsBancho)
+      // Check if reading the hosts file was successful
+      if (hosts == null)
+        return;
+      hosts.RemoveAll(x => x.Contains(".ppy.sh"));
+
+      // Edit the hosts file if the server has a custom ip
+      if (server.HasIP)
       {
         // Change the hosts file by adding the server's ip and the osu domain
         hosts = HostsUtil.GetHosts().ToList();
         foreach (string domain in Variables.OsuDomains)
           hosts.Add(server.IP + " " + domain);
-        HostsUtil.SetHosts(hosts.ToArray());
+      }
 
-        // Install the certificate if needed (not needed for bancho and localhost)
-        if (server.HasCertificate)
+      // Apply the changes to the hosts file
+      bool successful = HostsUtil.SetHosts(hosts.ToArray());
+      // check if writing to the hosts file was successful
+      if (!successful)
+        return;
+
+      try
+      {
+        // Get rid of all uneccessary certificates
+        CertificateManager.UninstallAllCertificates(Servers);
+      }
+      catch (Exception ex)
+      {
+        // Show error
+        MessageBox.Show($"Error whilst trying to uninstall certificates.\n\n{ex.Message}\n\nPlease try again.\nIf the issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+
+      // Install the certificate if needed (not needed for bancho and localhost)
+      if (server.HasCertificate)
+        try
+        {
           CertificateManager.InstallCertificate(server);
+        }
+        catch (Exception ex)
+        {
+          // Show error
+          MessageBox.Show($"Error whilst trying to install certificates.\n\n{ex.Message}\n\nPlease switch back to bancho to try again. Otherwise you will experience desynchronizations between your hosts file and your installed certificates.\n\nIf the issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+      // switch the account in the osu config file if that option is enabled
+      if (m_settings["switchAccount"] == "true")
+      {
+        // Only switch when an account is saved for that server
+        List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(m_accounts["accounts"]);
+        if(accounts.Any(x => x.ServerUID == server.UID))
+        {
+          // get the account that belongs to the server the user switched to
+          Account account = accounts.First(x => x.ServerUID == server.UID);
+
+          // Try to change the account details in the osu config file
+          OsuConfigFileUtils.SetAccount(account);
+        }
       }
 
       // Send telemetry if enabled
@@ -105,6 +149,7 @@ namespace UltimateOsuServerSwitcher
     }
 
     #region QuickSwitch
+
     /// <summary>
     /// Creates a QuickSwitch shortcut at the given location for the given server
     /// </summary>
@@ -121,6 +166,7 @@ namespace UltimateOsuServerSwitcher
       shortcut.Arguments = $"/c call \"{Application.ExecutablePath}\" \"{server.UID}\"";
       shortcut.Save();
     }
+
     #endregion
 
     /// <summary>

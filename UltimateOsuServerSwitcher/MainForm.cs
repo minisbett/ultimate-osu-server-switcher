@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UltimateOsuServerSwitcher.Model;
 
 namespace UltimateOsuServerSwitcher
 {
@@ -32,6 +33,9 @@ namespace UltimateOsuServerSwitcher
 
     // The settings for the switcher
     private Settings m_settings => new Settings(Paths.SettingsFile);
+
+    // The settings instance for the saved osu accounts
+    private Settings m_accounts => new Settings(Paths.AccountsFile);
 
     #region Program initialize
 
@@ -51,7 +55,11 @@ namespace UltimateOsuServerSwitcher
       m_settings.SetDefaultValue("sendTelemetry", "false");
       m_settings.SetDefaultValue("closeOsuBeforeSwitching", "true");
       m_settings.SetDefaultValue("reopenOsuAfterSwitching", "true");
-      m_settings.SetDefaultValue("useDiscordRichPresence", "true");
+      m_settings.SetDefaultValue("useDiscordRichPresence", "false");
+      m_settings.SetDefaultValue("switchAccount", "false");
+
+      // Initialize the list of saved accounts
+      m_accounts.SetDefaultValue("accounts", JsonConvert.SerializeObject(new List<Account>()));
 
       // Set the settings controls to their state from the settings file
       chckbxMinimize.Checked = m_settings["minimizeToTray"] == "true";
@@ -59,12 +67,14 @@ namespace UltimateOsuServerSwitcher
       chckbxCloseBeforeSwitching.Checked = m_settings["closeOsuBeforeSwitching"] == "true";
       chckbxReopenAfterSwitching.Checked = m_settings["reopenOsuAfterSwitching"] == "true";
       chckbxUseDiscordRichPresence.Checked = m_settings["useDiscordRichPresence"] == "true";
+      chckbxSwitchAccount.Checked = m_settings["switchAccount"] == "true";
 
       //
       // Telemetry disabled because not finished yet
       //
       m_settings["sendTelemetry"] = "false";
       chckbxSendTelemetry.Checked = false;
+      chckbxSendTelemetry.Enabled = false;
     }
 
     private async void MainForm_Load(object sender, EventArgs e)
@@ -261,7 +271,13 @@ namespace UltimateOsuServerSwitcher
           ImagingHelper.ConvertToIcon(ms, fs, server.Icon.Width, true);
       }
 
+      // Give the parsed servers to the switcher
       Switcher.Servers = servers;
+
+      // Remove all saved accounts from servers that may no longer exist
+      List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(m_settings["accounts"]);
+      accounts.RemoveAll(a => !servers.Any(x => x.UID == a.ServerUID));
+      m_settings["accounts"] = JsonConvert.SerializeObject(accounts);
 
       // Enable/Disable the timer depending on if useDiscordRichPresence is true or false
       // Set here because the timer needs to have the servers loaded
@@ -422,6 +438,7 @@ namespace UltimateOsuServerSwitcher
     {
       // Only enable the reopen setting control when close before switching is enabled
       chckbxReopenAfterSwitching.Enabled = chckbxCloseBeforeSwitching.Checked;
+
       // Save the closeOsuBeforeSwitching setting
       m_settings["closeOsuBeforeSwitching"] = chckbxCloseBeforeSwitching.Checked ? "true" : "false";
     }
@@ -440,11 +457,17 @@ namespace UltimateOsuServerSwitcher
       // If the presence feature gets deactivated, remove the precense if needed
       if (!chckbxUseDiscordRichPresence.Checked && Discord.IsPrecenseSet)
         Discord.RemovePresence();
-      else
+      else if(chckbxUseDiscordRichPresence.Checked) // If the feature is getting enabled show informations
         MessageBox.Show("In order to make this feature run properly, please disable the Discord Rich Presense in your osu! settings.\r\n\r\nIf it still doesn't show up, try to switch the server or restart the switcher in order to reload the Discord Rich Presence.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
       // En/Disable the timer that constantly checks if osu is running
       richPresenceUpdateTimer.Enabled = chckbxUseDiscordRichPresence.Checked;
+    }
+
+    private void chckbxSwitchAccount_CheckedChanged(object sender, EventArgs e)
+    {
+      // Save the switchAccount setting
+      m_settings["switchAccount"] = chckbxSwitchAccount.Checked ? "true" : "false";
     }
 
     private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
@@ -456,6 +479,12 @@ namespace UltimateOsuServerSwitcher
         notifyIcon.Visible = false;
         Show();
       }
+    }
+
+    private void btnAccountManager_Click(object sender, EventArgs e)
+    {
+      // Open the account manager
+      new AccountManager().ShowDialog();
     }
 
     #region Tab pages

@@ -88,6 +88,8 @@ namespace UltimateOsuServerSwitcher
     /// </summary>
     public bool HasCertificate => !IsLocalhost && !IsUnidentified && !IsBancho;
 
+    public bool HasIP => !IsBancho;
+
     /// <summary>
     /// The priority of the server
     /// </summary>

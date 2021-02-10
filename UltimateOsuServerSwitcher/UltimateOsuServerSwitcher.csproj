@@ -82,6 +82,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AccountManager.Designer.cs">
+      <DependentUpon>AccountManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AccountItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AccountItem.Designer.cs">
+      <DependentUpon>AccountItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\BetterCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -94,6 +106,7 @@
     <Compile Include="Infrastructure\Discord.cs" />
     <Compile Include="Infrastructure\Switcher.cs" />
     <Compile Include="Infrastructure\Settings.cs" />
+    <Compile Include="Model\Account.cs" />
     <Compile Include="Utils\CertificateManager.cs" />
     <Compile Include="Utils\HostsUtil.cs" />
     <Compile Include="Utils\ImagingHelper.cs" />
@@ -110,9 +123,16 @@
     <Compile Include="Model\Server.cs" />
     <Compile Include="Infrastructure\TelemetryService.cs" />
     <Compile Include="Infrastructure\VersionChecker.cs" />
+    <Compile Include="Utils\OsuConfigFileUtils.cs" />
     <Compile Include="Utils\TelemetryUtils.cs" />
     <Compile Include="Utils\WebHelper.cs" />
     <Compile Include="Utils\WinApi.cs" />
+    <EmbeddedResource Include="AccountManager.resx">
+      <DependentUpon>AccountManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AccountItem.resx">
+      <DependentUpon>AccountItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

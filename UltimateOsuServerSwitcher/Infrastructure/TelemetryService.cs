@@ -34,6 +34,8 @@ namespace UltimateOsuServerSwitcher
       // If the file does not exist yet, return nothing
       if (!File.Exists(Paths.TelemetryCacheFile))
         return "";
+
+      // return the telemetry cache file
       return File.ReadAllText(Paths.TelemetryCacheFile);
     }
 

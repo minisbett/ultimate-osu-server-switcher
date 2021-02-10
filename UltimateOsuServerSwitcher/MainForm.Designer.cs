@@ -33,7 +33,6 @@
       this.btnSwitcher = new System.Windows.Forms.Button();
       this.btnExit = new System.Windows.Forms.Button();
       this.pnlSwitcher = new System.Windows.Forms.Panel();
-      this.btnAccountManager = new System.Windows.Forms.Button();
       this.pctrVerified = new System.Windows.Forms.PictureBox();
       this.lblInfo = new System.Windows.Forms.Label();
       this.pctrCurrentServer = new System.Windows.Forms.PictureBox();
@@ -43,21 +42,24 @@
       this.pctrAlreadyConnected = new System.Windows.Forms.PictureBox();
       this.btnConnect = new System.Windows.Forms.PictureBox();
       this.pctrLoading = new System.Windows.Forms.PictureBox();
-      this.pctrCurrentSelectedServer = new System.Windows.Forms.PictureBox();
       this.imgLoadingBar = new UltimateOsuServerSwitcher.Controls.ImageLoadingBar();
+      this.pctrCurrentSelectedServer = new System.Windows.Forms.PictureBox();
       this.btnSettings = new System.Windows.Forms.Button();
       this.pnlSettings = new System.Windows.Forms.Panel();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.groupBox3 = new System.Windows.Forms.GroupBox();
-      this.chckbxReopenAfterSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
-      this.chckbxCloseBeforeSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
-      this.groupBox2 = new System.Windows.Forms.GroupBox();
-      this.chckbxSendTelemetry = new UltimateOsuServerSwitcher.BetterCheckBox();
-      this.lnklblTelemetryLearnMore = new System.Windows.Forms.LinkLabel();
       this.lnklblWhatRichPresence = new System.Windows.Forms.LinkLabel();
       this.chckbxUseDiscordRichPresence = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.lnklblWhyMinimize = new System.Windows.Forms.LinkLabel();
       this.chckbxMinimize = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.groupBox3 = new System.Windows.Forms.GroupBox();
+      this.groupBox4 = new System.Windows.Forms.GroupBox();
+      this.btnAccountManager = new System.Windows.Forms.Button();
+      this.chckbxSwitchAccount = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.chckbxSendTelemetry = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.lnklblTelemetryLearnMore = new System.Windows.Forms.LinkLabel();
+      this.chckbxReopenAfterSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.chckbxCloseBeforeSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.btnHelp = new System.Windows.Forms.Button();
       this.pnlHelp = new System.Windows.Forms.Panel();
       this.label2 = new System.Windows.Forms.Label();
@@ -87,6 +89,7 @@
       this.pnlSettings.SuspendLayout();
       this.groupBox1.SuspendLayout();
       this.groupBox3.SuspendLayout();
+      this.groupBox4.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.pnlHelp.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -133,7 +136,6 @@
       // 
       // pnlSwitcher
       // 
-      this.pnlSwitcher.Controls.Add(this.btnAccountManager);
       this.pnlSwitcher.Controls.Add(this.pctrVerified);
       this.pnlSwitcher.Controls.Add(this.lblInfo);
       this.pnlSwitcher.Controls.Add(this.pctrCurrentServer);
@@ -150,24 +152,6 @@
       this.pnlSwitcher.Size = new System.Drawing.Size(560, 405);
       this.pnlSwitcher.TabIndex = 3;
       this.pnlSwitcher.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
-      // 
-      // btnAccountManager
-      // 
-      this.btnAccountManager.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-      this.btnAccountManager.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-      this.btnAccountManager.FlatAppearance.BorderSize = 2;
-      this.btnAccountManager.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
-      this.btnAccountManager.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
-      this.btnAccountManager.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btnAccountManager.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.btnAccountManager.ForeColor = System.Drawing.Color.White;
-      this.btnAccountManager.Location = new System.Drawing.Point(0, 371);
-      this.btnAccountManager.Name = "btnAccountManager";
-      this.btnAccountManager.Size = new System.Drawing.Size(153, 34);
-      this.btnAccountManager.TabIndex = 11;
-      this.btnAccountManager.Text = "Account Manager";
-      this.btnAccountManager.UseVisualStyleBackColor = false;
-      this.btnAccountManager.Visible = false;
       // 
       // pctrVerified
       // 
@@ -272,16 +256,6 @@
       this.pctrLoading.TabIndex = 3;
       this.pctrLoading.TabStop = false;
       // 
-      // pctrCurrentSelectedServer
-      // 
-      this.pctrCurrentSelectedServer.Location = new System.Drawing.Point(152, 16);
-      this.pctrCurrentSelectedServer.Name = "pctrCurrentSelectedServer";
-      this.pctrCurrentSelectedServer.Size = new System.Drawing.Size(256, 256);
-      this.pctrCurrentSelectedServer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-      this.pctrCurrentSelectedServer.TabIndex = 0;
-      this.pctrCurrentSelectedServer.TabStop = false;
-      this.pctrCurrentSelectedServer.DoubleClick += new System.EventHandler(this.pctrCurrentSelectedServer_DoubleClick);
-      // 
       // imgLoadingBar
       // 
       this.imgLoadingBar.LoadedImage = ((System.Drawing.Image)(resources.GetObject("imgLoadingBar.LoadedImage")));
@@ -293,6 +267,16 @@
       this.imgLoadingBar.Text = "imageLoadingBar1";
       this.imgLoadingBar.UnloadedImage = ((System.Drawing.Image)(resources.GetObject("imgLoadingBar.UnloadedImage")));
       this.imgLoadingBar.Value = 0;
+      // 
+      // pctrCurrentSelectedServer
+      // 
+      this.pctrCurrentSelectedServer.Location = new System.Drawing.Point(152, 16);
+      this.pctrCurrentSelectedServer.Name = "pctrCurrentSelectedServer";
+      this.pctrCurrentSelectedServer.Size = new System.Drawing.Size(256, 256);
+      this.pctrCurrentSelectedServer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.pctrCurrentSelectedServer.TabIndex = 0;
+      this.pctrCurrentSelectedServer.TabStop = false;
+      this.pctrCurrentSelectedServer.DoubleClick += new System.EventHandler(this.pctrCurrentSelectedServer_DoubleClick);
       // 
       // btnSettings
       // 
@@ -324,11 +308,11 @@
       // 
       // groupBox1
       // 
-      this.groupBox1.Controls.Add(this.groupBox3);
       this.groupBox1.Controls.Add(this.lnklblWhatRichPresence);
       this.groupBox1.Controls.Add(this.chckbxUseDiscordRichPresence);
       this.groupBox1.Controls.Add(this.lnklblWhyMinimize);
       this.groupBox1.Controls.Add(this.chckbxMinimize);
+      this.groupBox1.Controls.Add(this.groupBox3);
       this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.groupBox1.ForeColor = System.Drawing.Color.White;
       this.groupBox1.Location = new System.Drawing.Point(-1, 8);
@@ -338,11 +322,67 @@
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "General";
       // 
+      // lnklblWhatRichPresence
+      // 
+      this.lnklblWhatRichPresence.AutoSize = true;
+      this.lnklblWhatRichPresence.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lnklblWhatRichPresence.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+      this.lnklblWhatRichPresence.Location = new System.Drawing.Point(446, 54);
+      this.lnklblWhatRichPresence.Name = "lnklblWhatRichPresence";
+      this.lnklblWhatRichPresence.Size = new System.Drawing.Size(100, 21);
+      this.lnklblWhatRichPresence.TabIndex = 11;
+      this.lnklblWhatRichPresence.TabStop = true;
+      this.lnklblWhatRichPresence.Text = "What is that?";
+      this.lnklblWhatRichPresence.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblWhatRichPresence_LinkClicked);
+      // 
+      // chckbxUseDiscordRichPresence
+      // 
+      this.chckbxUseDiscordRichPresence.AutoSize = true;
+      this.chckbxUseDiscordRichPresence.Checked = true;
+      this.chckbxUseDiscordRichPresence.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxUseDiscordRichPresence.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxUseDiscordRichPresence.ForeColor = System.Drawing.Color.White;
+      this.chckbxUseDiscordRichPresence.Location = new System.Drawing.Point(1, 52);
+      this.chckbxUseDiscordRichPresence.Name = "chckbxUseDiscordRichPresence";
+      this.chckbxUseDiscordRichPresence.Size = new System.Drawing.Size(448, 25);
+      this.chckbxUseDiscordRichPresence.TabIndex = 10;
+      this.chckbxUseDiscordRichPresence.Text = "Use Discord Rich Presence to show the server (experimental)";
+      this.chckbxUseDiscordRichPresence.UseVisualStyleBackColor = true;
+      this.chckbxUseDiscordRichPresence.CheckedChanged += new System.EventHandler(this.chckbxUseDiscordRichPresence_CheckedChanged);
+      // 
+      // lnklblWhyMinimize
+      // 
+      this.lnklblWhyMinimize.AutoSize = true;
+      this.lnklblWhyMinimize.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lnklblWhyMinimize.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+      this.lnklblWhyMinimize.Location = new System.Drawing.Point(190, 28);
+      this.lnklblWhyMinimize.Name = "lnklblWhyMinimize";
+      this.lnklblWhyMinimize.Size = new System.Drawing.Size(49, 21);
+      this.lnklblWhyMinimize.TabIndex = 3;
+      this.lnklblWhyMinimize.TabStop = true;
+      this.lnklblWhyMinimize.Text = "Why?";
+      this.lnklblWhyMinimize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblWhyMinimize_LinkClicked);
+      // 
+      // chckbxMinimize
+      // 
+      this.chckbxMinimize.AutoSize = true;
+      this.chckbxMinimize.Checked = true;
+      this.chckbxMinimize.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxMinimize.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxMinimize.ForeColor = System.Drawing.Color.White;
+      this.chckbxMinimize.Location = new System.Drawing.Point(1, 27);
+      this.chckbxMinimize.Name = "chckbxMinimize";
+      this.chckbxMinimize.Size = new System.Drawing.Size(195, 25);
+      this.chckbxMinimize.TabIndex = 3;
+      this.chckbxMinimize.Text = "Minimize to system tray";
+      this.chckbxMinimize.UseVisualStyleBackColor = true;
+      this.chckbxMinimize.CheckedChanged += new System.EventHandler(this.chckbxMinimize_CheckedChanged);
+      // 
       // groupBox3
       // 
+      this.groupBox3.Controls.Add(this.groupBox4);
       this.groupBox3.Controls.Add(this.chckbxReopenAfterSwitching);
       this.groupBox3.Controls.Add(this.chckbxCloseBeforeSwitching);
-      this.groupBox3.Controls.Add(this.groupBox2);
       this.groupBox3.ForeColor = System.Drawing.Color.White;
       this.groupBox3.Location = new System.Drawing.Point(0, 79);
       this.groupBox3.Name = "groupBox3";
@@ -350,6 +390,95 @@
       this.groupBox3.TabIndex = 5;
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "Switching Behaviour";
+      // 
+      // groupBox4
+      // 
+      this.groupBox4.Controls.Add(this.btnAccountManager);
+      this.groupBox4.Controls.Add(this.chckbxSwitchAccount);
+      this.groupBox4.Controls.Add(this.groupBox2);
+      this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.groupBox4.ForeColor = System.Drawing.Color.White;
+      this.groupBox4.Location = new System.Drawing.Point(0, 199);
+      this.groupBox4.Name = "groupBox4";
+      this.groupBox4.Size = new System.Drawing.Size(601, 169);
+      this.groupBox4.TabIndex = 13;
+      this.groupBox4.TabStop = false;
+      this.groupBox4.Text = "Account Manager";
+      // 
+      // btnAccountManager
+      // 
+      this.btnAccountManager.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+      this.btnAccountManager.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+      this.btnAccountManager.FlatAppearance.BorderSize = 2;
+      this.btnAccountManager.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+      this.btnAccountManager.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+      this.btnAccountManager.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btnAccountManager.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btnAccountManager.ForeColor = System.Drawing.Color.White;
+      this.btnAccountManager.Location = new System.Drawing.Point(401, 26);
+      this.btnAccountManager.Name = "btnAccountManager";
+      this.btnAccountManager.Size = new System.Drawing.Size(153, 34);
+      this.btnAccountManager.TabIndex = 12;
+      this.btnAccountManager.Text = "Account Manager";
+      this.btnAccountManager.UseVisualStyleBackColor = false;
+      this.btnAccountManager.Visible = false;
+      this.btnAccountManager.Click += new System.EventHandler(this.btnAccountManager_Click);
+      // 
+      // chckbxSwitchAccount
+      // 
+      this.chckbxSwitchAccount.AutoSize = true;
+      this.chckbxSwitchAccount.Checked = true;
+      this.chckbxSwitchAccount.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxSwitchAccount.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxSwitchAccount.ForeColor = System.Drawing.Color.White;
+      this.chckbxSwitchAccount.Location = new System.Drawing.Point(0, 32);
+      this.chckbxSwitchAccount.Name = "chckbxSwitchAccount";
+      this.chckbxSwitchAccount.Size = new System.Drawing.Size(389, 25);
+      this.chckbxSwitchAccount.TabIndex = 2;
+      this.chckbxSwitchAccount.Text = "Automatically switch account when switching server";
+      this.chckbxSwitchAccount.UseVisualStyleBackColor = true;
+      this.chckbxSwitchAccount.CheckedChanged += new System.EventHandler(this.chckbxSwitchAccount_CheckedChanged);
+      // 
+      // groupBox2
+      // 
+      this.groupBox2.Controls.Add(this.chckbxSendTelemetry);
+      this.groupBox2.Controls.Add(this.lnklblTelemetryLearnMore);
+      this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.groupBox2.ForeColor = System.Drawing.Color.White;
+      this.groupBox2.Location = new System.Drawing.Point(0, 60);
+      this.groupBox2.Name = "groupBox2";
+      this.groupBox2.Size = new System.Drawing.Size(601, 155);
+      this.groupBox2.TabIndex = 4;
+      this.groupBox2.TabStop = false;
+      this.groupBox2.Text = "Other";
+      // 
+      // chckbxSendTelemetry
+      // 
+      this.chckbxSendTelemetry.AutoSize = true;
+      this.chckbxSendTelemetry.Checked = true;
+      this.chckbxSendTelemetry.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxSendTelemetry.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxSendTelemetry.ForeColor = System.Drawing.Color.White;
+      this.chckbxSendTelemetry.Location = new System.Drawing.Point(0, 32);
+      this.chckbxSendTelemetry.Name = "chckbxSendTelemetry";
+      this.chckbxSendTelemetry.Size = new System.Drawing.Size(231, 25);
+      this.chckbxSendTelemetry.TabIndex = 2;
+      this.chckbxSendTelemetry.Text = "Allow sending telemetry data";
+      this.chckbxSendTelemetry.UseVisualStyleBackColor = true;
+      this.chckbxSendTelemetry.CheckedChanged += new System.EventHandler(this.chckbxSendTelemetry_CheckedChanged);
+      // 
+      // lnklblTelemetryLearnMore
+      // 
+      this.lnklblTelemetryLearnMore.AutoSize = true;
+      this.lnklblTelemetryLearnMore.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lnklblTelemetryLearnMore.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+      this.lnklblTelemetryLearnMore.Location = new System.Drawing.Point(225, 33);
+      this.lnklblTelemetryLearnMore.Name = "lnklblTelemetryLearnMore";
+      this.lnklblTelemetryLearnMore.Size = new System.Drawing.Size(90, 21);
+      this.lnklblTelemetryLearnMore.TabIndex = 1;
+      this.lnklblTelemetryLearnMore.TabStop = true;
+      this.lnklblTelemetryLearnMore.Text = "Learn more";
+      this.lnklblTelemetryLearnMore.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblTelemetryLearnMore_LinkClicked);
       // 
       // chckbxReopenAfterSwitching
       // 
@@ -380,104 +509,6 @@
       this.chckbxCloseBeforeSwitching.Text = "Close osu before switching the server";
       this.chckbxCloseBeforeSwitching.UseVisualStyleBackColor = true;
       this.chckbxCloseBeforeSwitching.CheckedChanged += new System.EventHandler(this.chckbxCloseBeforeSwitching_CheckedChanged);
-      // 
-      // groupBox2
-      // 
-      this.groupBox2.Controls.Add(this.chckbxSendTelemetry);
-      this.groupBox2.Controls.Add(this.lnklblTelemetryLearnMore);
-      this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.groupBox2.ForeColor = System.Drawing.Color.White;
-      this.groupBox2.Location = new System.Drawing.Point(0, 259);
-      this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(601, 155);
-      this.groupBox2.TabIndex = 4;
-      this.groupBox2.TabStop = false;
-      this.groupBox2.Text = "Other";
-      // 
-      // chckbxSendTelemetry
-      // 
-      this.chckbxSendTelemetry.AutoSize = true;
-      this.chckbxSendTelemetry.Checked = true;
-      this.chckbxSendTelemetry.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chckbxSendTelemetry.Enabled = false;
-      this.chckbxSendTelemetry.Font = new System.Drawing.Font("Segoe UI", 12F);
-      this.chckbxSendTelemetry.ForeColor = System.Drawing.Color.White;
-      this.chckbxSendTelemetry.Location = new System.Drawing.Point(0, 32);
-      this.chckbxSendTelemetry.Name = "chckbxSendTelemetry";
-      this.chckbxSendTelemetry.Size = new System.Drawing.Size(435, 25);
-      this.chckbxSendTelemetry.TabIndex = 2;
-      this.chckbxSendTelemetry.Text = "Send anonymous telemetry data for better user experience";
-      this.chckbxSendTelemetry.UseVisualStyleBackColor = true;
-      this.chckbxSendTelemetry.CheckedChanged += new System.EventHandler(this.chckbxSendTelemetry_CheckedChanged);
-      // 
-      // lnklblTelemetryLearnMore
-      // 
-      this.lnklblTelemetryLearnMore.AutoSize = true;
-      this.lnklblTelemetryLearnMore.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lnklblTelemetryLearnMore.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-      this.lnklblTelemetryLearnMore.Location = new System.Drawing.Point(437, 32);
-      this.lnklblTelemetryLearnMore.Name = "lnklblTelemetryLearnMore";
-      this.lnklblTelemetryLearnMore.Size = new System.Drawing.Size(90, 21);
-      this.lnklblTelemetryLearnMore.TabIndex = 1;
-      this.lnklblTelemetryLearnMore.TabStop = true;
-      this.lnklblTelemetryLearnMore.Text = "Learn more";
-      this.lnklblTelemetryLearnMore.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblTelemetryLearnMore_LinkClicked);
-      // 
-      // lnklblWhatRichPresence
-      // 
-      this.lnklblWhatRichPresence.AutoSize = true;
-      this.lnklblWhatRichPresence.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lnklblWhatRichPresence.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-      this.lnklblWhatRichPresence.Location = new System.Drawing.Point(340, 53);
-      this.lnklblWhatRichPresence.Name = "lnklblWhatRichPresence";
-      this.lnklblWhatRichPresence.Size = new System.Drawing.Size(100, 21);
-      this.lnklblWhatRichPresence.TabIndex = 11;
-      this.lnklblWhatRichPresence.TabStop = true;
-      this.lnklblWhatRichPresence.Text = "What is that?";
-      this.lnklblWhatRichPresence.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblWhatRichPresence_LinkClicked);
-      // 
-      // chckbxUseDiscordRichPresence
-      // 
-      this.chckbxUseDiscordRichPresence.AutoSize = true;
-      this.chckbxUseDiscordRichPresence.Checked = true;
-      this.chckbxUseDiscordRichPresence.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chckbxUseDiscordRichPresence.Font = new System.Drawing.Font("Segoe UI", 12F);
-      this.chckbxUseDiscordRichPresence.ForeColor = System.Drawing.Color.White;
-      this.chckbxUseDiscordRichPresence.Location = new System.Drawing.Point(1, 52);
-      this.chckbxUseDiscordRichPresence.Name = "chckbxUseDiscordRichPresence";
-      this.chckbxUseDiscordRichPresence.Size = new System.Drawing.Size(344, 25);
-      this.chckbxUseDiscordRichPresence.TabIndex = 10;
-      this.chckbxUseDiscordRichPresence.Text = "Use Discord Rich Presence to show my server";
-      this.chckbxUseDiscordRichPresence.UseVisualStyleBackColor = true;
-      this.chckbxUseDiscordRichPresence.CheckedChanged += new System.EventHandler(this.chckbxUseDiscordRichPresence_CheckedChanged);
-      // 
-      // lnklblWhyMinimize
-      // 
-      this.lnklblWhyMinimize.AutoSize = true;
-      this.lnklblWhyMinimize.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lnklblWhyMinimize.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-      this.lnklblWhyMinimize.Location = new System.Drawing.Point(193, 28);
-      this.lnklblWhyMinimize.Name = "lnklblWhyMinimize";
-      this.lnklblWhyMinimize.Size = new System.Drawing.Size(49, 21);
-      this.lnklblWhyMinimize.TabIndex = 3;
-      this.lnklblWhyMinimize.TabStop = true;
-      this.lnklblWhyMinimize.Text = "Why?";
-      this.lnklblWhyMinimize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblWhyMinimize_LinkClicked);
-      // 
-      // chckbxMinimize
-      // 
-      this.chckbxMinimize.AutoSize = true;
-      this.chckbxMinimize.Checked = true;
-      this.chckbxMinimize.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chckbxMinimize.Font = new System.Drawing.Font("Segoe UI", 12F);
-      this.chckbxMinimize.ForeColor = System.Drawing.Color.White;
-      this.chckbxMinimize.Location = new System.Drawing.Point(1, 27);
-      this.chckbxMinimize.Name = "chckbxMinimize";
-      this.chckbxMinimize.Size = new System.Drawing.Size(195, 25);
-      this.chckbxMinimize.TabIndex = 3;
-      this.chckbxMinimize.Text = "Minimize to system tray";
-      this.chckbxMinimize.UseVisualStyleBackColor = true;
-      this.chckbxMinimize.CheckedChanged += new System.EventHandler(this.chckbxMinimize_CheckedChanged);
       // 
       // btnHelp
       // 
@@ -650,9 +681,9 @@
       this.Controls.Add(this.btnSettings);
       this.Controls.Add(this.btnExit);
       this.Controls.Add(this.btnSwitcher);
-      this.Controls.Add(this.pnlSwitcher);
       this.Controls.Add(this.pnlSettings);
       this.Controls.Add(this.pnlHelp);
+      this.Controls.Add(this.pnlSwitcher);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
@@ -679,6 +710,8 @@
       this.groupBox1.PerformLayout();
       this.groupBox3.ResumeLayout(false);
       this.groupBox3.PerformLayout();
+      this.groupBox4.ResumeLayout(false);
+      this.groupBox4.PerformLayout();
       this.groupBox2.ResumeLayout(false);
       this.groupBox2.PerformLayout();
       this.pnlHelp.ResumeLayout(false);
@@ -736,7 +769,9 @@
     private BetterCheckBox chckbxUseDiscordRichPresence;
     private System.Windows.Forms.LinkLabel lnklblWhatRichPresence;
     private System.Windows.Forms.Timer richPresenceUpdateTimer;
+    private System.Windows.Forms.GroupBox groupBox4;
     private System.Windows.Forms.Button btnAccountManager;
+    private BetterCheckBox chckbxSwitchAccount;
   }
 }
 

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,5 +29,47 @@ namespace UltimateOsuServerSwitcher
     /// Settings file where all switcher settings are saved
     /// </summary>
     public static string SettingsFile => AppFolder + @"\settings";
+
+    /// <summary>
+    /// Accounts file where all accounts are saved
+    /// </summary>
+    public static string AccountsFile => AppFolder + @"\accounts";
+
+    /// <summary>
+    /// Returns the path to the config file of the osu installation.
+    /// Returns null if the path could not be built. (either through missing registry key or not existing config file)
+    /// </summary>
+    public static string OsuConfigFile => getOsuConfigFile();
+
+    private static string getOsuConfigFile()
+    {
+      try
+      {
+        // Get the osu executeable path from the registry if osu was installed correctly
+        // path will look like this: "F:\\osu!\\osu.exe",1
+        string osuexe = Registry.GetValue("HKEY_CLASSES_ROOT\\osu\\DefaultIcon", "", "").ToString();
+        // Remove the "" and the ,1 at the end
+        osuexe = osuexe.Substring(1, osuexe.Length - 4);
+
+        // Get the directory of the exe file
+        string osudir = new FileInfo(osuexe).DirectoryName;
+
+        // Build the config file path
+        string configFileName = $"osu!.{Environment.UserName}.cfg";
+        string configFile = Path.Combine(osudir, configFileName);
+
+        // Check if the config file exists
+        if (!File.Exists(configFile))
+          return null;
+
+        // Return the config file
+        return configFile;
+      }
+      catch
+      {
+        // If something went wrong (e.g. osu is not installed so the registry key could not be found) return null
+        return null;
+      }
+    }
   }
 }

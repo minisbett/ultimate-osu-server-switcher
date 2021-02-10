@@ -87,7 +87,7 @@ namespace UltimateOsuServerSwitcher
         // If the key already exists, throw an exception
         // Otherwise add key and value to the dictionary
         if (ContainsKey(key))
-          throw new InvalidOperationException("Tried to set the key '" + key + "' but it was already set.\r\n(Double occurence of the key in the settings file");
+          throw new InvalidOperationException("Tried to set the key '" + key + "' but it was already set.\r\n(Double occurence of the key in the settings file)");
         else
           Add(key, value);
       }

@@ -51,16 +51,7 @@ namespace UltimateOsuServerSwitcher
       x509Store.Open(OpenFlags.ReadWrite);
       foreach (Server server in servers.Where(x => x.HasCertificate))
         foreach (X509Certificate2 certificate in x509Store.Certificates.Find(X509FindType.FindByThumbprint, server.CertificateThumbprint, true))
-        {
-          try
-          {
-            x509Store.Remove(certificate);
-          }
-          catch (Exception ex)
-          {
-            throw ex;
-          }
-        }
+          x509Store.Remove(certificate);
 
       x509Store?.Close();
     }
