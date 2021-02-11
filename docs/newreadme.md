@@ -2,10 +2,18 @@
 
 <a href="https://minisbett.github.io/ultimate-osu-server-switcher"><img width=128 height=128 align="right" src="https://minisbett.github.io/ultimate-osu-server-switcher/images/icon.png"></a>
 
-# Ultimate Osu Server Switcher
+# Ultimate Osu Server Switcher V2
 
 The Ultimate Osu Server Switcher is a server switcher that allows you to switch between osu!bancho and a variety of private servers.
-It features many nice stuff like an Account Manager that automatically switches your account data when switching the server.
+
+These features are currently implemented:
+
+- Switching the server with one click
+- Switch n' Start by holding Ctrl when clicking on «Connect»
+- Automatically closing and re-starting osu when switching the server
+- Expanded Discord RPC to show what server you are playing on
+- Minimizing to the system tray to avoid loading times on every start
+- An Account Manager to automatically switch your account when switching server
 
 # How it works
 
