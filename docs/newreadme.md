@@ -49,12 +49,12 @@ Create an issue here on GitHub and select the issue tag **server request**.\
 
 In that, simply link the URL to the mirror file you created and wait.
 
-# In-deep explination
+# Hosts & Certificate Handling
 
 The server you are currently playing on is estimated by the ip that is deposited in the hosts file.
 Switching a server includes deinstalling all certificates, modfying the hosts file, followed by installing the corresponding certificate
 (if you chose to play on a third-party server).
 
-The certificates will be installed on the local machine, rather than just the local user to avoid a warning prompt the user
-has to agree with. This improves the switching agility to garantue the best user experience. Also why not, the hosts changes apply to
+The certificates will be installed on the local machine, rather than just the local user to avoid a warning prompt the user has to agree with.\
+This improves the switching agility to garantue the best user experience. Also why not, the hosts changes apply to
 the whole computer too.
