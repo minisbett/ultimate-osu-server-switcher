@@ -36,12 +36,11 @@ namespace UltimateOsuServerSwitcher
     public static string AccountsFile => AppFolder + @"\accounts";
 
     /// <summary>
-    /// Returns the path to the config file of the osu installation.
-    /// Returns null if the path could not be built. (either through missing registry key or not existing config file)
+    /// The path to the osu directory where osu is installed
     /// </summary>
-    public static string OsuConfigFile => getOsuConfigFile();
+    public static string OsuFolder => getOsuFolder();
 
-    private static string getOsuConfigFile()
+    private static string getOsuFolder()
     {
       try
       {
@@ -54,9 +53,29 @@ namespace UltimateOsuServerSwitcher
         // Get the directory of the exe file
         string osudir = new FileInfo(osuexe).DirectoryName;
 
+        // return the directory
+        return osudir;
+      }
+      catch
+      {
+        // If something went wrong (e.g. osu is not installed so the registry key could not be found) return null
+        return null;
+      }
+    }
+
+    /// <summary>
+    /// The path to the config file of the osu installation.
+    /// Returns null if the path could not be built. (either through missing registry key or not existing config file)
+    /// </summary>
+    public static string OsuConfigFile => getOsuConfigFile();
+
+    private static string getOsuConfigFile()
+    {
+      try
+      {
         // Build the config file path
         string configFileName = $"osu!.{Environment.UserName}.cfg";
-        string configFile = Path.Combine(osudir, configFileName);
+        string configFile = Path.Combine(getOsuFolder(), configFileName);
 
         // Check if the config file exists
         if (!File.Exists(configFile))
@@ -67,7 +86,7 @@ namespace UltimateOsuServerSwitcher
       }
       catch
       {
-        // If something went wrong (e.g. osu is not installed so the registry key could not be found) return null
+        // If something went wrong (e.g. osu is not installed or hasnt started on this windows account yet) return null
         return null;
       }
     }

@@ -49,7 +49,6 @@ namespace UltimateOsuServerSwitcher
       if (server.HasIP)
       {
         // Change the hosts file by adding the server's ip and the osu domain
-        hosts = HostsUtil.GetHosts().ToList();
         foreach (string domain in Variables.OsuDomains)
           hosts.Add(server.IP + " " + domain);
       }

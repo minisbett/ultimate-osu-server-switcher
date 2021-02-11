@@ -27,5 +27,10 @@ namespace UltimateOsuServerSwitcher
     /// Url to a video from discord about discord rich presence for explaination
     /// </summary>
     public static string RichPresenceExplanation => "https://www.youtube.com/watch?v=Ss-IvNjl7JQ";
+
+    /// <summary>
+    /// Url to the file with the newest version id in it
+    /// </summary>
+    public static string VersionFile => "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/datav2/VERSION";
   }
 }

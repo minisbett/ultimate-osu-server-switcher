@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UltimateOsuServerSwitcher.Model;
+using UltimateOsuServerSwitcher.Utils;
 
 namespace UltimateOsuServerSwitcher
 {
@@ -275,9 +276,9 @@ namespace UltimateOsuServerSwitcher
       Switcher.Servers = servers;
 
       // Remove all saved accounts from servers that may no longer exist
-      List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(m_settings["accounts"]);
+      List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(m_accounts["accounts"]);
       accounts.RemoveAll(a => !servers.Any(x => x.UID == a.ServerUID));
-      m_settings["accounts"] = JsonConvert.SerializeObject(accounts);
+      m_accounts["accounts"] = JsonConvert.SerializeObject(accounts);
 
       // Enable/Disable the timer depending on if useDiscordRichPresence is true or false
       // Set here because the timer needs to have the servers loaded
@@ -318,8 +319,12 @@ namespace UltimateOsuServerSwitcher
       pctrConnecting.Visible = true;
       Application.DoEvents();
 
+      // Check if the user is holding ctrl to quick start osu
+      bool pressingCtrl = System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl) || System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.RightCtrl);
+
       // Save the osu executable path for the reopen feature later
       string osuExecutablePath = "";
+
       // Only close osu if the feature is enabled
       if (m_settings["closeOsuBeforeSwitching"] == "true")
       {
@@ -350,6 +355,17 @@ namespace UltimateOsuServerSwitcher
       if (m_settings["reopenOsuAfterSwitching"] == "true" && osuExecutablePath != "")
       {
         Process.Start(osuExecutablePath);
+      }
+      else if (pressingCtrl) // Start osu if ctrl was pressed when clicking on connect and it has not started already ue to the reopen feature
+      {
+        // If we dont have the exe path yet because osu was not killed before get it from the registry
+        if (osuExecutablePath == "")
+          osuExecutablePath = Path.Combine(Paths.OsuFolder, "osu!.exe");
+
+        // Check if the path was built because there may have been no registry entry
+        // If path was built, run osu
+        if (osuExecutablePath != null)
+          Process.Start(osuExecutablePath);
       }
 
       // Hide the "connecting" button and update the UI (update UI will show the already connected button then)
@@ -457,7 +473,7 @@ namespace UltimateOsuServerSwitcher
       // If the presence feature gets deactivated, remove the precense if needed
       if (!chckbxUseDiscordRichPresence.Checked && Discord.IsPrecenseSet)
         Discord.RemovePresence();
-      else if(chckbxUseDiscordRichPresence.Checked) // If the feature is getting enabled show informations
+      else if (chckbxUseDiscordRichPresence.Checked) // If the feature is getting enabled show informations
         MessageBox.Show("In order to make this feature run properly, please disable the Discord Rich Presense in your osu! settings.\r\n\r\nIf it still doesn't show up, try to switch the server or restart the switcher in order to reload the Discord Rich Presence.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
       // En/Disable the timer that constantly checks if osu is running
@@ -539,6 +555,7 @@ namespace UltimateOsuServerSwitcher
 
     #region Other events
 
+    // 5 second timer
     private void richPresenceUpdateTimer_Tick(object sender, EventArgs e)
     {
       // Get all osu instances to check if osu is running
@@ -546,14 +563,25 @@ namespace UltimateOsuServerSwitcher
       // If no osu is running but a presence is set, remove that presence
       if (osuInstances.Length == 0 && Discord.IsPrecenseSet)
         Discord.RemovePresence();
-      else if (osuInstances.Length > 0)
+      else if (osuInstances.Length > 0) // If osu is running
       {
         // Get the current server
         Server currentServer = Switcher.GetCurrentServer();
-        // Check if either no presence is set or the current presence is a different server
-        // If the presence is a different server, update the presence (server was switched)
-        if (!Discord.IsPrecenseSet || Discord.ShownServer.UID != currentServer.UID)
-          Discord.SetPresenceServer(currentServer);
+
+        // Get the osu window title to determine what the user is currently doing
+        string title = osuInstances[0].MainWindowTitle;
+
+        // get the username to display in the rpc
+        string username = OsuConfigFileUtils.GetAccount().username;
+
+        // If title is just "osu!" the user is in idle state
+        if (title == "osu!")
+          Discord.SetPresence("Idle", $"{username ?? "?"} - {currentServer.ServerName}");
+        else if (title.StartsWith("osu!  -")) // If title starts with "osu!  -" there is a map name behind it that the user is playing/watching/editing
+          if (title.EndsWith(".osu")) // If the title ends with .osu the user is in the editor
+            Discord.SetPresence($"Editing: {title.Substring(8)}", $"{username ?? "?"} - {currentServer.ServerName}"); // substring 8 to remove the "osu!  - "
+          else // Otherwise hes playing or watching
+            Discord.SetPresence($"Playing: {title.Substring(8)}", $"{username ?? "?"} - {currentServer.ServerName}"); // substring 8 to remove the "osu!  - "
       }
     }
 

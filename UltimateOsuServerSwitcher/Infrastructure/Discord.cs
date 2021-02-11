@@ -21,9 +21,7 @@ namespace UltimateOsuServerSwitcher
     // Determines if a presence is currently being shown
     public static bool IsPrecenseSet { get; private set; } = false;
 
-    public static Server ShownServer { get; private set; } = null;
-
-    public static void SetPresenceServer(Server server)
+    public static void SetPresence(string details, string state)
     {
       if (!m_client.IsInitialized)
         m_client.Initialize();
@@ -32,20 +30,19 @@ namespace UltimateOsuServerSwitcher
       {
         m_richPresence = new RichPresence();
         m_richPresence.Timestamps = new Timestamps(DateTime.UtcNow);
-        m_richPresence.State = $"Playing on {server.ServerName}";
-        m_richPresence.Details = "Ultimate Osu Server Switcher";
-        m_richPresence.Assets = new Assets() { LargeImageKey = "osu", LargeImageText = "Download on GitHub!\r\nminisbett/ultimate-osu-server-switcher" };
+        m_richPresence.Details = details;
+        m_richPresence.State = state;
+        m_richPresence.Assets = new Assets() { LargeImageKey = "osu", LargeImageText = "Download the Ultimate Osu Server Switcher on GitHub!\r\nminisbett/ultimate-osu-server-switcher" };
         m_client.SetPresence(m_richPresence);
 
         IsPrecenseSet = true;
       }
       else
       {
-        m_richPresence.State = "Currently playing on: " + server.ServerName;
+        m_richPresence.Details = details;
+        m_richPresence.State = state;
         m_client.SetPresence(m_richPresence);
       }
-
-      ShownServer = server;
     }
 
     public static void RemovePresence()
@@ -54,7 +51,6 @@ namespace UltimateOsuServerSwitcher
       {
         m_client.ClearPresence();
         IsPrecenseSet = false;
-        ShownServer = null;
       }
     }
   }

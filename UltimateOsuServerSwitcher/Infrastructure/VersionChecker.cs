@@ -48,7 +48,7 @@ namespace UltimateOsuServerSwitcher
     public async static Task<string> GetNewestVersion()
     {
       // Download the VERSION file, remove the white space and return
-      string newestVersion = await m_client.DownloadStringTaskAsync("https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/datav2/VERSION");
+      string newestVersion = await m_client.DownloadStringTaskAsync(Urls.VersionFile);
       newestVersion = newestVersion.Replace("\n", "");
       return newestVersion;
     }
