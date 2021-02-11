@@ -34,12 +34,10 @@ This is the template:
 }
 ```
 
-Please use a common used icon format (like png, jpg, ...) for the icon.
-
+Please use a common used icon format (like png, jpg, ...) for the icon.\
 Other file formats are not supported.
 
-The certificate must be encoded in Base64. The correct file extension is .cer.
-
+The certificate must be encoded in Base64. The correct file extension is .cer.\
 If you need to convert your certificate, e.g. when you have the file extension .crt, follow [this tutorial](https://support.comodo.com/index.php?/Knowledgebase/Article/View/361/17/how-do-i-convert-crt-file-into-the-microsoft-cer-format).
 
 The Discord invite url must be an official Discord domain (https://discord.gg/XXX)
