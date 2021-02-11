@@ -35,9 +35,11 @@ This is the template:
 ```
 
 Please use a common used icon format (like png, jpg, ...) for the icon.
+
 Other file formats are not supported.
 
 The certificate must be encoded in Base64. The correct file extension is .cer.
+
 If you need to convert your certificate, e.g. when you have the file extension .crt, follow [this tutorial](https://support.comodo.com/index.php?/Knowledgebase/Article/View/361/17/how-do-i-convert-crt-file-into-the-microsoft-cer-format).
 
 The Discord invite url must be an official Discord domain (https://discord.gg/XXX)
@@ -45,7 +47,8 @@ The Discord invite url must be an official Discord domain (https://discord.gg/XX
 **Step 2: Create an issue**
 
 Create an issue here on Discord and select the issue tag **server request**
-Or you can [click here](https://github.com/MinisBett/ultimate-osu-server-switcher/issues/new?labels=server%20request) to open a ready-to-go issue.
+
+[click here](https://github.com/MinisBett/ultimate-osu-server-switcher/issues/new?labels=server%20request) to open a ready-to-go issue.
 
 In that, simply link the URL to the mirror file you created and wait.
 
