@@ -123,18 +123,20 @@ namespace UltimateOsuServerSwitcher
       catch
       {
         // If it was not successful, github may cannot currently be reached or I made a mistake in the json data.
-        MessageBox.Show("Error whilst parsing the server mirrors from GitHub!\r\nPlease make sure you can connect to www.github.com in your browser.\r\n\r\nIf this issue persists, please visit our discord. You can find the invite link on our GitHub Page (minisbett/ultimate-osu-server-switcher)", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show("Error whilst parsing the server mirrors from GitHub!\r\nPlease make sure you can connect to www.github.com in your browser.\r\n\r\nIf this issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
         Application.Exit();
         return;
       }
 
-      imgLoadingBar.Maximum = mirrors.Count;
-      // Try to load all servers
-      List<Server> servers = new List<Server>();
+      // set the maximum to the amount of mirrors + amount of static servers that need to be loaded
+      imgLoadingBar.Maximum = mirrors.Count + Server.StaticServers.Length;
+
+      // Parse every server from their mirror
       foreach (Mirror mirror in mirrors)
       {
-        lblInfo.Text = $"Parsing mirror {mirror.Url}";
+        lblInfo.Text = $"Loading mirror {mirror.Url}";
         Application.DoEvents();
+
         Server server = null;
         // Try to serialize the mirror into a server
         try
@@ -151,133 +153,30 @@ namespace UltimateOsuServerSwitcher
         // Forward mirror variables to the server
         server.IsFeatured = mirror.Featured;
         server.UID = mirror.UID;
-        lblInfo.Text = $"Parsing mirror {mirror.Url} ({server.ServerName})";
-        Application.DoEvents();
 
-        // Check if UID is 6 letters long (If not I made a mistake)
-        if (server.UID.Length != 6)
-          continue;
-
-        // Check if the UID is really unique (I may accidentally put the same uid for two servers)
-        if (servers.Any(x => x.UID == server.UID))
-          continue;
-
-        // Check if everything is set
-        if (server.ServerName == null ||
-            server.IP == null ||
-            server.IconUrl == null ||
-            server.CertificateUrl == null ||
-            server.DiscordUrl == null)
-          continue;
-
-        // Check if server name length is valid (between 3 and 24)
-        if (server.ServerName.Replace(" ", "").Length < 3 || server.ServerName.Length > 24)
-          continue;
-        // Check if it neither start with a space, nor end
-        if (server.ServerName.StartsWith(" "))
-          continue;
-        if (server.ServerName.EndsWith(" "))
-          continue;
-        // // Only a-zA-Z0-9 ! is allowed
-        if (!Regex.Match(server.ServerName.Replace("!", "").Replace(" ", ""), "^\\w+$").Success)
-          continue;
-        // Double spaces are invalid because its hard to tell how many spaces there are
-        // (One server could be named test 123 and the other test  123)
-        if (server.ServerName.Replace("  ", "") != server.ServerName)
-          continue;
-
-        // Check if the server fakes a hardcoded server
-        if (Server.StaticServers.Any(x => x.ServerName == server.ServerName))
-          continue;
-
-        // Check if the server ip is formatted correctly
-        if (!Regex.IsMatch(server.IP, @"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"))
-          continue;
-
-        // Check if that server name already exists (if so, prioritize the first one)
-        if (servers.Any(x => x.ServerName.ToLower().Replace(" ", "") == server.ServerName.ToLower().Replace(" ", "")))
-          continue;
-
-        // Check if its a real discord invite url
-        if (server.DiscordUrl != "" && !server.DiscordUrl.Replace("https", "").Replace("http", "").Replace("://", "").StartsWith("discord.gg"))
-          continue;
-
-        // Initialize variables like Certificate and Icon that are downloaded from their urls when
-        // all checks are done (IconUrl, CertificateUrl)
-
-        try
-        {
-          // Try to parse the certificate from the given url
-          server.Certificate = await WebHelper.DownloadBytesAsync(server.CertificateUrl);
-          server.CertificateThumbprint = new X509Certificate2(server.Certificate).Thumbprint;
-        }
-        catch // Cerfiticate url not valid or certificate type is not cer (base64 encoded)
-        {
-          continue;
-        }
-
-        // Check if icon is valid
-        try
-        {
-          // Download the icon and check if its at least 256x256
-          Image icon = await WebHelper.DownloadImageAsync(server.IconUrl);
-          if (icon.Width < 256 || icon.Height < 256)
-            continue;
-
-          // Scale the image to 256x256
-          server.Icon = new Bitmap(icon, new Size(256, 256));
-
-          // Add the server to the servers that were successfully parsed and checked
-          servers.Add(server);
-        }
-        catch // Image could not be downloaded or loaded
-        {
-          continue;
-        }
+        // add the server
+        await Switcher.AddServer(server);
 
         imgLoadingBar.Value++;
+        Application.DoEvents();
       }
 
-      // Load static servers (bancho and localhost)
+      // Load the static servers
       foreach (Server server in Server.StaticServers)
       {
-        try
-        {
-          // Download the icon and check if its at least 256x256
-          Image icon = await WebHelper.DownloadImageAsync(server.IconUrl);
-          if (icon.Width >= 256 && icon.Height >= 256)
-          {
-            // Scale the image to 256x256
-            server.Icon = new Bitmap(icon, new Size(256, 256));
-            servers.Add(server);
-          }
-        }
-        catch // Image could not be downloaded or loaded
-        {
+        lblInfo.Text = $"Loading {server.ServerName}";
+        Application.DoEvents();
 
-        }
+        // add the server directly because hardcoded servers dont need the validation checks (or would even fail there)
+        await Switcher.AddServerNoCheck(server);
+
+        imgLoadingBar.Value++;
+        Application.DoEvents();
       }
-
-      // Sort the servers by priority (first bancho, then featured, then normal, then localhost)
-      servers = servers.OrderByDescending(x => x.Priority).ToList();
-
-      lblInfo.Text = "Updating icon files...";
-      Application.DoEvents();
-
-      // Create .ico files for shortcuts
-      foreach (Server server in servers)
-      {
-        using (FileStream fs = File.OpenWrite(Paths.IconCacheFolder + $@"\{server.UID}.ico"))
-        using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
-          ImagingHelper.ConvertToIcon(ms, fs, server.Icon.Width, true);
-      }
-
-      // Give the parsed servers to the switcher
-      Switcher.Servers = servers;
 
       // Remove all saved accounts from servers that may no longer exist
       List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(m_accounts["accounts"]);
-      accounts.RemoveAll(a => !servers.Any(x => x.UID == a.ServerUID));
+      accounts.RemoveAll(a => !Switcher.Servers.Any(x => x.UID == a.ServerUID));
       m_accounts["accounts"] = JsonConvert.SerializeObject(accounts);
 
       // Enable/Disable the timer depending on if useDiscordRichPresence is true or false
@@ -346,7 +245,7 @@ namespace UltimateOsuServerSwitcher
       if (!Switcher.CheckServerAvailability())
       {
         // If not, show a warning
-        MessageBox.Show("The connection test failed. Please restart the switcher and try again.\r\n\r\nIf it's still not working the server either didn't update their mirror yet or their server is currently not running (for example due to maintenance).", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        MessageBox.Show("The connection test failed. Please restart the switcher and try again.\r\n\r\nIf it's still not working the server either didn't update their mirror yet or their server is currently not running (for example due to maintenance).\nIn this case, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
       }
 
       // Start osu if the reopen feature is enabled and an osu instance was found before switching
@@ -360,11 +259,19 @@ namespace UltimateOsuServerSwitcher
       {
         // If we dont have the exe path yet because osu was not killed before get it from the registry
         if (osuExecutablePath == "")
-          osuExecutablePath = Path.Combine(Paths.OsuFolder, "osu!.exe");
+        {
+          // Check if the osu path could be found
+          string osuDir = Paths.OsuFolder;
+          if (osuDir == null)
+          {
+            MessageBox.Show("The path to the osu!.exe file could not be found.\n\nPlease make sure you installed osu correctly by starting it as an admin.\n\nIf this issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+          }
+          else // build the path
+            osuExecutablePath = Path.Combine(osuDir, "osu!.exe");
+        }
 
-        // Check if the path was built because there may have been no registry entry
-        // If path was built, run osu
-        if (osuExecutablePath != null)
+        // Run osu if a path has been found
+        if (osuExecutablePath != "")
           Process.Start(osuExecutablePath);
       }
 
@@ -650,17 +557,17 @@ namespace UltimateOsuServerSwitcher
       lblInfo.Text = m_currentSelectedServer.ServerName;
       // Change the color of the server name depending on if the server is featured or not
       lblInfo.ForeColor = m_currentSelectedServer.IsFeatured ? Color.Orange : Color.White;
-      // Show the verified badge depending on if the server is featured or not
-      pctrVerified.Visible = m_currentSelectedServer.IsFeatured;
+      // Show the featured badge depending on if the server is featured or not
+      pctrFeatured.Visible = m_currentSelectedServer.IsFeatured;
 
       // Get a graphics object to measure the size to the info text
-      // in order to position the verified badge next to the text
+      // in order to position the featured badge next to the text
       Graphics g = CreateGraphics();
       // Measure the size of the text
       SizeF textSize = g.MeasureString(m_currentSelectedServer.ServerName, lblInfo.Font);
       // Set the location, x is the middle of the panel + half the text - 5
-      // to position the verified badge next to the next (-5 to make the distance less)
-      pctrVerified.Location = new Point(pnlSwitcher.Width / 2 + (int)textSize.Width / 2 - 5, pctrVerified.Location.Y);
+      // to position the featured badge next to the next (-5 to make the distance less)
+      pctrFeatured.Location = new Point(pnlSwitcher.Width / 2 + (int)textSize.Width / 2 - 5, pctrFeatured.Location.Y);
     }
   }
 }

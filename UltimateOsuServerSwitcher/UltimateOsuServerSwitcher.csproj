@@ -106,6 +106,7 @@
     <Compile Include="Infrastructure\Configuration\Urls.cs" />
     <Compile Include="Infrastructure\Configuration\Variables.cs" />
     <Compile Include="Infrastructure\Discord.cs" />
+    <Compile Include="Infrastructure\QuickSwitch.cs" />
     <Compile Include="Infrastructure\Switcher.cs" />
     <Compile Include="Infrastructure\Settings.cs" />
     <Compile Include="Model\Account.cs" />

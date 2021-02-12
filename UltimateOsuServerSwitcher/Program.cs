@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UltimateOsuServerSwitcher.Infrastructure;
 
 namespace UltimateOsuServerSwitcher
 {
@@ -23,7 +24,18 @@ namespace UltimateOsuServerSwitcher
       // Check if the program was started from a QuickSwitch Shortcut
       if (args.Length == 1)
       {
-        MessageBox.Show("QuickSwitch to " + args[0]);
+        // Load all servers
+        QuickSwitch.LoadServers();
+
+        // Identify the server
+        Server server = Switcher.Servers.FirstOrDefault(x => x.UID == args[0]);
+
+        if(server != null)
+        {
+          // Switch the server
+          QuickSwitch.Switch(server);
+        }
+
         return;
       }
 

@@ -37,6 +37,7 @@ namespace UltimateOsuServerSwitcher
 
     /// <summary>
     /// The path to the osu directory where osu is installed
+    /// Returns null if the path could not be built. (either through missing registry key or not existing config file)
     /// </summary>
     public static string OsuFolder => getOsuFolder();
 

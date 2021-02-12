@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -26,7 +28,7 @@ namespace UltimateOsuServerSwitcher
     /// <summary>
     /// The servers that were parsed from the web
     /// </summary>
-    public static List<Server> Servers { get; set; }
+    public static List<Server> Servers { get; set; } = new List<Server>();
 
     /// <summary>
     /// Switch the server
@@ -87,7 +89,7 @@ namespace UltimateOsuServerSwitcher
       {
         // Only switch when an account is saved for that server
         List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(m_accounts["accounts"]);
-        if(accounts.Any(x => x.ServerUID == server.UID))
+        if (accounts.Any(x => x.ServerUID == server.UID))
         {
           // get the account that belongs to the server the user switched to
           Account account = accounts.First(x => x.ServerUID == server.UID);
@@ -102,6 +104,154 @@ namespace UltimateOsuServerSwitcher
       {
         SendTelemetry(from, server);
       }
+    }
+
+    /// <summary>
+    /// Validates a server and adds it to the switcher
+    /// </summary>
+    /// <param name="server">The server</param>
+    /// <returns>true is successful, false if invalid</returns>
+    public static async Task<bool> AddServer(Server server)
+    {
+      // Check if UID is 6 letters long (If not I made a mistake)
+      if (server.UID.Length != 6)
+        return false;
+
+      // Check if the UID is really unique (I may accidentally put the same uid for two servers)
+      if (Servers.Any(x => x.UID == server.UID))
+        return false;
+
+      // Check if everything is set
+      if (server.ServerName == null ||
+          server.IP == null ||
+          server.IconUrl == null ||
+          server.CertificateUrl == null ||
+          server.DiscordUrl == null)
+        return false;
+
+      // Check if server name length is valid (between 3 and 24)
+      if (server.ServerName.Replace(" ", "").Length < 3 || server.ServerName.Length > 24)
+        return false;
+      // Check if it neither start with a space, nor end
+      if (server.ServerName.StartsWith(" "))
+        return false;
+      if (server.ServerName.EndsWith(" "))
+        return false;
+      // // Only a-zA-Z0-9 ! is allowed
+      if (!Regex.Match(server.ServerName.Replace("!", "").Replace(" ", ""), "^\\w+$").Success)
+        return false;
+      // Double spaces are invalid because its hard to tell how many spaces there are
+      // (One server could be named test 123 and the other test  123)
+      if (server.ServerName.Replace("  ", "") != server.ServerName)
+        return false;
+
+      // Check if the server fakes a hardcoded server
+      if (Server.StaticServers.Any(x => x.ServerName == server.ServerName))
+        return false;
+
+      // Check if the server ip is formatted correctly
+      if (!Regex.IsMatch(server.IP, @"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"))
+        return false;
+
+      // Check if that server name already exists (if so, prioritize the first one)
+      if (Servers.Any(x => x.ServerName.ToLower().Replace(" ", "") == server.ServerName.ToLower().Replace(" ", "")))
+        return false;
+
+      // Check if its a real discord invite url
+      if (server.DiscordUrl != "" && !server.DiscordUrl.Replace("https", "").Replace("http", "").Replace("://", "").StartsWith("discord.gg"))
+        return false;
+
+      // Initialize variables like Certificate and Icon that are downloaded from their urls when
+      // all checks are done (IconUrl, CertificateUrl)
+
+      try
+      {
+        // Try to parse the certificate from the given url
+        server.Certificate = await WebHelper.DownloadBytesAsync(server.CertificateUrl);
+        server.CertificateThumbprint = new X509Certificate2(server.Certificate).Thumbprint;
+      }
+      catch // Cerfiticate url not valid or certificate type is not cer (base64 encoded)
+      {
+        return false;
+      }
+
+      // Check if icon is valid
+      try
+      {
+        // Download the icon and check if its at least 256x256
+        Image icon = await WebHelper.DownloadImageAsync(server.IconUrl);
+        if (icon.Width < 256 || icon.Height < 256)
+          return false;
+
+        // Scale the image to 256x256
+        server.Icon = new Bitmap(icon, new Size(256, 256));
+      }
+      catch // Image could not be downloaded or loaded
+      {
+        return false;
+      }
+
+      // Try to create .ico file for shortcut
+      try
+      {
+        using (FileStream fs = System.IO.File.OpenWrite(Paths.IconCacheFolder + $@"\{server.UID}.ico"))
+        using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
+          ImagingHelper.ConvertToIcon(ms, fs, server.Icon.Width, true);
+      }
+      catch
+      {
+        return false;
+      }
+
+      // Add the server to the servers that were successfully parsed and checked
+      Servers.Add(server);
+
+      // Sort the servers by priority (first bancho, then featured, then normal, then localhost)
+      Servers = Servers.OrderByDescending(x => x.Priority).ToList();
+
+      return true;
+    }
+
+    /// <summary>
+    /// Adds a server without doing various validation checks
+    /// </summary>
+    public static async Task<bool> AddServerNoCheck(Server server)
+    {
+      // Check if icon is valid
+      try
+      {
+        // Download the icon and check if its at least 256x256
+        Image icon = await WebHelper.DownloadImageAsync(server.IconUrl);
+        if (icon.Width < 256 || icon.Height < 256)
+          return false;
+
+        // Scale the image to 256x256
+        server.Icon = new Bitmap(icon, new Size(256, 256));
+      }
+      catch // Image could not be downloaded or loaded
+      {
+        return false;
+      }
+
+      // Try to create .ico file for shortcut
+      try
+      {
+        using (FileStream fs = System.IO.File.OpenWrite(Paths.IconCacheFolder + $@"\{server.UID}.ico"))
+        using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
+          ImagingHelper.ConvertToIcon(ms, fs, server.Icon.Width, true);
+      }
+      catch
+      {
+        return false;
+      }
+
+      // Add the server to the servers that were successfully parsed and checked
+      Servers.Add(server);
+
+      // Sort the servers by priority (first bancho, then featured, then normal, then localhost)
+      Servers = Servers.OrderByDescending(x => x.Priority).ToList();
+
+      return true;
     }
 
     /// <summary>
@@ -146,27 +296,6 @@ namespace UltimateOsuServerSwitcher
 
       TelemetryService.SendTelemetry(from.ServerName ?? "Unknown", to.ServerName ?? "Unknown", TelemetryUtils.MillisecondsToString(span), CheckServerAvailability());
     }
-
-    #region QuickSwitch
-
-    /// <summary>
-    /// Creates a QuickSwitch shortcut at the given location for the given server
-    /// </summary>
-    /// <param name="file">The path to the .lnk file</param>
-    /// <param name="server">The server the shortcuts lets you switch to</param>
-    public static void CreateShortcut(string file, Server server)
-    {
-      WshShell shell = new WshShell();
-      IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(file);
-      shortcut.Description = $"Switch to {server.ServerName}";
-      if (server.Icon != null)
-        shortcut.IconLocation = Paths.IconCacheFolder + $@"\{server.UID}.ico";
-      shortcut.TargetPath = "cmd";
-      shortcut.Arguments = $"/c call \"{Application.ExecutablePath}\" \"{server.UID}\"";
-      shortcut.Save();
-    }
-
-    #endregion
 
     /// <summary>
     /// Checks if the currently redirected server is available (c.ppy.sh:80 ping)
