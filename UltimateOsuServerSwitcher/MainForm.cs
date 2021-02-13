@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UltimateOsuServerSwitcher.Infrastructure;
 using UltimateOsuServerSwitcher.Model;
 using UltimateOsuServerSwitcher.Utils;
 
@@ -193,8 +194,9 @@ namespace UltimateOsuServerSwitcher
       pctrLoading.Visible = false;
       imgLoadingBar.Visible = false;
 
-      // Show the account manager button because all servers are loaded now
+      // Show the account manager button and the Create A Shortcut linklabel because all servers are loaded now
       btnAccountManager.Visible = true;
+      lnklblCreateShortcut.Visible = true;
 
       // Update the UI
       UpdateUI();
@@ -253,7 +255,7 @@ namespace UltimateOsuServerSwitcher
       // so a check for the closeOsuBeforeSwitching setting is not necessary
       if (m_settings["reopenOsuAfterSwitching"] == "true" && osuExecutablePath != "")
       {
-        Process.Start(osuExecutablePath);
+        WinUtils.StartProcessUnelevated(osuExecutablePath);
       }
       else if (pressingCtrl) // Start osu if ctrl was pressed when clicking on connect and it has not started already ue to the reopen feature
       {
@@ -272,7 +274,7 @@ namespace UltimateOsuServerSwitcher
 
         // Run osu if a path has been found
         if (osuExecutablePath != "")
-          Process.Start(osuExecutablePath);
+          WinUtils.StartProcessUnelevated(osuExecutablePath);
       }
 
       // Hide the "connecting" button and update the UI (update UI will show the already connected button then)
@@ -309,6 +311,19 @@ namespace UltimateOsuServerSwitcher
     {
       // Open a discord video about discord rich presence for explaination
       Process.Start(Urls.RichPresenceExplanation);
+    }
+
+    private void lnklblCreateShortcut_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      // let the user decide where to save the shortcut
+      SaveFileDialog sfd = new SaveFileDialog();
+      sfd.Filter = "Shortcut|*.lnk";
+      sfd.FileName = $"Play on {m_currentSelectedServer.ServerName}.lnk";
+      if(sfd.ShowDialog() == DialogResult.OK)
+      {
+        // Save the shortcut
+        QuickSwitch.CreateShortcut(sfd.FileName, m_currentSelectedServer);
+      }
     }
 
     private void btnExit_Click(object sender, EventArgs e)
@@ -408,6 +423,18 @@ namespace UltimateOsuServerSwitcher
     {
       // Open the account manager
       new AccountManager().ShowDialog();
+    }
+
+    private void pctrAlreadyConnected_Click(object sender, EventArgs e)
+    {
+      // Open osu if ctrl is pressed
+      if(System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl) || System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.RightCtrl))
+      {
+        // Get osu dir and check if successful
+        string osuDir = Paths.OsuFolder;
+        if (osuDir != null)
+          WinUtils.StartProcessUnelevated(Path.Combine(osuDir, "osu!.exe"));
+      }
     }
 
     #region Tab pages
@@ -525,6 +552,14 @@ namespace UltimateOsuServerSwitcher
           Focus();
         else
           notifyIcon_MouseClick(notifyIcon, new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0));
+      }
+      else if(m.Msg == NativeMethods.WM_UPDATE)
+      {
+        // If the QuickSwitch feature was used update the button if you are currently connected
+        // e.g. if you have bancho selected and use a shortcut to switch to bancho to update from "connect" to "already connected"
+        Server currentServer = Switcher.GetCurrentServer();
+        btnConnect.Visible = m_currentSelectedServer.UID != currentServer.UID;
+        pctrAlreadyConnected.Visible = m_currentSelectedServer.UID == currentServer.UID;
       }
       else
         base.WndProc(ref m);

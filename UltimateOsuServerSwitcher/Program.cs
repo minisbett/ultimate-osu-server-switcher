@@ -34,6 +34,9 @@ namespace UltimateOsuServerSwitcher
         {
           // Switch the server
           QuickSwitch.Switch(server);
+
+          // If the switcher is running update the UI to not get out of sync (switcher shows connect button even though you just connected)
+          WinApi.SendMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_UPDATE, 0, 0);
         }
 
         return;

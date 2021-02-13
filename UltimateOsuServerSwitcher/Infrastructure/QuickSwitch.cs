@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UltimateOsuServerSwitcher.Utils;
 
 namespace UltimateOsuServerSwitcher.Infrastructure
 {
@@ -26,10 +27,9 @@ namespace UltimateOsuServerSwitcher.Infrastructure
       WshShell shell = new WshShell();
       IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(file);
       shortcut.Description = $"Switch to {server.ServerName}";
-      if (server.Icon != null)
-        shortcut.IconLocation = Paths.IconCacheFolder + $@"\{server.UID}.ico";
-      shortcut.TargetPath = "cmd";
-      shortcut.Arguments = $"/c call \"{Application.ExecutablePath}\" \"{server.UID}\"";
+      shortcut.IconLocation = Paths.IconCacheFolder + $@"\{server.UID}.ico";
+      shortcut.TargetPath = Application.ExecutablePath;
+      shortcut.Arguments = server.UID;
       shortcut.Save();
     }
 
@@ -126,7 +126,7 @@ namespace UltimateOsuServerSwitcher.Infrastructure
         string osuExecutablePath = Path.Combine(osuDir, "osu!.exe");
 
         // run osu
-        Process.Start(osuExecutablePath);
+        WinUtils.StartProcessUnelevated(osuExecutablePath);
       }
     }
   }

@@ -130,6 +130,7 @@
     <Compile Include="Utils\TelemetryUtils.cs" />
     <Compile Include="Utils\WebHelper.cs" />
     <Compile Include="Utils\WinApi.cs" />
+    <Compile Include="Utils\WinUtils.cs" />
     <EmbeddedResource Include="AccountManager.resx">
       <DependentUpon>AccountManager.cs</DependentUpon>
     </EmbeddedResource>
