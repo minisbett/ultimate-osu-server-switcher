@@ -11,7 +11,7 @@ namespace UltimateOsuServerSwitcher.Utils
   {
     public static void StartProcessUnelevated(string file)
     {
-      Process.Start("explorer.exe", file);
+      Process.Start("explorer.exe", $"\"{file}\"");
     }
   }
 }

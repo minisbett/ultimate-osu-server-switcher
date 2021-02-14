@@ -93,21 +93,21 @@ namespace UltimateOsuServerSwitcher
       if (vs == VersionState.BLACKLISTED)
       {
         // If the current version is blacklisted, prevent the user from using it.
-        MessageBox.Show($"Your current version ({VersionChecker.CurrentVersion}) is blacklisted.\r\n\r\nThis can happen when the version contains security flaws or other things that could interrupt a good user experience.\r\n\r\nPlease download the newest version of the switcher from its website. (github.com/minisbett/ultimate-osu-server-switcher/releases).", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show($"Your current version ({VersionChecker.CurrentVersion}) is blacklisted.\r\n\r\nThis can happen when the version contains security flaws or other things that could interrupt a good user experience.\r\n\r\nPlease download the newest version of the switcher from our GitHub page.\r\n(github.com/minisbett/ultimate-osu-server-switcher/releases)", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
         Environment.Exit(0);
         return;
       }
       else if (vs == VersionState.MAINTENANCE)
       {
         // If the switcher is in maintenance, also prevent the user from using it.
-        MessageBox.Show("The switcher is currently hold in maintenance mode which means that the switcher is currently not available.\r\n\r\nJoin our discord server for more informations.\r\nThe discord server and be found on our github page.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show("The switcher is currently hold in maintenance mode which means that the switcher is currently not available.\r\n\r\nJoin our discord server for more informations.\r\nThe Discord server and be found on our GitHub page.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
         Environment.Exit(0);
         return;
       }
       else if (vs == VersionState.OUTDATED)
       {
         // Show the user a message that a new version is available if the current switcher is outdated.
-        MessageBox.Show($"Your switcher version ({VersionChecker.CurrentVersion}) is outdated.\r\nA newer version ({await VersionChecker.GetNewestVersion()}) is available.\r\n\r\nYou can download it from our github page.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        MessageBox.Show($"Your switcher version ({VersionChecker.CurrentVersion}) is outdated.\r\nA newer version ({await VersionChecker.GetNewestVersion()}) is available.\r\n\r\nWe recommend to download the newest version of the switcher from our GitHub page.\r\n(github.com/minisbett/ultimate-osu-server-switcher/releases)", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
       }
 
 
@@ -328,6 +328,10 @@ namespace UltimateOsuServerSwitcher
 
     private void btnExit_Click(object sender, EventArgs e)
     {
+      // force close instead of hiding to the system tray when pressing ctrl
+      if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl) || System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.RightCtrl))
+        m_forceclose = true;
+
       // Close the application
       Application.Exit();
     }
