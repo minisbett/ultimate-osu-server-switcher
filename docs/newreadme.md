@@ -17,6 +17,8 @@ These features are currently implemented:
 - An Account Manager to automatically switch your account when switching server
 - Autostart with Windows so you don't have to start the switcher everytime you play osu when using the custom Discord RPC.
 
+And, ofcourse, most features are **toggleable in the settings tab**!
+
 # How it works
 
 The Program fetches all its informations from the datav2/mirrors.json file, which means its fully expandable even without a software update.
