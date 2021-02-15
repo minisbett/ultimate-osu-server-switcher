@@ -17,7 +17,7 @@ These features are currently implemented:
 - An Account Manager to automatically switch your account when switching server
 - Autostart with Windows so you don't have to start the switcher everytime you play osu when using the custom Discord RPC.
 
-And, ofcourse, most features are **toggleable in the settings tab**!
+And, of course, most features are **toggleable in the settings tab**!
 
 # How it works
 
