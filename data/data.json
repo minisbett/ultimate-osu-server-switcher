@@ -49,7 +49,7 @@
     {
       "name": "osu!Gatari",
       "featured": true,
-      "ip": "163.172.255.98",
+      "ip": "163.172.255.42",
       "website_url": "https://www.gatari.pw/",
       "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/gatari.png?raw=true",
       "certificate_thumbprint": "4132009278647693B374B4F4E157FB5949601FE4",
