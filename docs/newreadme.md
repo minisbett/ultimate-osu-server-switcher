@@ -42,7 +42,7 @@ This is the template:
   "ip": "",
   "icon_url": "",
   "certificate_url": "",
-  "discord_url": ""
+  "discord_url": "" # Optional
 }
 ```
 
