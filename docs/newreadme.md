@@ -59,7 +59,7 @@ The Discord invite url must be an official Discord domain (https://discord.gg/XX
 Create an issue here on GitHub and select the issue tag **server request**.\
 [Click here](https://github.com/MinisBett/ultimate-osu-server-switcher/issues/new?labels=server%20request) to open a ready-to-go issue.
 
-In that, simply link the URL to the mirror file you created and wait.
+In that, simply link the URL to the mirror file you created together with your Discord name and a link to your server's homepage.
 
 # Hosts & Certificate Handling
 
