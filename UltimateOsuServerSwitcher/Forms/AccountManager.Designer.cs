@@ -1,4 +1,4 @@
-﻿namespace UltimateOsuServerSwitcher
+﻿namespace UltimateOsuServerSwitcher.Forms
 {
   partial class AccountManager
   {
@@ -142,6 +142,7 @@
       this.ShowInTaskbar = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Account Manager";
+      this.Load += new System.EventHandler(this.AccountManager_Load);
       this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
       this.ResumeLayout(false);
       this.PerformLayout();

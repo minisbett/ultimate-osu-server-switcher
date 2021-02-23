@@ -13,19 +13,25 @@ using UltimateOsuServerSwitcher.Controls;
 using UltimateOsuServerSwitcher.Model;
 using UltimateOsuServerSwitcher.Utils;
 
-namespace UltimateOsuServerSwitcher
+namespace UltimateOsuServerSwitcher.Forms
 {
-  public partial class AccountManager : Form
+  public partial class AccountManager : CustomForm
   {
     // The settings instance for the saved osu accounts
     private Settings m_accounts => new Settings(Paths.AccountsFile);
 
+    // The settings instance for the temp variables
+    private Settings m_temp => new Settings(Paths.TempFile);
+    
     // Currently selected item
     private AccountItem m_selected = null;
 
     public AccountManager()
     {
       InitializeComponent();
+
+      // Initialize UI variable to show the how to add message once when the user started the account manager for the first time
+      m_temp.SetDefaultValue("howtoadd", "false");
 
       // Load the saved accounts
       List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(m_accounts["accounts"]);
@@ -155,7 +161,21 @@ namespace UltimateOsuServerSwitcher
     private void lnklblHowToAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
       // Show a help how to add a server
-      MessageBox.Show("Follow these instructions to add your account.\n\n1. Connect to the server you would like to save your account data from.\n2. In osu, login with that account on the server.\n3. Close osu to force it writing the account data in the config file\n4. Click on 'Add Account in the switcher.\nThe switcher will automatically get your data from the config file.\n\nNote: Your saved accounts are NOT stored on a server. They are securely saved on your computer.", "Account Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      MessageBox.Show("Follow these instructions to add your account.\n\n1. Connect to the server you would like to save your account data from.\n2. In osu, login with that account on the server.\n3. Close osu to force it writing the account data in the config file\n4. Click on 'Add Account' in the switcher.\nThe switcher will automatically get your data from the config file.\n\nNote: Your saved accounts are NOT stored on a server. They are securely saved on your computer.", "Account Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    private async void AccountManager_Load(object sender, EventArgs e)
+    {
+      // Wait till UI is loaded
+      await Task.Delay(1);
+
+      // Show the how to add message if user haven't seen it yet
+      if(m_temp["howtoadd"] == "false")
+      {
+        // Set to true to not show again and trigger the linkclicked event of the "how to add" linklabel
+        m_temp["howtoadd"] = "true";
+        lnklblHowToAdd_LinkClicked(lnklblHowToAdd, null);
+      }
     }
   }
 }

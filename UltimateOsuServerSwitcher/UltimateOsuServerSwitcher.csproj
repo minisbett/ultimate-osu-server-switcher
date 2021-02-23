@@ -84,10 +84,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountManager.cs">
+    <Compile Include="Forms\AccountManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AccountManager.Designer.cs">
+    <Compile Include="Forms\AccountManager.Designer.cs">
       <DependentUpon>AccountManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\AccountItem.cs">
@@ -101,6 +101,9 @@
     </Compile>
     <Compile Include="Controls\ImageLoadingBar.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\CustomForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Infrastructure\Configuration\Paths.cs" />
     <Compile Include="Infrastructure\Configuration\Urls.cs" />
@@ -131,7 +134,7 @@
     <Compile Include="Utils\WebHelper.cs" />
     <Compile Include="Utils\WinApi.cs" />
     <Compile Include="Utils\WinUtils.cs" />
-    <EmbeddedResource Include="AccountManager.resx">
+    <EmbeddedResource Include="Forms\AccountManager.resx">
       <DependentUpon>AccountManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AccountItem.resx">

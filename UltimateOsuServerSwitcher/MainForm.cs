@@ -16,13 +16,14 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UltimateOsuServerSwitcher.Forms;
 using UltimateOsuServerSwitcher.Infrastructure;
 using UltimateOsuServerSwitcher.Model;
 using UltimateOsuServerSwitcher.Utils;
 
 namespace UltimateOsuServerSwitcher
 {
-  public partial class MainForm : Form
+  public partial class MainForm : CustomForm
   {
     // The server that is currently selected (not the one the user is connected to)
     private Server m_currentSelectedServer = null;
@@ -81,12 +82,12 @@ namespace UltimateOsuServerSwitcher
 
     private async void MainForm_Load(object sender, EventArgs e)
     {
-      // Hide the connect button, show the loading button to make the user clear that the servers are being fetched
-      btnConnect.Visible = false;
-      pctrLoading.Visible = true;
-      Application.DoEvents();
-
+      // Wait till program shows up
       await Task.Delay(1);
+
+      // Fix bug that the icon in the taskbar would be the one from the latest created shortcut that points to this program
+      // e.g. when creating a shortcut for bancho the icon of this program in the taskbar would be the bancho icon
+      Icon = Icon.FromHandle(Icon.Handle);
 
       // Check the state of the current version
       VersionState vs = await VersionChecker.GetCurrentState();
@@ -319,7 +320,7 @@ namespace UltimateOsuServerSwitcher
       SaveFileDialog sfd = new SaveFileDialog();
       sfd.Filter = "Shortcut|*.lnk";
       sfd.FileName = $"Play on {m_currentSelectedServer.ServerName}.lnk";
-      if(sfd.ShowDialog() == DialogResult.OK)
+      if (sfd.ShowDialog() == DialogResult.OK)
       {
         // Save the shortcut
         QuickSwitch.CreateShortcut(sfd.FileName, m_currentSelectedServer);
@@ -432,7 +433,7 @@ namespace UltimateOsuServerSwitcher
     private void pctrAlreadyConnected_Click(object sender, EventArgs e)
     {
       // Open osu if ctrl is pressed
-      if(System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl) || System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.RightCtrl))
+      if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl) || System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.RightCtrl))
       {
         // Get osu dir and check if successful
         string osuDir = Paths.OsuFolder;
@@ -557,7 +558,7 @@ namespace UltimateOsuServerSwitcher
         else
           notifyIcon_MouseClick(notifyIcon, new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0));
       }
-      else if(m.Msg == NativeMethods.WM_UPDATE)
+      else if (m.Msg == NativeMethods.WM_UPDATE)
       {
         // If the QuickSwitch feature was used update the button if you are currently connected
         // e.g. if you have bancho selected and use a shortcut to switch to bancho to update from "connect" to "already connected"

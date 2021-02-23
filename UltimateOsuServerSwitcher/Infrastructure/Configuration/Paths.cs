@@ -36,6 +36,11 @@ namespace UltimateOsuServerSwitcher
     public static string AccountsFile => AppFolder + @"\accounts";
 
     /// <summary>
+    /// Temp file where unimportant variables is stored (e.g. you want to show a message box only when the program is started the first time)
+    /// </summary>
+    public static string TempFile => AppFolder + @"\temp";
+
+    /// <summary>
     /// The path to the osu directory where osu is installed
     /// Returns null if the path could not be built. (either through missing registry key or not existing config file)
     /// </summary>
