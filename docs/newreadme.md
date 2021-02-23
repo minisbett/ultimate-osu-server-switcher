@@ -10,10 +10,14 @@ These features are currently implemented:
 
 - Switching the server with one click
 - Switch n' Start by holding Ctrl when clicking on «Connect»
-- Automatically closing and re-starting osu when switching the server
-- Expanded Discord RPC to show what server you are playing on
-- Minimizing to the system tray to avoid loading times on every start
-- An Account Manager to automatically switch your account when switching server
+- Start osu by holding Ctrl when clicking on «Already Connected»
+- \*Automatically closing and re-starting osu when switching the server
+- \*Expanded Discord RPC to show what server you are playing on
+- \*Minimizing to the system tray to avoid loading times on every start (Can be avoided by holding Ctrl when clicking on the X)
+- \*An Account Manager to automatically switch your account when switching server
+- \*Autostart with Windows so you don't have to start the switcher everytime you play osu when using the custom Discord RPC.
+
+**\* Feature is toggleable in the settings**
 
 # How it works
 
@@ -38,7 +42,7 @@ This is the template:
   "ip": "",
   "icon_url": "",
   "certificate_url": "",
-  "discord_url": ""
+  "discord_url": "" # Optional
 }
 ```
 
@@ -55,7 +59,7 @@ The Discord invite url must be an official Discord domain (https://discord.gg/XX
 Create an issue here on GitHub and select the issue tag **server request**.\
 [Click here](https://github.com/MinisBett/ultimate-osu-server-switcher/issues/new?labels=server%20request) to open a ready-to-go issue.
 
-In that, simply link the URL to the mirror file you created and wait.
+In that, simply link the URL to the mirror file you created together with your Discord name and a link to your server's homepage.
 
 # Hosts & Certificate Handling
 
