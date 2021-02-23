@@ -12,7 +12,7 @@ These features are currently implemented:
 - Switch n' Start by holding Ctrl when clicking on «Connect» or just starting when clicking on «Already Connected»
 - \*Automatically closing and re-starting osu when switching the server
 - \*Expanded Discord RPC to show what server you are playing on
-- \*Minimizing to the system tray to avoid loading times on every start (Can be avoided by holding Ctrl when clicking on the X)
+- \*Minimizing to the system tray e.g. to avoid loading times on every start  (Can be avoided by holding Ctrl when clicking on the X)
 - \*An Account Manager to automatically switch your account when switching server
 - \*Autostart with Windows (minimized to the system tray) so you don't have to start the switcher everytime you play osu e.g. when using custom Discord RPC.
 
