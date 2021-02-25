@@ -15,14 +15,18 @@ namespace UltimateOsuServerSwitcher
 {
   static class Program
   {
+
+    [DllImport("user32.dll")]
+    private static extern bool SetProcessDPIAware();
+
     /// <summary>
     /// Der Haupteinstiegspunkt für die Anwendung.
     /// </summary>
     [STAThread]
     static void Main(string[] args)
     {
-      // Check if the program was started from a QuickSwitch Shortcut
-      if (args.Length == 1)
+      // Check if the program was started from a QuickSwitch Shortcut (argument is set) and its not a special parameter (- in front)
+      if (args.Length > 0 && !args[0].StartsWith("-"))
       {
         // Load all servers
         QuickSwitch.LoadServers();
@@ -42,6 +46,10 @@ namespace UltimateOsuServerSwitcher
         return;
       }
 
+      // Fix DPI scaling problems and blurry texts on some devices/screens/windows screen settings
+      if (Environment.OSVersion.Version.Major >= 6)
+        SetProcessDPIAware();
+
       // Fix https://github.com/MinisBett/ultimate-osu-server-switcher/issues/9
       // (Windows 7 only)
       ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -56,7 +64,10 @@ namespace UltimateOsuServerSwitcher
       {
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
-        Application.Run(new MainForm());
+
+        bool silent = args.Length > 0 && args[0] == "-silent";
+
+        Application.Run(new MainForm(silent));
 
         // Release the mutex for clean up
         mutex.ReleaseMutex();

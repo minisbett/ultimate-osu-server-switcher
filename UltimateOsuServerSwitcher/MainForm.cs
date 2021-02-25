@@ -34,17 +34,28 @@ namespace UltimateOsuServerSwitcher
     // Temporary variable to force-close the switcher if minimize to system tray is enabled
     private bool m_forceclose = false;
 
+    // Bool to prevent actions in checkbox CheckedChanged events to trigger when the program is initializing the Checked state from the config file
+    private bool m_checkboxesInitialized = false;
+
+    // Temporary variable to pass the state if the switcher was launched in silent mode (e.g. when autostarting) to the Load event
+    private bool m_silent = false;
+
     // The settings for the switcher
     private Settings m_settings => new Settings(Paths.SettingsFile);
 
     // The settings instance for the saved osu accounts
     private Settings m_accounts => new Settings(Paths.AccountsFile);
 
+    // The settings instance for the switch history
+    private Settings m_history => new Settings(Paths.HistoryFile);
+
     #region Program initialize
 
-    public MainForm()
+    public MainForm(bool silent) // silent is true if the program was started with windows, so it just starts in background
     {
       InitializeComponent();
+
+      m_silent = silent;
 
       // Check if the icon cache folder exists
       if (!Directory.Exists(Paths.IconCacheFolder))
@@ -60,9 +71,13 @@ namespace UltimateOsuServerSwitcher
       m_settings.SetDefaultValue("reopenOsuAfterSwitching", "true");
       m_settings.SetDefaultValue("useDiscordRichPresence", "false");
       m_settings.SetDefaultValue("switchAccount", "false");
+      m_settings.SetDefaultValue("startWithWindows", "false");
 
       // Initialize the list of saved accounts
       m_accounts.SetDefaultValue("accounts", JsonConvert.SerializeObject(new List<Account>()));
+
+      // Initialize the switch history
+      m_history.SetDefaultValue("history", JsonConvert.SerializeObject(new HistoryElement[] { }));
 
       // Set the settings controls to their state from the settings file
       chckbxMinimize.Checked = m_settings["minimizeToTray"] == "true";
@@ -71,6 +86,9 @@ namespace UltimateOsuServerSwitcher
       chckbxReopenAfterSwitching.Checked = m_settings["reopenOsuAfterSwitching"] == "true";
       chckbxUseDiscordRichPresence.Checked = m_settings["useDiscordRichPresence"] == "true";
       chckbxSwitchAccount.Checked = m_settings["switchAccount"] == "true";
+      chckbxStartWithWindows.Checked = m_settings["startWithWindows"] == "true";
+
+      m_checkboxesInitialized = true;
 
       //
       // Telemetry disabled because not finished yet
@@ -78,12 +96,24 @@ namespace UltimateOsuServerSwitcher
       m_settings["sendTelemetry"] = "false";
       chckbxSendTelemetry.Checked = false;
       chckbxSendTelemetry.Enabled = false;
+
+      // When BOTH features are enabled, update the autostart file because the switcher executeable may have moved to another location
+      // both because running in background does not work without having minimizing to system tray enabled
+      if (m_settings["startWithWindows"] == "true" && m_settings["minimizeToTray"] == "true")
+        AutostartUtils.UpdateAutostartFile();
     }
 
     private async void MainForm_Load(object sender, EventArgs e)
     {
       // Wait till program shows up
       await Task.Delay(1);
+
+      // Minimize the form to the system tray if the switcher was launched in silent mode
+      if(m_silent)
+      {
+        Hide();
+        notifyIcon.Visible = true;
+      }
 
       // Fix bug that the icon in the taskbar would be the one from the latest created shortcut that points to this program
       // e.g. when creating a shortcut for bancho the icon of this program in the taskbar would be the bancho icon
@@ -120,7 +150,7 @@ namespace UltimateOsuServerSwitcher
       try
       {
         // Download the mirror data from github and deserialize it into a mirror list
-        mirrors = JsonConvert.DeserializeObject<List<Mirror>>(await WebHelper.DownloadStringAsync(Urls.Mirrors));
+        mirrors = JsonConvert.DeserializeObject<List<Mirror>>(await WebUtils.DownloadStringAsync(Urls.Mirrors));
       }
       catch
       {
@@ -144,7 +174,7 @@ namespace UltimateOsuServerSwitcher
         try
         {
           // Download the data from the mirror and try to parse it into a server object.
-          server = JsonConvert.DeserializeObject<Server>(await WebHelper.DownloadStringAsync(mirror.Url));
+          server = JsonConvert.DeserializeObject<Server>(await WebUtils.DownloadStringAsync(mirror.Url));
         }
         catch
         {
@@ -180,6 +210,11 @@ namespace UltimateOsuServerSwitcher
       List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(m_accounts["accounts"]);
       accounts.RemoveAll(a => !Switcher.Servers.Any(x => x.UID == a.ServerUID));
       m_accounts["accounts"] = JsonConvert.SerializeObject(accounts);
+
+      // Remove all history entries from servers that may no longer exist
+      List<HistoryElement> history = JsonConvert.DeserializeObject<HistoryElement[]>(m_history["history"]).ToList();
+      history.RemoveAll(a => !Switcher.Servers.Any(x => x.UID == a.FromUID) || !Switcher.Servers.Any(x => x.UID == a.ToUID));
+      m_history["history"] = JsonConvert.SerializeObject(history.ToArray());
 
       // Enable/Disable the timer depending on if useDiscordRichPresence is true or false
       // Set here because the timer needs to have the servers loaded
@@ -308,12 +343,6 @@ namespace UltimateOsuServerSwitcher
       MessageBox.Show("Minimize to system tray means that if you close the program it just gets minimized to the system tray\r\n(icons next to the clock in the taskbar).\r\n\r\nThis way, the switcher will run in background and, when you open it again, doesn't need to load all servers again.\r\n\r\nThis feature is useful when you switch the server quite often.\r\n\r\nYou can still close the switcher by either disabling this option or right clicking the icon in the system tray, and then 'Exit'.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
-    private void lnklblWhatRichPresence_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-    {
-      // Open a discord video about discord rich presence for explaination
-      Process.Start(Urls.RichPresenceExplanation);
-    }
-
     private void lnklblCreateShortcut_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
       // let the user decide where to save the shortcut
@@ -369,6 +398,24 @@ namespace UltimateOsuServerSwitcher
     {
       // Save the minimizeToTray setting
       m_settings["minimizeToTray"] = chckbxMinimize.Checked ? "true" : "false";
+
+      // Only enable the reopen setting control when close before switching is enabled
+      chckbxStartWithWindows.Enabled = chckbxMinimize.Checked;
+
+      // Prevent stuff down there from getting executed when the checkbox Checked state was just initialized from the config file
+      if (!m_checkboxesInitialized)
+        return;
+
+      // The start with windows feature only works when minimize to tray is also enabled.
+      // With start with windows is enabled but minimize to system tray gets enabled/disabled, delete/create the autostart file
+      if (m_settings["startWithWindows"] == "true")
+      {
+        // If minimize got enabled, create the autostart file
+        if (chckbxMinimize.Checked)
+          AutostartUtils.UpdateAutostartFile();
+        else // Otherwise remove it
+          AutostartUtils.RemoveAutostartFile();
+      }
     }
 
     private void chckbxSendTelemetry_CheckedChanged(object sender, EventArgs e)
@@ -379,11 +426,11 @@ namespace UltimateOsuServerSwitcher
 
     private void chckbxCloseBeforeSwitching_CheckedChanged(object sender, EventArgs e)
     {
-      // Only enable the reopen setting control when close before switching is enabled
-      chckbxReopenAfterSwitching.Enabled = chckbxCloseBeforeSwitching.Checked;
-
       // Save the closeOsuBeforeSwitching setting
       m_settings["closeOsuBeforeSwitching"] = chckbxCloseBeforeSwitching.Checked ? "true" : "false";
+
+      // Only enable the reopen setting control when close before switching is enabled
+      chckbxReopenAfterSwitching.Enabled = chckbxCloseBeforeSwitching.Checked;
     }
 
     private void chckbxReopenAfterSwitching_CheckedChanged(object sender, EventArgs e)
@@ -396,6 +443,10 @@ namespace UltimateOsuServerSwitcher
     {
       // Save the useDiscordRichPresence setting
       m_settings["useDiscordRichPresence"] = chckbxUseDiscordRichPresence.Checked ? "true" : "false";
+
+      // Prevent stuff down there from getting executed when the checkbox Checked state was just initialized from the config file
+      if (!m_checkboxesInitialized)
+        return;
 
       // If the presence feature gets deactivated, remove the precense if needed
       if (!chckbxUseDiscordRichPresence.Checked && Discord.IsPrecenseSet)
@@ -421,6 +472,7 @@ namespace UltimateOsuServerSwitcher
         // Hide the notify icon and show the switcher when clicked on the notify icon
         notifyIcon.Visible = false;
         Show();
+        Focus();
       }
     }
 
@@ -440,6 +492,22 @@ namespace UltimateOsuServerSwitcher
         if (osuDir != null)
           WinUtils.StartProcessUnelevated(Path.Combine(osuDir, "osu!.exe"));
       }
+    }
+
+    private void chckbxStartWithWindows_CheckedChanged(object sender, EventArgs e)
+    {
+      // Save the startWithWindows setting
+      m_settings["startWithWindows"] = chckbxStartWithWindows.Checked ? "true" : "false";
+
+      // Prevent stuff down there from getting executed when the checkbox Checked state was just initialized from the config file
+      if (!m_checkboxesInitialized)
+        return;
+
+      // Add or remove the auto start shortcut
+      if (chckbxStartWithWindows.Checked)
+        AutostartUtils.UpdateAutostartFile();
+      else
+        AutostartUtils.RemoveAutostartFile();
     }
 
     #region Tab pages
@@ -511,7 +579,7 @@ namespace UltimateOsuServerSwitcher
         string title = osuInstances[0].MainWindowTitle;
 
         // get the username to display in the rpc
-        string username = OsuConfigFileUtils.GetAccount().username;
+        string username = OsuConfigFile.GetAccount().username;
 
         // If title is just "osu!" the user is in idle state
         if (title == "osu!")

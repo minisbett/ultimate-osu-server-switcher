@@ -9,6 +9,10 @@ namespace UltimateOsuServerSwitcher.Utils
 {
   public static class WinUtils
   {
+    /// <summary>
+    /// Starts a file in an unelevated environment
+    /// </summary>
+    /// <param name="file">The file to start</param>
     public static void StartProcessUnelevated(string file)
     {
       Process.Start("explorer.exe", $"\"{file}\"");

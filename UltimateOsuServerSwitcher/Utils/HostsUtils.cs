@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace UltimateOsuServerSwitcher
 {
-  public static class HostsUtil
+  public static class HostsUtils
   {
     /// <summary>
     /// Reads all lines of the hosts file and returns them in a string array

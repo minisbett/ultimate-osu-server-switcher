@@ -12,7 +12,7 @@ namespace UltimateOsuServerSwitcher
   /// <summary>
   /// Provides helper methods for imaging
   /// </summary>
-  public static class ImagingHelper // Taken from https://gist.github.com/darkfall/1656050#gistcomment-1332369
+  public static class IconUtils // Taken from https://gist.github.com/darkfall/1656050#gistcomment-1332369
   {
     /// <summary>
     /// Converts a PNG image to a icon (ico)

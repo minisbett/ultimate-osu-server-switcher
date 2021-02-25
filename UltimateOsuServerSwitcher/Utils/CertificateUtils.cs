@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UltimateOsuServerSwitcher
 {
-  public static class CertificateManager
+  public static class CertificateUtils
   {
     /// <summary>
     /// Determines whether the certificate of the specified server is installed, or not.

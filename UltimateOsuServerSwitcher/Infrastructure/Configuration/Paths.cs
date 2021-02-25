@@ -41,6 +41,11 @@ namespace UltimateOsuServerSwitcher
     public static string TempFile => AppFolder + @"\temp";
 
     /// <summary>
+    /// History file where the last switches and their datetime are saved
+    /// </summary>
+    public static string HistoryFile => AppFolder + @"\history";
+
+    /// <summary>
     /// The path to the osu directory where osu is installed
     /// Returns null if the path could not be built. (either through missing registry key or not existing config file)
     /// </summary>

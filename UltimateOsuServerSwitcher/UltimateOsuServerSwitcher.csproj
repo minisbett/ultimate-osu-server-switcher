@@ -112,10 +112,13 @@
     <Compile Include="Infrastructure\QuickSwitch.cs" />
     <Compile Include="Infrastructure\Switcher.cs" />
     <Compile Include="Infrastructure\Settings.cs" />
+    <Compile Include="Infrastructure\SwitchHistory.cs" />
     <Compile Include="Model\Account.cs" />
-    <Compile Include="Utils\CertificateManager.cs" />
-    <Compile Include="Utils\HostsUtil.cs" />
-    <Compile Include="Utils\ImagingHelper.cs" />
+    <Compile Include="Model\HistoryElement.cs" />
+    <Compile Include="Utils\AutostartUtils.cs" />
+    <Compile Include="Utils\CertificateUtils.cs" />
+    <Compile Include="Utils\HostsUtils.cs" />
+    <Compile Include="Utils\IconUtils.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,10 +132,10 @@
     <Compile Include="Model\Server.cs" />
     <Compile Include="Infrastructure\TelemetryService.cs" />
     <Compile Include="Infrastructure\VersionChecker.cs" />
-    <Compile Include="Utils\OsuConfigFileUtils.cs" />
+    <Compile Include="Infrastructure\OsuConfigFile.cs" />
     <Compile Include="Utils\TelemetryUtils.cs" />
-    <Compile Include="Utils\WebHelper.cs" />
-    <Compile Include="Utils\WinApi.cs" />
+    <Compile Include="Utils\WebUtils.cs" />
+    <Compile Include="Infrastructure\WinApi.cs" />
     <Compile Include="Utils\WinUtils.cs" />
     <EmbeddedResource Include="Forms\AccountManager.resx">
       <DependentUpon>AccountManager.cs</DependentUpon>

@@ -33,6 +33,7 @@
       this.btnSwitcher = new System.Windows.Forms.Button();
       this.btnExit = new System.Windows.Forms.Button();
       this.pnlSwitcher = new System.Windows.Forms.Panel();
+      this.btnHistory = new System.Windows.Forms.PictureBox();
       this.pctrFeatured = new System.Windows.Forms.PictureBox();
       this.lnklblCreateShortcut = new System.Windows.Forms.LinkLabel();
       this.lblInfo = new System.Windows.Forms.Label();
@@ -48,17 +49,17 @@
       this.btnSettings = new System.Windows.Forms.Button();
       this.pnlSettings = new System.Windows.Forms.Panel();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.lnklblWhatRichPresence = new System.Windows.Forms.LinkLabel();
-      this.chckbxUseDiscordRichPresence = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.lnklblWhyMinimize = new System.Windows.Forms.LinkLabel();
+      this.chckbxStartWithWindows = new UltimateOsuServerSwitcher.BetterCheckBox();
+      this.chckbxUseDiscordRichPresence = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.chckbxMinimize = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
       this.groupBox4 = new System.Windows.Forms.GroupBox();
       this.btnAccountManager = new System.Windows.Forms.Button();
       this.chckbxSwitchAccount = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
-      this.chckbxSendTelemetry = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.lnklblTelemetryLearnMore = new System.Windows.Forms.LinkLabel();
+      this.chckbxSendTelemetry = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.chckbxReopenAfterSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.chckbxCloseBeforeSwitching = new UltimateOsuServerSwitcher.BetterCheckBox();
       this.btnHelp = new System.Windows.Forms.Button();
@@ -78,6 +79,7 @@
       this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.richPresenceUpdateTimer = new System.Windows.Forms.Timer(this.components);
       this.pnlSwitcher.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.btnHistory)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrFeatured)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrCurrentServer)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.btnConnect)).BeginInit();
@@ -137,6 +139,7 @@
       // 
       // pnlSwitcher
       // 
+      this.pnlSwitcher.Controls.Add(this.btnHistory);
       this.pnlSwitcher.Controls.Add(this.pctrFeatured);
       this.pnlSwitcher.Controls.Add(this.lnklblCreateShortcut);
       this.pnlSwitcher.Controls.Add(this.lblInfo);
@@ -154,6 +157,16 @@
       this.pnlSwitcher.Size = new System.Drawing.Size(560, 405);
       this.pnlSwitcher.TabIndex = 3;
       this.pnlSwitcher.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
+      // 
+      // btnHistory
+      // 
+      this.btnHistory.Image = ((System.Drawing.Image)(resources.GetObject("btnHistory.Image")));
+      this.btnHistory.Location = new System.Drawing.Point(3, 3);
+      this.btnHistory.Name = "btnHistory";
+      this.btnHistory.Size = new System.Drawing.Size(24, 24);
+      this.btnHistory.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.btnHistory.TabIndex = 12;
+      this.btnHistory.TabStop = false;
       // 
       // pctrFeatured
       // 
@@ -327,9 +340,9 @@
       // 
       // groupBox1
       // 
-      this.groupBox1.Controls.Add(this.lnklblWhatRichPresence);
-      this.groupBox1.Controls.Add(this.chckbxUseDiscordRichPresence);
       this.groupBox1.Controls.Add(this.lnklblWhyMinimize);
+      this.groupBox1.Controls.Add(this.chckbxStartWithWindows);
+      this.groupBox1.Controls.Add(this.chckbxUseDiscordRichPresence);
       this.groupBox1.Controls.Add(this.chckbxMinimize);
       this.groupBox1.Controls.Add(this.groupBox3);
       this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -341,18 +354,33 @@
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "General";
       // 
-      // lnklblWhatRichPresence
+      // lnklblWhyMinimize
       // 
-      this.lnklblWhatRichPresence.AutoSize = true;
-      this.lnklblWhatRichPresence.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lnklblWhatRichPresence.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-      this.lnklblWhatRichPresence.Location = new System.Drawing.Point(446, 54);
-      this.lnklblWhatRichPresence.Name = "lnklblWhatRichPresence";
-      this.lnklblWhatRichPresence.Size = new System.Drawing.Size(100, 21);
-      this.lnklblWhatRichPresence.TabIndex = 11;
-      this.lnklblWhatRichPresence.TabStop = true;
-      this.lnklblWhatRichPresence.Text = "What is that?";
-      this.lnklblWhatRichPresence.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblWhatRichPresence_LinkClicked);
+      this.lnklblWhyMinimize.AutoSize = true;
+      this.lnklblWhyMinimize.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lnklblWhyMinimize.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+      this.lnklblWhyMinimize.Location = new System.Drawing.Point(314, 29);
+      this.lnklblWhyMinimize.Name = "lnklblWhyMinimize";
+      this.lnklblWhyMinimize.Size = new System.Drawing.Size(49, 21);
+      this.lnklblWhyMinimize.TabIndex = 3;
+      this.lnklblWhyMinimize.TabStop = true;
+      this.lnklblWhyMinimize.Text = "Why?";
+      this.lnklblWhyMinimize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblWhyMinimize_LinkClicked);
+      // 
+      // chckbxStartWithWindows
+      // 
+      this.chckbxStartWithWindows.AutoSize = true;
+      this.chckbxStartWithWindows.Checked = true;
+      this.chckbxStartWithWindows.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chckbxStartWithWindows.Font = new System.Drawing.Font("Segoe UI", 12F);
+      this.chckbxStartWithWindows.ForeColor = System.Drawing.Color.White;
+      this.chckbxStartWithWindows.Location = new System.Drawing.Point(6, 52);
+      this.chckbxStartWithWindows.Name = "chckbxStartWithWindows";
+      this.chckbxStartWithWindows.Size = new System.Drawing.Size(408, 25);
+      this.chckbxStartWithWindows.TabIndex = 12;
+      this.chckbxStartWithWindows.Text = "Start the Switcher in background when Windows starts";
+      this.chckbxStartWithWindows.UseVisualStyleBackColor = true;
+      this.chckbxStartWithWindows.CheckedChanged += new System.EventHandler(this.chckbxStartWithWindows_CheckedChanged);
       // 
       // chckbxUseDiscordRichPresence
       // 
@@ -361,26 +389,13 @@
       this.chckbxUseDiscordRichPresence.CheckState = System.Windows.Forms.CheckState.Checked;
       this.chckbxUseDiscordRichPresence.Font = new System.Drawing.Font("Segoe UI", 12F);
       this.chckbxUseDiscordRichPresence.ForeColor = System.Drawing.Color.White;
-      this.chckbxUseDiscordRichPresence.Location = new System.Drawing.Point(1, 52);
+      this.chckbxUseDiscordRichPresence.Location = new System.Drawing.Point(1, 78);
       this.chckbxUseDiscordRichPresence.Name = "chckbxUseDiscordRichPresence";
       this.chckbxUseDiscordRichPresence.Size = new System.Drawing.Size(448, 25);
       this.chckbxUseDiscordRichPresence.TabIndex = 10;
       this.chckbxUseDiscordRichPresence.Text = "Use Discord Rich Presence to show the server (experimental)";
       this.chckbxUseDiscordRichPresence.UseVisualStyleBackColor = true;
       this.chckbxUseDiscordRichPresence.CheckedChanged += new System.EventHandler(this.chckbxUseDiscordRichPresence_CheckedChanged);
-      // 
-      // lnklblWhyMinimize
-      // 
-      this.lnklblWhyMinimize.AutoSize = true;
-      this.lnklblWhyMinimize.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lnklblWhyMinimize.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-      this.lnklblWhyMinimize.Location = new System.Drawing.Point(190, 28);
-      this.lnklblWhyMinimize.Name = "lnklblWhyMinimize";
-      this.lnklblWhyMinimize.Size = new System.Drawing.Size(49, 21);
-      this.lnklblWhyMinimize.TabIndex = 3;
-      this.lnklblWhyMinimize.TabStop = true;
-      this.lnklblWhyMinimize.Text = "Why?";
-      this.lnklblWhyMinimize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblWhyMinimize_LinkClicked);
       // 
       // chckbxMinimize
       // 
@@ -391,9 +406,9 @@
       this.chckbxMinimize.ForeColor = System.Drawing.Color.White;
       this.chckbxMinimize.Location = new System.Drawing.Point(1, 27);
       this.chckbxMinimize.Name = "chckbxMinimize";
-      this.chckbxMinimize.Size = new System.Drawing.Size(195, 25);
+      this.chckbxMinimize.Size = new System.Drawing.Size(320, 25);
       this.chckbxMinimize.TabIndex = 3;
-      this.chckbxMinimize.Text = "Minimize to system tray";
+      this.chckbxMinimize.Text = "Minimize to system tray instead of closing";
       this.chckbxMinimize.UseVisualStyleBackColor = true;
       this.chckbxMinimize.CheckedChanged += new System.EventHandler(this.chckbxMinimize_CheckedChanged);
       // 
@@ -403,7 +418,7 @@
       this.groupBox3.Controls.Add(this.chckbxReopenAfterSwitching);
       this.groupBox3.Controls.Add(this.chckbxCloseBeforeSwitching);
       this.groupBox3.ForeColor = System.Drawing.Color.White;
-      this.groupBox3.Location = new System.Drawing.Point(0, 79);
+      this.groupBox3.Location = new System.Drawing.Point(0, 103);
       this.groupBox3.Name = "groupBox3";
       this.groupBox3.Size = new System.Drawing.Size(579, 328);
       this.groupBox3.TabIndex = 5;
@@ -417,7 +432,7 @@
       this.groupBox4.Controls.Add(this.groupBox2);
       this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.groupBox4.ForeColor = System.Drawing.Color.White;
-      this.groupBox4.Location = new System.Drawing.Point(0, 199);
+      this.groupBox4.Location = new System.Drawing.Point(0, 178);
       this.groupBox4.Name = "groupBox4";
       this.groupBox4.Size = new System.Drawing.Size(601, 169);
       this.groupBox4.TabIndex = 13;
@@ -460,8 +475,8 @@
       // 
       // groupBox2
       // 
-      this.groupBox2.Controls.Add(this.chckbxSendTelemetry);
       this.groupBox2.Controls.Add(this.lnklblTelemetryLearnMore);
+      this.groupBox2.Controls.Add(this.chckbxSendTelemetry);
       this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.groupBox2.ForeColor = System.Drawing.Color.White;
       this.groupBox2.Location = new System.Drawing.Point(0, 60);
@@ -471,6 +486,19 @@
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Other";
       // 
+      // lnklblTelemetryLearnMore
+      // 
+      this.lnklblTelemetryLearnMore.AutoSize = true;
+      this.lnklblTelemetryLearnMore.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lnklblTelemetryLearnMore.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+      this.lnklblTelemetryLearnMore.Location = new System.Drawing.Point(223, 31);
+      this.lnklblTelemetryLearnMore.Name = "lnklblTelemetryLearnMore";
+      this.lnklblTelemetryLearnMore.Size = new System.Drawing.Size(90, 21);
+      this.lnklblTelemetryLearnMore.TabIndex = 1;
+      this.lnklblTelemetryLearnMore.TabStop = true;
+      this.lnklblTelemetryLearnMore.Text = "Learn more";
+      this.lnklblTelemetryLearnMore.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblTelemetryLearnMore_LinkClicked);
+      // 
       // chckbxSendTelemetry
       // 
       this.chckbxSendTelemetry.AutoSize = true;
@@ -478,26 +506,13 @@
       this.chckbxSendTelemetry.CheckState = System.Windows.Forms.CheckState.Checked;
       this.chckbxSendTelemetry.Font = new System.Drawing.Font("Segoe UI", 12F);
       this.chckbxSendTelemetry.ForeColor = System.Drawing.Color.White;
-      this.chckbxSendTelemetry.Location = new System.Drawing.Point(0, 32);
+      this.chckbxSendTelemetry.Location = new System.Drawing.Point(0, 31);
       this.chckbxSendTelemetry.Name = "chckbxSendTelemetry";
       this.chckbxSendTelemetry.Size = new System.Drawing.Size(231, 25);
       this.chckbxSendTelemetry.TabIndex = 2;
       this.chckbxSendTelemetry.Text = "Allow sending telemetry data";
       this.chckbxSendTelemetry.UseVisualStyleBackColor = true;
       this.chckbxSendTelemetry.CheckedChanged += new System.EventHandler(this.chckbxSendTelemetry_CheckedChanged);
-      // 
-      // lnklblTelemetryLearnMore
-      // 
-      this.lnklblTelemetryLearnMore.AutoSize = true;
-      this.lnklblTelemetryLearnMore.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lnklblTelemetryLearnMore.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-      this.lnklblTelemetryLearnMore.Location = new System.Drawing.Point(225, 33);
-      this.lnklblTelemetryLearnMore.Name = "lnklblTelemetryLearnMore";
-      this.lnklblTelemetryLearnMore.Size = new System.Drawing.Size(90, 21);
-      this.lnklblTelemetryLearnMore.TabIndex = 1;
-      this.lnklblTelemetryLearnMore.TabStop = true;
-      this.lnklblTelemetryLearnMore.Text = "Learn more";
-      this.lnklblTelemetryLearnMore.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblTelemetryLearnMore_LinkClicked);
       // 
       // chckbxReopenAfterSwitching
       // 
@@ -506,7 +521,7 @@
       this.chckbxReopenAfterSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
       this.chckbxReopenAfterSwitching.Font = new System.Drawing.Font("Segoe UI", 12F);
       this.chckbxReopenAfterSwitching.ForeColor = System.Drawing.Color.White;
-      this.chckbxReopenAfterSwitching.Location = new System.Drawing.Point(1, 63);
+      this.chckbxReopenAfterSwitching.Location = new System.Drawing.Point(6, 63);
       this.chckbxReopenAfterSwitching.Name = "chckbxReopenAfterSwitching";
       this.chckbxReopenAfterSwitching.Size = new System.Drawing.Size(296, 25);
       this.chckbxReopenAfterSwitching.TabIndex = 7;
@@ -646,8 +661,8 @@
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(552, 23);
       this.label3.TabIndex = 7;
-      this.label3.Text = "If you encounter long loading times please visit our discord server. We can help " +
-    "you there!";
+      this.label3.Text = "If you encounter any problems please visit our discord server. We can help you th" +
+    "ere!";
       this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       // 
       // notifyIcon
@@ -700,9 +715,9 @@
       this.Controls.Add(this.btnSettings);
       this.Controls.Add(this.btnExit);
       this.Controls.Add(this.btnSwitcher);
+      this.Controls.Add(this.pnlSwitcher);
       this.Controls.Add(this.pnlSettings);
       this.Controls.Add(this.pnlHelp);
-      this.Controls.Add(this.pnlSwitcher);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
@@ -715,6 +730,7 @@
       this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BorderlessDragMouseDown);
       this.pnlSwitcher.ResumeLayout(false);
       this.pnlSwitcher.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.btnHistory)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrFeatured)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pctrCurrentServer)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.btnConnect)).EndInit();
@@ -786,12 +802,13 @@
     private Controls.ImageLoadingBar imgLoadingBar;
     private System.Windows.Forms.Label label3;
     private BetterCheckBox chckbxUseDiscordRichPresence;
-    private System.Windows.Forms.LinkLabel lnklblWhatRichPresence;
     private System.Windows.Forms.Timer richPresenceUpdateTimer;
     private System.Windows.Forms.GroupBox groupBox4;
     private System.Windows.Forms.Button btnAccountManager;
     private BetterCheckBox chckbxSwitchAccount;
     private System.Windows.Forms.LinkLabel lnklblCreateShortcut;
+    private BetterCheckBox chckbxStartWithWindows;
+    private System.Windows.Forms.PictureBox btnHistory;
   }
 }
 

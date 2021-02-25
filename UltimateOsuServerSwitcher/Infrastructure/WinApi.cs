@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UltimateOsuServerSwitcher
+namespace UltimateOsuServerSwitcher.Infrastructure
 {
   public static class WinApi
   {

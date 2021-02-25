@@ -40,7 +40,7 @@ namespace UltimateOsuServerSwitcher.Infrastructure
       try
       {
         // Download the mirror data from github and deserialize it into a mirror list
-        mirrors = JsonConvert.DeserializeObject<List<Mirror>>(WebHelper.DownloadStringAsync(Urls.Mirrors).Result);
+        mirrors = JsonConvert.DeserializeObject<List<Mirror>>(WebUtils.DownloadStringAsync(Urls.Mirrors).Result);
       }
       catch
       {
@@ -58,7 +58,7 @@ namespace UltimateOsuServerSwitcher.Infrastructure
         try
         {
           // Download the data from the mirror and try to parse it into a server object.
-          server = JsonConvert.DeserializeObject<Server>(WebHelper.DownloadStringAsync(mirror.Url).Result);
+          server = JsonConvert.DeserializeObject<Server>(WebUtils.DownloadStringAsync(mirror.Url).Result);
         }
         catch
         {

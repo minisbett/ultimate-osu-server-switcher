@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UltimateOsuServerSwitcher
+namespace UltimateOsuServerSwitcher.Infrastructure
 {
   // https://stackoverflow.com/questions/19147/what-is-the-correct-way-to-create-a-single-instance-wpf-application
   public class NativeMethods

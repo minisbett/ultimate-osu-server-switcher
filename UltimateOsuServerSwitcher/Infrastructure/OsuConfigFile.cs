@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UltimateOsuServerSwitcher.Model;
 
-namespace UltimateOsuServerSwitcher.Utils
+namespace UltimateOsuServerSwitcher.Infrastructure
 {
-  public static class OsuConfigFileUtils
+  public static class OsuConfigFile
   {
     /// <summary>
     /// Changes the username and password in the osu config file to the specified account

@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UltimateOsuServerSwitcher.Infrastructure;
 using UltimateOsuServerSwitcher.Model;
 using UltimateOsuServerSwitcher.Utils;
 
@@ -40,7 +41,7 @@ namespace UltimateOsuServerSwitcher
       Server from = GetCurrentServer();
 
       // Get the hosts file to edit it
-      List<string> hosts = HostsUtil.GetHosts().ToList();
+      List<string> hosts = HostsUtils.GetHosts().ToList();
 
       // Check if reading the hosts file was successful
       if (hosts == null)
@@ -56,7 +57,7 @@ namespace UltimateOsuServerSwitcher
       }
 
       // Apply the changes to the hosts file
-      bool successful = HostsUtil.SetHosts(hosts.ToArray());
+      bool successful = HostsUtils.SetHosts(hosts.ToArray());
       // check if writing to the hosts file was successful
       if (!successful)
         return;
@@ -64,7 +65,7 @@ namespace UltimateOsuServerSwitcher
       try
       {
         // Get rid of all uneccessary certificates
-        CertificateManager.UninstallAllCertificates(Servers);
+        CertificateUtils.UninstallAllCertificates(Servers);
       }
       catch (Exception ex)
       {
@@ -76,7 +77,7 @@ namespace UltimateOsuServerSwitcher
       if (server.HasCertificate)
         try
         {
-          CertificateManager.InstallCertificate(server);
+          CertificateUtils.InstallCertificate(server);
         }
         catch (Exception ex)
         {
@@ -95,9 +96,12 @@ namespace UltimateOsuServerSwitcher
           Account account = accounts.First(x => x.ServerUID == server.UID);
 
           // Try to change the account details in the osu config file
-          OsuConfigFileUtils.SetAccount(account);
+          OsuConfigFile.SetAccount(account);
         }
       }
+
+      // Add the switch to the history
+      SwitchHistory.AddToHistory(from, server);
 
       // Send telemetry if enabled
       if (m_settings["sendTelemetry"] == "true")
@@ -167,7 +171,7 @@ namespace UltimateOsuServerSwitcher
       try
       {
         // Try to parse the certificate from the given url
-        server.Certificate = await WebHelper.DownloadBytesAsync(server.CertificateUrl);
+        server.Certificate = await WebUtils.DownloadBytesAsync(server.CertificateUrl);
         server.CertificateThumbprint = new X509Certificate2(server.Certificate).Thumbprint;
       }
       catch // Cerfiticate url not valid or certificate type is not cer (base64 encoded)
@@ -179,7 +183,7 @@ namespace UltimateOsuServerSwitcher
       try
       {
         // Download the icon and check if its at least 256x256
-        Image icon = await WebHelper.DownloadImageAsync(server.IconUrl);
+        Image icon = await WebUtils.DownloadImageAsync(server.IconUrl);
         if (icon.Width < 256 || icon.Height < 256)
           return false;
 
@@ -196,7 +200,7 @@ namespace UltimateOsuServerSwitcher
       {
         using (FileStream fs = System.IO.File.OpenWrite(Paths.IconCacheFolder + $@"\{server.UID}.ico"))
         using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
-          ImagingHelper.ConvertToIcon(ms, fs, server.Icon.Width, true);
+          IconUtils.ConvertToIcon(ms, fs, server.Icon.Width, true);
       }
       catch
       {
@@ -221,7 +225,7 @@ namespace UltimateOsuServerSwitcher
       try
       {
         // Download the icon and check if its at least 256x256
-        Image icon = await WebHelper.DownloadImageAsync(server.IconUrl);
+        Image icon = await WebUtils.DownloadImageAsync(server.IconUrl);
         if (icon.Width < 256 || icon.Height < 256)
           return false;
 
@@ -238,7 +242,7 @@ namespace UltimateOsuServerSwitcher
       {
         using (FileStream fs = System.IO.File.OpenWrite(Paths.IconCacheFolder + $@"\{server.UID}.ico"))
         using (MemoryStream ms = new MemoryStream((byte[])new ImageConverter().ConvertTo(server.Icon, typeof(byte[]))))
-          ImagingHelper.ConvertToIcon(ms, fs, server.Icon.Width, true);
+          IconUtils.ConvertToIcon(ms, fs, server.Icon.Width, true);
       }
       catch
       {
@@ -260,7 +264,7 @@ namespace UltimateOsuServerSwitcher
     public static Server GetCurrentServer()
     {
       // Get every line of the hosts file
-      string[] hosts = HostsUtil.GetHosts();
+      string[] hosts = HostsUtils.GetHosts();
 
       // Check for the first line that contains the osu domain
       for (int i = 0; i < hosts.Length; i++)

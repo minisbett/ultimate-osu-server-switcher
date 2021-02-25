@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UltimateOsuServerSwitcher.Controls;
+using UltimateOsuServerSwitcher.Infrastructure;
 using UltimateOsuServerSwitcher.Model;
 using UltimateOsuServerSwitcher.Utils;
 
@@ -135,7 +136,7 @@ namespace UltimateOsuServerSwitcher.Forms
       }
 
       // get the account details from the osu config file
-      (string username, string password) = OsuConfigFileUtils.GetAccount();
+      (string username, string password) = OsuConfigFile.GetAccount();
       // GetAccount() returns null if there was an error. If so, just return, the GetAccount() method already shows an error message
       if (username == null || password == null)
         return;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace UltimateOsuServerSwitcher
 {
-  public static class WebHelper
+  public static class WebUtils
   {
     // The web client used for every connected in this class
     private static WebClient m_client = new WebClient();
