@@ -9,13 +9,12 @@ The Ultimate Osu Server Switcher is a server switcher that allows you to switch 
 These features are currently implemented:
 
 - Switching the server with one click
-- Switch n' Start by holding Ctrl when clicking on «Connect»
-- Start osu by holding Ctrl when clicking on «Already Connected»
+- Switch n' Start by holding Ctrl when clicking on «Connect» or just starting when clicking on «Already Connected»
 - \*Automatically closing and re-starting osu when switching the server
 - \*Expanded Discord RPC to show what server you are playing on
-- \*Minimizing to the system tray to avoid loading times on every start (Can be avoided by holding Ctrl when clicking on the X)
+- \*Minimizing to the system tray e.g. to avoid loading times on every start  (Can be avoided by holding Ctrl when clicking on the X)
 - \*An Account Manager to automatically switch your account when switching server
-- \*Autostart with Windows so you don't have to start the switcher everytime you play osu when using the custom Discord RPC.
+- \*Autostart with Windows (minimized to the system tray) so you don't have to start the switcher everytime you play osu e.g. when using custom Discord RPC.
 
 **\* Feature is toggleable in the settings**
 
