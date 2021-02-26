@@ -161,9 +161,9 @@
       // btnHistory
       // 
       this.btnHistory.Image = ((System.Drawing.Image)(resources.GetObject("btnHistory.Image")));
-      this.btnHistory.Location = new System.Drawing.Point(3, 3);
+      this.btnHistory.Location = new System.Drawing.Point(112, 329);
       this.btnHistory.Name = "btnHistory";
-      this.btnHistory.Size = new System.Drawing.Size(24, 24);
+      this.btnHistory.Size = new System.Drawing.Size(32, 32);
       this.btnHistory.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
       this.btnHistory.TabIndex = 12;
       this.btnHistory.TabStop = false;
