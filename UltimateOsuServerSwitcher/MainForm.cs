@@ -234,9 +234,10 @@ namespace UltimateOsuServerSwitcher
       pctrLoading.Visible = false;
       imgLoadingBar.Visible = false;
 
-      // Show the account manager button and the Create A Shortcut linklabel because all servers are loaded now
+      // Show the account manager button, the Create A Shortcut linklabel and the history button because all servers are loaded now
       btnAccountManager.Visible = true;
       lnklblCreateShortcut.Visible = true;
+      btnHistory.Visible = true;
 
       // Update the UI
       UpdateUI();

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +30,15 @@ namespace UltimateOsuServerSwitcher.Forms
       {
         flowLayoutPanel.Controls.Add(new HistoryItem(element));
       }
+
+      long size = new FileInfo(Paths.HistoryFile).Length;
+
+      if (size < 1024)
+        lblSize.Text = $"Disk usage: {size} B";
+      else if (size < 1024 * 1024)
+        lblSize.Text = $"Disk usage: {Math.Round(size / 1024d, 1).ToString(new CultureInfo("en-US"))} KB";
+      else if (size < 1024 * 1024 * 1024)
+        lblSize.Text = $"Disk usage: {Math.Round(size / 1024 / 1024d, 1).ToString(new CultureInfo("en-US"))} MB";
     }
 
     private void btnExit_Click(object sender, EventArgs e)
@@ -48,6 +59,9 @@ namespace UltimateOsuServerSwitcher.Forms
     {
       m_history["history"] = JsonConvert.SerializeObject(new HistoryElement[] { });
       flowLayoutPanel.Controls.Clear();
+
+      long size = new FileInfo(Paths.HistoryFile).Length;
+      lblSize.Text = $"Disk usage: {size} B";
     }
   }
 }

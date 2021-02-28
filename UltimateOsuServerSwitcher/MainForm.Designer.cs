@@ -161,12 +161,13 @@
       // btnHistory
       // 
       this.btnHistory.Image = ((System.Drawing.Image)(resources.GetObject("btnHistory.Image")));
-      this.btnHistory.Location = new System.Drawing.Point(112, 329);
+      this.btnHistory.Location = new System.Drawing.Point(135, 329);
       this.btnHistory.Name = "btnHistory";
       this.btnHistory.Size = new System.Drawing.Size(32, 32);
       this.btnHistory.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
       this.btnHistory.TabIndex = 12;
       this.btnHistory.TabStop = false;
+      this.btnHistory.Visible = false;
       this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
       // 
       // pctrFeatured
@@ -716,9 +717,9 @@
       this.Controls.Add(this.btnSettings);
       this.Controls.Add(this.btnExit);
       this.Controls.Add(this.btnSwitcher);
+      this.Controls.Add(this.pnlSwitcher);
       this.Controls.Add(this.pnlSettings);
       this.Controls.Add(this.pnlHelp);
-      this.Controls.Add(this.pnlSwitcher);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;

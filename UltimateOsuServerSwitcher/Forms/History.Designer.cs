@@ -33,6 +33,7 @@ namespace UltimateOsuServerSwitcher.Forms
       this.label1 = new System.Windows.Forms.Label();
       this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
       this.btnClearHistory = new System.Windows.Forms.Button();
+      this.lblSize = new System.Windows.Forms.Label();
       this.SuspendLayout();
       // 
       // btnExit
@@ -92,6 +93,17 @@ namespace UltimateOsuServerSwitcher.Forms
       this.btnClearHistory.UseVisualStyleBackColor = false;
       this.btnClearHistory.Click += new System.EventHandler(this.btnClearHistory_Click);
       // 
+      // lblSize
+      // 
+      this.lblSize.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblSize.ForeColor = System.Drawing.Color.White;
+      this.lblSize.Location = new System.Drawing.Point(131, 511);
+      this.lblSize.Name = "lblSize";
+      this.lblSize.Size = new System.Drawing.Size(184, 23);
+      this.lblSize.TabIndex = 9;
+      this.lblSize.Text = "Disk usage: 50.1 MB";
+      this.lblSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      // 
       // History
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,6 +111,7 @@ namespace UltimateOsuServerSwitcher.Forms
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
       this.ClientSize = new System.Drawing.Size(327, 549);
       this.Controls.Add(this.btnClearHistory);
+      this.Controls.Add(this.lblSize);
       this.Controls.Add(this.flowLayoutPanel);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.btnExit);
@@ -120,5 +133,6 @@ namespace UltimateOsuServerSwitcher.Forms
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
     private System.Windows.Forms.Button btnClearHistory;
+    private System.Windows.Forms.Label lblSize;
   }
 }
