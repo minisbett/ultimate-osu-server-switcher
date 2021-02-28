@@ -16,7 +16,7 @@ namespace UltimateOsuServerSwitcher
     /// Will retry 2 times if failed
     /// </summary>
     /// <returns>The lines of the hosts file or null if an exception occured</returns>
-    public static string[] GetHosts(int retry = 0)
+    public static string[] GetHosts(int tryCount = 1)
     {
       try
       {
@@ -25,10 +25,10 @@ namespace UltimateOsuServerSwitcher
       catch (Exception ex)
       {
         // Retry it 2 more times
-        if (retry < 3)
+        if (tryCount < 3)
         {
-          retry++;
-          return GetHosts(retry);
+          tryCount++;
+          return GetHosts(tryCount);
         }
         else
         {
@@ -37,15 +37,15 @@ namespace UltimateOsuServerSwitcher
 
           if (ex is DirectoryNotFoundException)
           {
-            error += "The hosts file could not be found. (DirectoryNotFoundException)\r\nPlease visit our discord server so we can provide help to you.";
+            error += "The hosts file could not be found.\nDirectoryNotFoundException\n\nPlease visit our discord server so we can provide help to you.";
           }
           else if (ex is IOException)
           {
-            error += "Cannot open the hosts file. (IOException)\r\nPlease try to deactivate your antivurs.\r\n\r\nIf this doesn't fix your issue, please visit our discord server so we can provide help to you.";
+            error += "Cannot open the hosts file.\nIOException\n\nPlease try to deactivate your antivurs.\n\nIf this does not fix your issue, please visit our discord server so we can provide help to you.";
           }
           else if (ex is UnauthorizedAccessException)
           {
-            error += "Cannot access the hosts file. (UnauthorizedAccessException)\r\nPlease try to deactivate your antivirus.\r\n\r\nIf this doesn't fix your issue, please visit our discord server so we can provide help to you.";
+            error += "Cannot access the hosts file.\nUnauthorizedAccessException\n\nPlease try to deactivate your antivirus.\n\nIf this does not fix your issue, please visit our discord server so we can provide help to you.";
           }
           else
           {
@@ -68,7 +68,7 @@ namespace UltimateOsuServerSwitcher
     public static bool SetHosts(string[] hosts) => setHosts(hosts);
 
     // private method to hide the retry parameter
-    private static bool setHosts(string[] hosts, int retry = 0)
+    private static bool setHosts(string[] hosts, int tryCount = 1)
     {
       // Try to change the hosts file (cannot be successful due to anti virus, file lock, ...)
       try
@@ -79,10 +79,10 @@ namespace UltimateOsuServerSwitcher
       catch (Exception ex)
       {
         // Retry it 2 more times
-        if (retry < 3)
+        if (tryCount < 3)
         {
-          retry++;
-          setHosts(hosts);
+          tryCount++;
+          setHosts(hosts, tryCount);
         }
         else
         {
@@ -90,16 +90,16 @@ namespace UltimateOsuServerSwitcher
           string error = "";
 
           if (ex is DirectoryNotFoundException)
-          {
-            error = "The hosts file could not be found. (DirectoryNotFoundException)\r\nPlease visit our discord server so we can provide help to you.";
+          { 
+            error = "The hosts file could not be found.\nDirectoryNotFoundException\n\nPlease visit our discord server so we can provide help to you.";
           }
           else if(ex is IOException)
           {
-            error = "(Retry 3/3) Cannot open the hosts file. (IOException)\r\nPlease try to deactivate your antivurs.\r\n\r\nIf this doesn't fix your issue, please visit our discord server so we can provide help to you.";
+            error = "(Retry 3/3) Cannot open the hosts file.\nIOException\r\nPlease try to deactivate your antivurs.\r\n\r\nIf this doesn't fix your issue, please visit our discord server so we can provide help to you.";
           }
           else if(ex is UnauthorizedAccessException)
           {
-            error = "(Retry 3/3) Cannot access the hosts file. (UnauthorizedAccessException)\r\nPlease try to deactivate your antivirus.\r\n\r\nIf this doesn't fix your issue, please visit our discord server so we can provide help to you.";
+            error = "(Retry 3/3) Cannot access the hosts file.\nUnauthorizedAccessException\n\nPlease try to deactivate your antivirus.\n\nIf this doesn't fix your issue, please visit our discord server so we can provide help to you.";
           }
           else
           {

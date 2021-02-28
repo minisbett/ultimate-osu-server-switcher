@@ -280,44 +280,46 @@ namespace UltimateOsuServerSwitcher
         }
       }
 
-      // Switch the server to the currently selected one
-      Switcher.SwitchServer(m_currentSelectedServer);
-
-      // Check if the server is available (server that has been switched to is reachable)
-      if (!Switcher.CheckServerAvailability())
+      // Try to switch the server to the currently selected one
+      // if failed the method handles outputting the error
+      if (Switcher.SwitchServer(m_currentSelectedServer))
       {
-        // If not, show a warning
-        MessageBox.Show("The connection test failed. Please restart the switcher and try again.\r\n\r\nIf it's still not working the server either didn't update their mirror yet or their server is currently not running (for example due to maintenance).\nIn this case, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-      }
-
-      // Start osu if the reopen feature is enabled and an osu instance was found before switching
-      // osuExecutablePath can only be != "" if close before switching feature is enabled
-      // so a check for the closeOsuBeforeSwitching setting is not necessary
-      if (m_settings["reopenOsuAfterSwitching"] == "true" && osuExecutablePath != "")
-      {
-        WinUtils.StartProcessUnelevated(osuExecutablePath);
-      }
-      else if (pressingCtrl) // Start osu if ctrl was pressed when clicking on connect and it has not started already ue to the reopen feature
-      {
-        // If we dont have the exe path yet because osu was not killed before get it from the registry
-        if (osuExecutablePath == "")
+        // Check if the server is available (server that has been switched to is reachable)
+        if (!Switcher.CheckServerAvailability())
         {
-          // Check if the osu path could be found
-          string osuDir = Paths.OsuFolder;
-          if (osuDir == null)
-          {
-            MessageBox.Show("The path to the osu!.exe file could not be found.\n\nPlease make sure you installed osu correctly by starting it as an admin.\n\nIf this issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
-          }
-          else // build the path
-            osuExecutablePath = Path.Combine(osuDir, "osu!.exe");
+          // If not, show a warning
+          MessageBox.Show("The connection test failed. Please restart the switcher and try again.\r\n\r\nIf it's still not working the server either didn't update their mirror yet or their server is currently not running (for example due to maintenance).\nIn this case, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        // Run osu if a path has been found
-        if (osuExecutablePath != "")
+        // Start osu if the reopen feature is enabled and an osu instance was found before switching
+        // osuExecutablePath can only be != "" if close before switching feature is enabled
+        // so a check for the closeOsuBeforeSwitching setting is not necessary
+        if (m_settings["reopenOsuAfterSwitching"] == "true" && osuExecutablePath != "")
+        {
           WinUtils.StartProcessUnelevated(osuExecutablePath);
+        }
+        else if (pressingCtrl) // Start osu if ctrl was pressed when clicking on connect and it has not started already ue to the reopen feature
+        {
+          // If we dont have the exe path yet because osu was not killed before get it from the registry
+          if (osuExecutablePath == "")
+          {
+            // Check if the osu path could be found
+            string osuDir = Paths.OsuFolder;
+            if (osuDir == null)
+            {
+              MessageBox.Show("The path to the osu!.exe file could not be found.\n\nPlease make sure you installed osu correctly by starting it as an admin.\n\nIf this issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else // build the path
+              osuExecutablePath = Path.Combine(osuDir, "osu!.exe");
+          }
+
+          // Run osu if a path has been found
+          if (osuExecutablePath != "")
+            WinUtils.StartProcessUnelevated(osuExecutablePath);
+        }
       }
 
-      // Hide the "connecting" button and update the UI (update UI will show the already connected button then)
+      // Hide the "connecting" button and update the UI (update UI will show the already connected (or connect if switching failed) button then)
       pctrConnecting.Visible = false;
       UpdateUI();
     }

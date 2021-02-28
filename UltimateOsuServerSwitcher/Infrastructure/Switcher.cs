@@ -74,7 +74,7 @@ namespace UltimateOsuServerSwitcher
       catch (Exception ex)
       {
         // Show error
-        MessageBox.Show($"Error whilst trying to uninstall certificates.\n\n{ex.Message}\n\nPlease try again.\nIf the issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show($"Error whilst trying to uninstall certificates.\n\n{ex.Message}\n\nPlease switch back to bancho and try again.\nIf the issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 
       // Install the certificate if needed (not needed for bancho and localhost)
@@ -86,7 +86,7 @@ namespace UltimateOsuServerSwitcher
         catch (Exception ex)
         {
           // Show error
-          MessageBox.Show($"Error whilst trying to install certificates.\n\n{ex.Message}\n\nPlease switch back to bancho to try again. Otherwise you will experience desynchronizations between your hosts file and your installed certificates.\n\nIf the issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+          MessageBox.Show($"Error whilst trying to install certificates.\n\n{ex.Message}\n\nPlease switch back to bancho and try again.\nOtherwise you will experience desynchronizations between your hosts file and your installed certificates.\n\nIf the issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
       // switch the account in the osu config file if that option is enabled
@@ -115,6 +115,8 @@ namespace UltimateOsuServerSwitcher
       {
         SendTelemetry(from, server);
       }
+
+      return true;
     }
 
     /// <summary>
@@ -278,6 +280,7 @@ namespace UltimateOsuServerSwitcher
         if (hosts[i].Contains(".ppy.sh"))
         {
           // Read the ip that .ppy.sh redirects to
+          // replace \t because sometimes the ips are seperated by \t instead of a space
           string ip = hosts[i].Replace("\t", " ").Split(' ')[0];
 
           // Try to identify and return the server

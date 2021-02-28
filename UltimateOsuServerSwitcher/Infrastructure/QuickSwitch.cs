@@ -97,36 +97,47 @@ namespace UltimateOsuServerSwitcher.Infrastructure
         }
       }
 
+      bool successful = false;
+
       // Switch only if the user is not already connected
       Server current = Switcher.GetCurrentServer();
       if (current.UID != server.UID)
       {
-        Switcher.SwitchServer(server);
+        // Try to switch the server
+        successful = Switcher.SwitchServer(server);
 
-        // Check if the server is available (server that has been switched to is reachable)
-        if (!Switcher.CheckServerAvailability())
+        // Only check connection if switching was successful
+        if (successful)
         {
-          // If not, show a warning
-          MessageBox.Show("The connection test failed. Please try again.\r\n\r\nIf it's still not working the server either didn't update their mirror yet or their server is currently not running (for example due to maintenance).\nIn this case, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+          // Check if the server is available (server that has been switched to is reachable)
+          if (!Switcher.CheckServerAvailability())
+          {
+            // If not, show a warning
+            MessageBox.Show("The connection test failed. Please try again.\r\n\r\nIf it's still not working the server either didn't update their mirror yet or their server is currently not running (for example due to maintenance).\nIn this case, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+          }
         }
       }
 
-      // Check if osu ise not running (it may be when close when switching feature is disabled)
-      if (Process.GetProcessesByName("osu!").FirstOrDefault() == null)
+      // Only start osu etc. if switching the server was successful
+      if (successful)
       {
-        // Check if the osu path could be found
-        string osuDir = Paths.OsuFolder;
-        if (osuDir == null)
+        // Check if osu ise not running (it may be when close when switching feature is disabled)
+        if (Process.GetProcessesByName("osu!").FirstOrDefault() == null)
         {
-          MessageBox.Show("The path to the osu!.exe file could not be found.\n(server was still switched)\n\nPlease make sure you installed osu correctly by starting it as an admin.\n\nIf this issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
-          return;
+          // Check if the osu path could be found
+          string osuDir = Paths.OsuFolder;
+          if (osuDir == null)
+          {
+            MessageBox.Show("The path to the osu!.exe file could not be found.\n(server was still switched)\n\nPlease make sure you installed osu correctly by starting it as an admin.\n\nIf this issue persists, please visit our Discord server.", "Ultimate Osu Server Switcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+          }
+
+          // build the osu path
+          string osuExecutablePath = Path.Combine(osuDir, "osu!.exe");
+
+          // run osu
+          WinUtils.StartProcessUnelevated(osuExecutablePath);
         }
-
-        // build the osu path
-        string osuExecutablePath = Path.Combine(osuDir, "osu!.exe");
-
-        // run osu
-        WinUtils.StartProcessUnelevated(osuExecutablePath);
       }
     }
   }
