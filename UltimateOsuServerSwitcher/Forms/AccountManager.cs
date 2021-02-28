@@ -19,10 +19,10 @@ namespace UltimateOsuServerSwitcher.Forms
   public partial class AccountManager : CustomForm
   {
     // The settings instance for the saved osu accounts
-    private Settings m_accounts => new Settings(Paths.AccountsFile);
+    private Settings m_accounts = new Settings(Paths.AccountsFile);
 
     // The settings instance for the temp variables
-    private Settings m_temp => new Settings(Paths.TempFile);
+    private Settings m_temp = new Settings(Paths.TempFile);
     
     // Currently selected item
     private AccountItem m_selected = null;

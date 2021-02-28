@@ -21,10 +21,13 @@ namespace UltimateOsuServerSwitcher
   public static class Switcher
   {
     // The settings for the switcher
-    private static Settings m_settings => new Settings(Paths.SettingsFile);
+    private static Settings m_settings = new Settings(Paths.SettingsFile);
 
-    // The settings instance for the saved osu accounts
-    private static Settings m_accounts => new Settings(Paths.AccountsFile);
+    // The settings for the saved osu accounts
+    private static Settings m_accounts = new Settings(Paths.AccountsFile);
+
+    // The settings for the switch history
+    private static Settings m_history = new Settings(Paths.HistoryFile);
 
     /// <summary>
     /// The servers that were parsed from the web
@@ -100,8 +103,11 @@ namespace UltimateOsuServerSwitcher
         }
       }
 
-      // Add the switch to the history
-      SwitchHistory.AddToHistory(from, server);
+      // Add the switch to the history by getting the history, adding the element and re-saving it
+      List<HistoryElement> history = JsonConvert.DeserializeObject<List<HistoryElement>>(m_history["history"]);
+      history.Add(new HistoryElement(DateTime.Now, from.UID, server.UID));
+      string json = JsonConvert.SerializeObject(history.ToArray());
+      m_history["history"] = json;
 
       // Send telemetry if enabled
       if (m_settings["sendTelemetry"] == "true")

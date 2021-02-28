@@ -167,6 +167,7 @@
       this.btnHistory.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
       this.btnHistory.TabIndex = 12;
       this.btnHistory.TabStop = false;
+      this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
       // 
       // pctrFeatured
       // 
@@ -786,19 +787,19 @@
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.PictureBox pctrFeatured;
     private System.Windows.Forms.LinkLabel lnklblTelemetryLearnMore;
-        private BetterCheckBox chckbxSendTelemetry;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private BetterCheckBox chckbxMinimize;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.LinkLabel lnklblWhyMinimize;
-        private System.Windows.Forms.NotifyIcon notifyIcon;
-        private System.Windows.Forms.ContextMenuStrip cntxtmnNotifyIcon;
-        private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private BetterCheckBox chckbxCloseBeforeSwitching;
-        private BetterCheckBox chckbxReopenAfterSwitching;
+    private BetterCheckBox chckbxSendTelemetry;
+    private System.Windows.Forms.GroupBox groupBox1;
+    private BetterCheckBox chckbxMinimize;
+    private System.Windows.Forms.GroupBox groupBox2;
+    private System.Windows.Forms.LinkLabel lnklblWhyMinimize;
+    private System.Windows.Forms.NotifyIcon notifyIcon;
+    private System.Windows.Forms.ContextMenuStrip cntxtmnNotifyIcon;
+    private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+    private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+    private System.Windows.Forms.GroupBox groupBox3;
+    private BetterCheckBox chckbxCloseBeforeSwitching;
+    private BetterCheckBox chckbxReopenAfterSwitching;
     private Controls.ImageLoadingBar imgLoadingBar;
     private System.Windows.Forms.Label label3;
     private BetterCheckBox chckbxUseDiscordRichPresence;

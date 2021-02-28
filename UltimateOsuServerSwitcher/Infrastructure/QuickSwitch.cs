@@ -15,7 +15,7 @@ namespace UltimateOsuServerSwitcher.Infrastructure
   public static class QuickSwitch
   {
     // The settings for the switcher
-    private static Settings m_settings => new Settings(Paths.SettingsFile);
+    private static Settings m_settings = new Settings(Paths.SettingsFile);
 
     /// <summary>
     /// Creates a QuickSwitch shortcut at the given location for the given server

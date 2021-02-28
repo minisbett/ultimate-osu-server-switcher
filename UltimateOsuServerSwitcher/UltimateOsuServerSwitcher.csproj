@@ -84,6 +84,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\HistoryItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\HistoryItem.Designer.cs">
+      <DependentUpon>HistoryItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AccountManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +111,12 @@
     <Compile Include="Forms\CustomForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\History.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\History.Designer.cs">
+      <DependentUpon>History.cs</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\Configuration\Paths.cs" />
     <Compile Include="Infrastructure\Configuration\Urls.cs" />
     <Compile Include="Infrastructure\Configuration\Variables.cs" />
@@ -112,7 +124,6 @@
     <Compile Include="Infrastructure\QuickSwitch.cs" />
     <Compile Include="Infrastructure\Switcher.cs" />
     <Compile Include="Infrastructure\Settings.cs" />
-    <Compile Include="Infrastructure\SwitchHistory.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\HistoryElement.cs" />
     <Compile Include="Utils\AutostartUtils.cs" />
@@ -137,11 +148,17 @@
     <Compile Include="Utils\WebUtils.cs" />
     <Compile Include="Infrastructure\WinApi.cs" />
     <Compile Include="Utils\WinUtils.cs" />
+    <EmbeddedResource Include="Controls\HistoryItem.resx">
+      <DependentUpon>HistoryItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AccountManager.resx">
       <DependentUpon>AccountManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AccountItem.resx">
       <DependentUpon>AccountItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\History.resx">
+      <DependentUpon>History.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

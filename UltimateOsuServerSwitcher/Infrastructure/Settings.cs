@@ -30,6 +30,9 @@ namespace UltimateOsuServerSwitcher
     {
       get
       {
+        // Refresh dictionary
+        Load();
+
         return base[key];
       }
       set
@@ -47,6 +50,9 @@ namespace UltimateOsuServerSwitcher
     /// <param name="value">The value</param>
     public void SetDefaultValue(string key, string value)
     {
+      // Refresh dictionary
+      Load();
+
       // If the variable does not exist yet, initialize and save
       if (!Keys.Contains(key))
       {
@@ -54,7 +60,6 @@ namespace UltimateOsuServerSwitcher
         Save();
       }
     }
-
 
     private void Save()
     {

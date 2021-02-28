@@ -41,13 +41,13 @@ namespace UltimateOsuServerSwitcher
     private bool m_silent = false;
 
     // The settings for the switcher
-    private Settings m_settings => new Settings(Paths.SettingsFile);
+    private Settings m_settings = new Settings(Paths.SettingsFile);
 
     // The settings instance for the saved osu accounts
-    private Settings m_accounts => new Settings(Paths.AccountsFile);
+    private Settings m_accounts = new Settings(Paths.AccountsFile);
 
     // The settings instance for the switch history
-    private Settings m_history => new Settings(Paths.HistoryFile);
+    private Settings m_history = new Settings(Paths.HistoryFile);
 
     #region Program initialize
 
@@ -508,6 +508,12 @@ namespace UltimateOsuServerSwitcher
         AutostartUtils.UpdateAutostartFile();
       else
         AutostartUtils.RemoveAutostartFile();
+    }
+
+    private void btnHistory_Click(object sender, EventArgs e)
+    {
+      // Open the history
+      new History().ShowDialog();
     }
 
     #region Tab pages
