@@ -1,13 +1,8 @@
-﻿using IWshRuntimeLibrary;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using UltimateOsuServerSwitcher.Infrastructure;
 
@@ -40,7 +35,7 @@ namespace UltimateOsuServerSwitcher
           QuickSwitch.Switch(server);
 
           // If the switcher is running update the UI to not get out of sync (switcher shows connect button even though you just connected)
-          WinApi.SendMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_UPDATE, 0, 0);
+          WinApi.SendMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.UOSS_UPDATE, 0, 0);
         }
 
         return;
@@ -76,7 +71,7 @@ namespace UltimateOsuServerSwitcher
       {
         // If the mutex is owned by another process (a switcher instance is already running)
         // sent the WM_WAKEUP message to all processes to put the current instance in the foreground
-        WinApi.SendMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_WAKEUP, 0, 0);
+        WinApi.SendMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.UOSS_WAKEUP, 0, 0);
       }
     }
   }

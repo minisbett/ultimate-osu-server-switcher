@@ -25,7 +25,7 @@ namespace UltimateOsuServerSwitcher
     public async static Task<VersionState> GetCurrentState()
     {
       // Downloads the blacklisted version file and parses them into an array
-      string blacklistedVersionsStr = await m_client.DownloadStringTaskAsync("https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/datav2/BLACKLISTED_VERSIONS");
+      string blacklistedVersionsStr = await m_client.DownloadStringTaskAsync(Urls.Blacklist);
       string[] blacklistedVersions = blacklistedVersionsStr.Replace("\r", "").Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
       // If the blacklist starts with "*", return MAINTENANCE
       if (blacklistedVersions.Length >= 1 && blacklistedVersions[0] == "*")

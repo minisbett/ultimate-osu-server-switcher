@@ -27,5 +27,10 @@ namespace UltimateOsuServerSwitcher
     /// Url to the file with the newest version id in it
     /// </summary>
     public static string VersionFile => "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/datav2/VERSION";
+
+    /// <summary>
+    /// Url to the file with the newest version id in it
+    /// </summary>
+    public static string Blacklist => "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/datav2/BLACKLISTED_VERSIONS";
   }
 }

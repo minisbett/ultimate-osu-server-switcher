@@ -32,7 +32,7 @@ namespace UltimateOsuServerSwitcher
     private int m_currentSelectedServerIndex => Switcher.Servers.IndexOf(m_currentSelectedServer);
 
     // Temporary variable to force-close the switcher if minimize to system tray is enabled
-    private bool m_forceclose = false;
+    private bool m_forceClose = false;
 
     // Bool to prevent actions in checkbox CheckedChanged events to trigger when the program is initializing the Checked state from the config file
     private bool m_checkboxesInitialized = false;
@@ -41,13 +41,13 @@ namespace UltimateOsuServerSwitcher
     private bool m_silent = false;
 
     // The settings for the switcher
-    private Settings m_settings = new Settings(Paths.SettingsFile);
+    private readonly Settings m_settings = new Settings(Paths.SettingsFile);
 
     // The settings instance for the saved osu accounts
-    private Settings m_accounts = new Settings(Paths.AccountsFile);
+    private readonly Settings m_accounts = new Settings(Paths.AccountsFile);
 
     // The settings instance for the switch history
-    private Settings m_history = new Settings(Paths.HistoryFile);
+    private readonly Settings m_history = new Settings(Paths.HistoryFile);
 
     #region Program initialize
 
@@ -88,6 +88,7 @@ namespace UltimateOsuServerSwitcher
       chckbxSwitchAccount.Checked = m_settings["switchAccount"] == "true";
       chckbxStartWithWindows.Checked = m_settings["startWithWindows"] == "true";
 
+      // Checkboxes have been initialized, CheckedChanged can now run properly
       m_checkboxesInitialized = true;
 
       //
@@ -107,6 +108,7 @@ namespace UltimateOsuServerSwitcher
     {
       // Wait till program shows up
       await Task.Delay(1);
+#warning application do events
 
       // Minimize the form to the system tray if the switcher was launched in silent mode
       if(m_silent)
@@ -118,6 +120,7 @@ namespace UltimateOsuServerSwitcher
       // Fix bug that the icon in the taskbar would be the one from the latest created shortcut that points to this program
       // e.g. when creating a shortcut for bancho the icon of this program in the taskbar would be the bancho icon
       Icon = Icon.FromHandle(Icon.Handle);
+#warning not working
 
       // Check the state of the current version
       VersionState vs = await VersionChecker.GetCurrentState();
@@ -179,6 +182,7 @@ namespace UltimateOsuServerSwitcher
         catch
         {
           // If the cast was not successful (invalid json) or the mirror could not be reached, skip the mirror
+          imgLoadingBar.Value++;
           continue;
         }
 
@@ -245,7 +249,7 @@ namespace UltimateOsuServerSwitcher
     private void pctrCurrentSelectedServer_DoubleClick(object sender, EventArgs e)
     {
       // If the server is set has a discord, open the link
-      if (m_currentSelectedServer != null && !string.IsNullOrEmpty(m_currentSelectedServer.DiscordUrl))
+      if (!string.IsNullOrEmpty(m_currentSelectedServer.DiscordUrl))
         Process.Start(m_currentSelectedServer.DiscordUrl);
     }
 
@@ -360,7 +364,7 @@ namespace UltimateOsuServerSwitcher
     {
       // force close instead of hiding to the system tray when pressing ctrl
       if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl) || System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.RightCtrl))
-        m_forceclose = true;
+        m_forceClose = true;
 
       // Close the application
       Application.Exit();
@@ -390,7 +394,7 @@ namespace UltimateOsuServerSwitcher
       // If the exit tool strip of the context menu from the notify icon is clicked, force-close the program
       // (force close needed because otherwise the FormClosing event would be cancelled again and the program
       // just minimized to the taskbar again)
-      m_forceclose = true;
+      m_forceClose = true;
       Application.Exit();
     }
 
@@ -568,7 +572,6 @@ namespace UltimateOsuServerSwitcher
 
     #region Other events
 
-    // 5 second timer
     private void richPresenceUpdateTimer_Tick(object sender, EventArgs e)
     {
       // Get all osu instances to check if osu is running
@@ -612,7 +615,7 @@ namespace UltimateOsuServerSwitcher
     {
       // If the minimize to tray option is enabled, hide the switcher, 
       // show the tray symbol and cancel the exit
-      if (chckbxMinimize.Checked && !m_forceclose)
+      if (m_settings["minimizeToTray"] == "true" && !m_forceClose)
       {
         e.Cancel = true;
         notifyIcon.Visible = true;
@@ -624,7 +627,7 @@ namespace UltimateOsuServerSwitcher
     {
       // Override the wndproc event to receive messages from other switcher instances (quick switch, multi instance, ...)
 
-      if (m.Msg == NativeMethods.WM_WAKEUP) // Called by a second switcher instance to tell this switcher to get to the foreground
+      if (m.Msg == NativeMethods.UOSS_WAKEUP) // Called by a second switcher instance to tell this switcher to get to the foreground
       {
         // If the switcher is not minimized to the system tray, just focus it; otherwise simulate a click on the notify icon
         if (Visible)
@@ -632,7 +635,7 @@ namespace UltimateOsuServerSwitcher
         else
           notifyIcon_MouseClick(notifyIcon, new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0));
       }
-      else if (m.Msg == NativeMethods.WM_UPDATE)
+      else if (m.Msg == NativeMethods.UOSS_UPDATE)
       {
         // If the QuickSwitch feature was used update the button if you are currently connected
         // e.g. if you have bancho selected and use a shortcut to switch to bancho to update from "connect" to "already connected"

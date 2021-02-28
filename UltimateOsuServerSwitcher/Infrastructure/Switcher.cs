@@ -30,7 +30,7 @@ namespace UltimateOsuServerSwitcher
     private static Settings m_history = new Settings(Paths.HistoryFile);
 
     /// <summary>
-    /// The servers that were parsed from the web
+    /// The servers that were parsed from the web and static servers
     /// </summary>
     public static List<Server> Servers { get; set; } = new List<Server>();
 
@@ -38,7 +38,8 @@ namespace UltimateOsuServerSwitcher
     /// Switch the server
     /// </summary>
     /// <param name="server">The server to switch to</param>
-    public static void SwitchServer(Server server)
+    /// <returns>If the switch was successful</returns>
+    public static bool SwitchServer(Server server)
     {
       // Remember the old server for telemetry
       Server from = GetCurrentServer();
@@ -48,8 +49,8 @@ namespace UltimateOsuServerSwitcher
 
       // Check if reading the hosts file was successful
       if (hosts == null)
-        return;
-      hosts.RemoveAll(x => x.Contains(".ppy.sh"));
+        return false;
+      hosts.RemoveAll(x => x.Contains(Variables.HostsIdentifier));
 
       // Edit the hosts file if the server has a custom ip
       if (server.HasIP)
@@ -63,7 +64,7 @@ namespace UltimateOsuServerSwitcher
       bool successful = HostsUtils.SetHosts(hosts.ToArray());
       // check if writing to the hosts file was successful
       if (!successful)
-        return;
+        return false;
 
       try
       {
@@ -93,11 +94,11 @@ namespace UltimateOsuServerSwitcher
       {
         // Only switch when an account is saved for that server
         List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(m_accounts["accounts"]);
-        if (accounts.Any(x => x.ServerUID == server.UID))
-        {
-          // get the account that belongs to the server the user switched to
-          Account account = accounts.First(x => x.ServerUID == server.UID);
 
+        // get the account that belongs to the server the user switched to
+        Account account = accounts.FirstOrDefault(x => x.ServerUID == server.UID);
+        if (account != null)
+        {
           // Try to change the account details in the osu config file
           OsuConfigFile.SetAccount(account);
         }
@@ -152,7 +153,7 @@ namespace UltimateOsuServerSwitcher
         return false;
       // Double spaces are invalid because its hard to tell how many spaces there are
       // (One server could be named test 123 and the other test  123)
-      if (server.ServerName.Replace("  ", "") != server.ServerName)
+      if (server.ServerName.Contains("  "))
         return false;
 
       // Check if the server fakes a hardcoded server
@@ -168,7 +169,7 @@ namespace UltimateOsuServerSwitcher
         return false;
 
       // Check if its a real discord invite url
-      if (server.DiscordUrl != "" && !server.DiscordUrl.Replace("https", "").Replace("http", "").Replace("://", "").StartsWith("discord.gg"))
+      if (server.DiscordUrl != "" && !server.DiscordUrl.Replace("https", "").Replace("http", "").Replace("://", "").Replace(":\\\\", "").Replace("www.", "").StartsWith("discord.gg"))
         return false;
 
       // Initialize variables like Certificate and Icon that are downloaded from their urls when

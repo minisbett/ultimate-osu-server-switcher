@@ -18,11 +18,11 @@ namespace UltimateOsuServerSwitcher.Infrastructure
     /// <summary>
     /// Message to "wake up" the running switcher instance
     /// </summary>
-    public static readonly int WM_WAKEUP = WinApi.RegisterWindowMessage("UOSS_WAKEUP");
+    public static readonly int UOSS_WAKEUP = WinApi.RegisterWindowMessage("UOSS_WAKEUP");
 
     /// <summary>
     /// Message to update the running switcher instance
     /// </summary>
-    public static readonly int WM_UPDATE = WinApi.RegisterWindowMessage("UOSS_UPDATE");
+    public static readonly int UOSS_UPDATE = WinApi.RegisterWindowMessage("UOSS_UPDATE");
   }
 }

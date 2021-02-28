@@ -716,9 +716,9 @@
       this.Controls.Add(this.btnSettings);
       this.Controls.Add(this.btnExit);
       this.Controls.Add(this.btnSwitcher);
-      this.Controls.Add(this.pnlSwitcher);
       this.Controls.Add(this.pnlSettings);
       this.Controls.Add(this.pnlHelp);
+      this.Controls.Add(this.pnlSwitcher);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;

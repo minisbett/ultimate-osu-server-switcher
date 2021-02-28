@@ -46,7 +46,7 @@ namespace UltimateOsuServerSwitcher.Forms
 
     private void btnClearHistory_Click(object sender, EventArgs e)
     {
-      m_history["history"] = "";
+      m_history["history"] = JsonConvert.SerializeObject(new HistoryElement[] { });
       flowLayoutPanel.Controls.Clear();
     }
   }
