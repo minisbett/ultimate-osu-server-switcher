@@ -1,3 +1,11 @@
+# DEPRECATED
+
+Peppy announced a new feature on twitter which makes hosts and certificate handling obsolete. A new program is in work, the "Osu Server Launcher".
+
+Visit the Osu Private Server Community Discord for more informations.
+
+<a href="https://discord.gg/9KfUdHpUA8"><img src="https://discordapp.com/api/guilds/715149105525030932/widget.png"></a>
+
 <a href="https://minisbett.github.io/ultimate-osu-server-switcher/discord.html"><img src="https://discordapp.com/api/guilds/715149105525030932/widget.png"></a>
 
 <a href="https://minisbett.github.io/ultimate-osu-server-switcher"><img width=128 height=128 align="right" src="https://minisbett.github.io/ultimate-osu-server-switcher/images/icon.png"></a>
