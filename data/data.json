@@ -111,7 +111,7 @@
     },
     {
       "name": "Nekosu",
-      "featured": true,
+      "featured": false,
       "ip": "77.68.124.198",
       "website_url": "https://nekos.cc/",
       "icon_url": "https://nekos.cc/static/logo.png",
