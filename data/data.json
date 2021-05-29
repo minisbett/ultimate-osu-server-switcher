@@ -114,7 +114,7 @@
       "featured": true,
       "ip": "77.68.124.198",
       "website_url": "https://nekos.cc/",
-      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/nekosu.png?raw=true",
+      "icon_url": "https://nekos.cc/static/logo.png",
       "certificate_thumbprint": "5DBE360599200F97954FD3D0F4D183DCCE20F5B1",
       "certificate_url": "https://raw.githubusercontent.com/MinisBett/ultimate-osu-server-switcher/master/data/certificates/nekosu.cer"
     }
