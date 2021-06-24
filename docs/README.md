@@ -1,6 +1,6 @@
 # DEPRECATED
 
-Peppy announced a new feature on twitter which makes hosts and certificate handling obsolete. A new program is in work, the "Osu Server Launcher".
+Peppy announced a new feature on twitter which makes hosts and certificate handling obsolete. By that, I strongly recommend using the devserver feature instead of a switcher. Here is a tutorial: https://www.youtube.com/watch?v=2xgSg16KsZs
 
 Visit the Osu Private Server Community Discord for more informations.
 
