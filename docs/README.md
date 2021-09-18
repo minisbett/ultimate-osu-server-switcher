@@ -1,6 +1,6 @@
 # DEPRECATED
 
-Peppy announced a new feature on twitter which makes hosts and certificate handling obsolete. By that, I strongly recommend using the devserver feature instead of a switcher. Here is a tutorial: https://www.youtube.com/watch?v=2xgSg16KsZs
+Peppy announced a new feature on twitter which makes hosts and certificate handling obsolete. By that, I strongly recommend using the devserver feature instead of a switcher. For that I made a so-called Osu Server Launcher that let's you connect to servers with ease! You can find the repository on my GitHub profile.
 
 Visit the Osu Private Server Community Discord for more informations.
 
